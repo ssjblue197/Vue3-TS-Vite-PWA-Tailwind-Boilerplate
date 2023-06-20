@@ -1,0 +1,51 @@
+{
+  "name": "base",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vite-pwa/assets-generator": "^0.0.3",
+    "@vuepic/vue-datepicker": "^5.3.0",
+    "@vueuse/components": "^10.2.0",
+    "@vueuse/core": "^10.2.0",
+    "@vueuse/router": "^10.2.0",
+    "axios": "^1.4.0",
+    "dayjs": "^1.11.8",
+    "howler": "^2.2.3",
+    "html5-qrcode": "^2.3.8",
+    "is-mobile": "^4.0.0",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.1.4",
+    "pinia-plugin-persistedstate": "^3.1.0",
+    "ramda": "^0.29.0",
+    "sass": "^1.63.4",
+    "socket.io-client": "^4.6.2",
+    "tiny-emitter": "^2.1.0",
+    "vee-validate": "^4.9.6",
+    "vite-plugin-pwa": "^0.16.4",
+    "vue": "^3.2.47",
+    "vue-inline-svg": "^3.1.2",
+    "vue-multiselect": "^3.0.0-beta.2",
+    "vue-router": "^4.2.2",
+    "vue3-popper": "^1.5.0",
+    "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "@types/nprogress": "^0.2.0",
+    "@types/ramda": "^0.29.2",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vue-toastification": "^2.0.0-rc.5",
+    "vue-tsc": "^1.4.2"
+  }
+}

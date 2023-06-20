@@ -1,0 +1,9 @@
+input::placeholder {
+  @apply text-neutral-placeholder;
+}
+input:-ms-input-placeholder {
+  @apply text-neutral-placeholder;
+}
+input::-webkit-input-placeholder {
+  @apply text-neutral-placeholder;
+}
