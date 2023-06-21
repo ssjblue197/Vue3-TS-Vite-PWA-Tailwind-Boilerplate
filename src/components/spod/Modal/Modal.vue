@@ -35,15 +35,11 @@ const { height: windowHeight } = useWindowSize();
         <div class="relative bg-white rounded-lg shadow">
           <!-- Modal header -->
           <div
-            class="py-4 px-6 rounded-t-xl flex justify-between items-center"
+            class="py-4 px-6 rounded-t-lg flex justify-between items-center"
             :class="$slots.header ? 'border-b border-border-base ' : ''"
           >
             <slot name="header" />
-            <button
-              @click="closeModal"
-              type="button"
-              class="!text-icon-active hover:!text-primary"
-            >
+            <button @click="closeModal" type="button" class="!text-icon-active hover:!text-primary">
               <slot name="close-icon">
                 <s-icon
                   width="20"
@@ -60,9 +56,7 @@ const { height: windowHeight } = useWindowSize();
               class="p-6 break-word"
               :class="[
                 $slots.header ? '' : 'pt-0',
-                $slots.footer
-                  ? 'max-h-[calc(100vh-190px)]'
-                  : 'max-h-[calc(100vh-120px)]',
+                $slots.footer ? 'max-h-[calc(100vh-190px)]' : 'max-h-[calc(100vh-120px)]',
                 { 'overflow-y-auto': height >= windowHeight - 200 },
               ]"
             >
@@ -70,10 +64,7 @@ const { height: windowHeight } = useWindowSize();
             </div>
           </UseElementBounding>
           <!-- Modal footer -->
-          <div
-            v-if="$slots.footer"
-            class="py-3 px-6 rounded-b-xl border-border-base border-t"
-          >
+          <div v-if="$slots.footer" class="py-3 px-6 rounded-b-lg border-border-base border-t">
             <slot name="footer" />
           </div>
         </div>

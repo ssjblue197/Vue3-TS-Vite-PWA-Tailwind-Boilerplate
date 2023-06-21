@@ -26,7 +26,7 @@ const buildClasses = computed(() => {
   if (props.disabled)
     return [
       '!bg-background-disable !border-background-disable focus:!bg-background-disable !text-neutral-disable hover:!text-neutral-disable cursor-no-drop',
-      props.pills ? 'rounded-full' : 'rounded-xl',
+      props.pills ? 'rounded-full' : 'rounded-lg',
       SIZE[props.size],
     ];
 
@@ -34,7 +34,7 @@ const buildClasses = computed(() => {
 
   return [
     SIZE[props.size],
-    props.pills ? 'rounded-full' : 'rounded-xl',
+    props.pills ? 'rounded-full' : 'rounded-lg',
     VARIANT[props.outline ? props.variant + '-outline' : props.variant],
     props.outline ? 'focus:bg-transparent hover:text-white' : 'text-white',
   ];

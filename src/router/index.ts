@@ -41,34 +41,34 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const account = useAccountStore();
-  const { userPermission } = useAccountStore();
+  // const account = useAccountStore();
+  // const { userPermission } = useAccountStore();
 
-  if (to.path === '/logout') account.logout();
+  // if (to.path === '/logout') account.logout();
 
-  const authRequired = !['/login'].includes(to.path);
+  // const authRequired = !['/login'].includes(to.path);
 
-  const token = account.profile?.token;
-  if (authRequired && !token) {
-    return next('/login');
-  }
+  // const token = account.profile?.token;
+  // if (authRequired && !token) {
+  //   return next('/login');
+  // }
 
-  if (!authRequired && token) {
-    return next('/');
-  }
+  // if (!authRequired && token) {
+  //   return next('/');
+  // }
 
-  if (token) http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  // if (token) http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-  if (account.profile?.is_superadmin || ['dashboard'].includes(to.name)) {
-    return next();
-  }
+  // if (account.profile?.is_superadmin || ['dashboard'].includes(to.name)) {
+  //   return next();
+  // }
 
-  if (
-    !acceptRouteNames(userPermission).includes(to.name) &&
-    !['login', 'forbidden', 'notfound'].includes(to.name)
-  ) {
-    return next('/403');
-  }
+  // if (
+  //   !acceptRouteNames(userPermission).includes(to.name) &&
+  //   !['login', 'forbidden', 'notfound'].includes(to.name)
+  // ) {
+  //   return next('/403');
+  // }
 
   next();
 });

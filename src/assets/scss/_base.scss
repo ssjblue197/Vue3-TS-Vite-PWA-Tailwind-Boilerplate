@@ -1,16 +1,75 @@
 @import 'typo';
 @import 'form';
 
-body {
-  font-family: 'Open-Sans', ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol,
-    'Noto Color Emoji' !important;
+@font-face {
+  font-family: 'Poppins';
+  src: local('Poppins'), url('@/assets/fonts/Poppins/Poppins-Thin.ttf') format('truetype');
+  font-weight: thin;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: local('Poppins'), url('@/assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: local('Poppins'), url('@/assets/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: local('Poppins'), url('@/assets/fonts/Poppins/Poppins-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+:root {
+  font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol,;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 16px;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
   @apply font-normal text-base;
 }
 
+html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+  ::-webkit-scrollbar {
+    width: 0rem;
+    height: 0px;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 183, 236, 0.4);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+
 #app {
-  @apply max-w-full m-auto font-normal;
+  width: 100vw;
+  height: 100vh;
 }
 
 .svg-line {
@@ -18,20 +77,73 @@ body {
   stroke: currentColor !important;
 }
 
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+@layer components {
+  .container {
+    @apply w-full h-full relative
+  }
+  .center {
+    @apply absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[50%]
+  }
+  .modal {
+    opacity: 1;
+    transition: opacity 0.5s linear;
+  }
+  .modal.hidden {
+    opacity: 0;
+  }
+  .fade-in {
+    animation-name: fade-in;
+    animation-duration: 0.5s;
+  }
+
+  .slide-in {
+    animation-name: slide-in;
+    animation-duration: 0.5s;
+  }
+
+  .slide-out {
+    animation-name: slide-out;
+    animation-duration: 0.5s;
+  }
+
+  .slide-down {
+    animation-name: slide-down;
+    animation-duration: 1s;
+  }
+  @keyframes slide-down {
+    from {
+      top: -100%;
+    }
+    to {
+      top: 0;
+    }
+  }
+
+  @keyframes slide-in {
+    from {
+      left: -100%;
+    }
+    to {
+      left: 0;
+    }
+  }
+
+  @keyframes slide-out {
+    from {
+      left: 0;
+    }
+    to {
+      left: -100%;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
 
-::-webkit-scrollbar-track {
-  background-color: transparent;
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
-  background: rgb(144, 147, 153, 0.3);
-}
