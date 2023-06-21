@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full relative">
+  <div class="container">
     <router-view v-slot="{ Component }">
       <component :is="Component" />
     </router-view>

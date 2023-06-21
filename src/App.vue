@@ -14,7 +14,7 @@ const layoutName = computed(() => {
 <template>
   <div class="w-full h-full text-black" id="main">
     <DefaultLayout v-if="layoutName === 'default'" />
-    <DefaultLayout v-if="layoutName === 'main'" />
+    <MainLayout v-if="layoutName === 'main'" />
   </div>
 </template>
 

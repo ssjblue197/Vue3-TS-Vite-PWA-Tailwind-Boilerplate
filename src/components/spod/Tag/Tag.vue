@@ -17,8 +17,9 @@ const wrapperType = computed(() => (props.href ? 'a' : 'span'));
     :is="wrapperType"
     :class="VARIANT[variant]"
     :href="href"
-    class="py-1 px-5 rounded typo-caption flex items-center justify-center border"
+    class="py-1 px-3 rounded-lg typo-caption flex items-center justify-center"
   >
+    <slot name="before" />
     <slot></slot>
   </component>
 </template>

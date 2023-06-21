@@ -1,0 +1,55 @@
+<template>
+  <div
+    class="w-full border-b border-neutral-40 bg-white flex items-center flex-nowrap justify-between px-7 relative"
+  >
+    <span
+      class="flex flex-nowrap gap-1 items-center cursor-pointer absolute left-7 top-[50%] translate-y-[-50%]"
+      v-if="previousRoute && !hideNavigate"
+      @click="
+        router.push({
+          name: previousRoute,
+        })
+      "
+    >
+      <s-icon
+        :src="$icon.render('iconBack')"
+        width="24"
+        height="24"
+        class="!text-icon-default svg-line"
+      ></s-icon>
+      <span v-show="previousRouteTitle">Back to {{ previousRouteTitle }}</span>
+    </span>
+    <span v-show="routeTitle" class="text-[28px] leading-[36px] text-neutral-900 center">
+      {{ routeTitle }}
+    </span>
+    <span
+      class="flex flex-nowrap gap-3 absolute right-7 top-[50%] translate-y-[-50%]"
+      v-if="!hideAction"
+    >
+      <span class="rounded-full border border-neutral-40 p-2 cursor-pointer relative">
+        <s-icon
+          :src="$icon.render('iconRing')"
+          width="20"
+          height="20"
+          class="!text-icon-default svg-line"
+        ></s-icon>
+        <span class="rounded bg-danger w-[6px] h-[6px] absolute top-2 right-[10px]"></span>
+      </span>
+      <s-icon :src="$icon.render('iconAvatar')" width="36" height="36"></s-icon>
+    </span>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+const route = useRoute();
+const router = useRouter();
+const { previousRoute, previousRouteTitle, routeTitle, hideNavigate, hideAction } = route.meta;
+
+onMounted(() => {
+  console.log(previousRoute.value);
+});
+</script>
+
+<style scoped></style>

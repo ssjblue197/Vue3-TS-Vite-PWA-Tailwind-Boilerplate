@@ -82,7 +82,7 @@ html {
     @apply w-full h-full relative
   }
   .center {
-    @apply absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[50%]
+    @apply absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]
   }
   .modal {
     opacity: 1;
