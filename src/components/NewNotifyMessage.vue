@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-[98px] absolute left-[50%] translate-x-[-50%] top-4 w-[50%] max-w[512px] z-9999 rounded-[12px] shadow-sm bg-[rgba(19,19,19,0.08)] backdrop-blur-[12px] slide-down will-change-auto flex gap-1 flex-col p-[10px]"
+    class="h-[98px] absolute left-[50%] translate-x-[-50%] top-4 w-[50%] max-w[512px] z-9999 rounded-[12px] shadow-sm bg-[rgba(19,19,19,0.08)] backdrop-blur-[12px] will-change-auto flex gap-1 flex-col p-[10px]"
   >
     <span class="flex justify-between text-neutral-200 text-[13px]">
       <span class="flex justify-between gap-[6px]">

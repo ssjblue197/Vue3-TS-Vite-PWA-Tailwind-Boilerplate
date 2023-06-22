@@ -23,8 +23,10 @@ const local: Local = reactive({
   <div class="container text-black" id="main">
     <DefaultLayout v-if="layoutName === 'default'" />
     <MainLayout v-if="layoutName === 'main'" />
-    <NewNotifyMessage v-if="local.showMessage" />
+    <transition name="slide-fade-down" appear>
+      <NewNotifyMessage v-if="local.showMessage" />
+    </transition>
   </div>
 </template>
 
-<style></style>
+<style scoped></style>

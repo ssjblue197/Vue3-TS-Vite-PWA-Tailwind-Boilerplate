@@ -1,25 +1,29 @@
 <template>
   <div class="w-full flex flex-row justify-center p-6 bg-neutral-10 gap-7">
     <div class="w-[50%]">
-      <RequestDetail>
-        <template #bottom>
-          <span class="flex flex-col gap-4">
-            <s-button variant="primary" class="!h-[48px]" @click="handleScanningBoxID"
-              >Confirm fulfilled</s-button
-            >
-            <s-button variant="danger" outline class="!h-[48px]" @click="handleScanningLocation"
-              >Report missing box</s-button
-            >
-          </span>
-        </template>
-      </RequestDetail>
+      <transition name="slide-fade-left" appear>
+        <RequestDetail>
+          <template #bottom>
+            <span class="flex flex-col gap-4">
+              <s-button variant="primary" class="!h-[48px]" @click="handleScanningBoxID"
+                >Confirm fulfilled</s-button
+              >
+              <s-button variant="danger" outline class="!h-[48px]" @click="handleScanningLocation"
+                >Report missing box</s-button
+              >
+            </span>
+          </template>
+        </RequestDetail>
+      </transition>
     </div>
-    <div class="card p-6 flex flex-col gap-4 h-fit w-[208px]">
-      <CountDown />
-      <s-button variant="danger" outline class="!h-[48px]" @click="handleCancelPickup"
-        >Cancel pickup</s-button
-      >
-    </div>
+    <transition name="slide-fade-right" appear>
+      <div class="card p-6 flex flex-col gap-4 h-fit w-[208px]">
+        <CountDown />
+        <s-button variant="danger" outline class="!h-[48px]" @click="handleCancelPickup"
+          >Cancel pickup</s-button
+        >
+      </div>
+    </transition>
     <Teleport to="body">
       <div class="container z-[2] bg-white absolute top-0 left-0" v-if="local.showScanQR">
         <ScanQRCode

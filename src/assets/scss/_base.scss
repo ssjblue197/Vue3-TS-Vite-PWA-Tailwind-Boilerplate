@@ -89,66 +89,110 @@ html {
   .center {
     @apply absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]
   }
-  .modal {
-    opacity: 1;
-    transition: opacity 0.5s linear;
-  }
-  .modal.hidden {
-    opacity: 0;
-  }
-  .fade-in {
-    animation-name: fade-in;
-    animation-duration: 0.5s;
-  }
+}
 
-  .slide-in {
-    animation-name: slide-in;
-    animation-duration: 0.5s;
-  }
 
-  .slide-out {
-    animation-name: slide-out;
-    animation-duration: 0.5s;
-  }
+/*  LIST ANIMATION* /
 
-  .slide-down {
-    animation-name: slide-down;
-    animation-duration: 0.5s;
-  }
-  @keyframes slide-down {
-    from {
-      top: -100%;
-    }
-    to {
-      top: 16px;
-    }
-  }
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
 
-  @keyframes slide-in {
-    from {
-      left: -100%;
-    }
-    to {
-      left: 0;
-    }
-  }
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
 
-  @keyframes slide-out {
-    from {
-      left: 0;
-    }
-    to {
-      left: -100%;
-    }
-  }
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+  position: absolute;
+}
 
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+
+/* FADE */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* SLIDE FADE FROM LEFT => RIGHT, RIGHT => LEFT*/
+.slide-fade-left-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-left-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-left-enter-from,
+.slide-fade-left-leave-to {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+
+
+/* SLIDE FADE FROM RIGHT => LEFT, LEFT => RIGHT*/
+.slide-fade-right-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-right-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-right-enter-from,
+.slide-fade-right-leave-to {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+
+/* SLIDE FADE FROM TOP => BOTTOM, BOTTOM => TOP*/
+.slide-fade-down-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-down-leave-active {
+  transition: all 0.8s ease-out;
+}
+
+.slide-fade-down-enter-from,
+.slide-fade-down-leave-to {
+  transform: translateX(-50%) translateY(-100%);
+  opacity: 0;
+}
+
+
+/* Scale UP => 1, Scale DOWN to 0*/
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+
+  /* Key frames */
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
   }
 }
+
+
 

@@ -7,7 +7,7 @@
         <span class="font-semibold text-neutral-200">
           ID: <strong class="text-neutral-900">#9738</strong>
         </span>
-        <s-tag variant="primary" class="gap-1 items-center flex !bg-[#6874F9] !h-5">
+        <s-tag variant="primary" class="gap-1 items-center flex !bg-information-300 !h-5">
           <template #before>
             <s-icon
               :src="$icon.render('iconStarFill')"

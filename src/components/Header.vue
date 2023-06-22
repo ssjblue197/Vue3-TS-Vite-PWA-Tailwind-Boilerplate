@@ -41,13 +41,15 @@
         height="36"
         @click="local.showLogout = !local.showLogout"
       ></s-icon>
-      <span
-        class="card text-danger absolute right-2 top-[calc(100%+4px)] z-[2] p-3 px-8 fade-in shadow-lg border !rounded-tr-[0px] font-semibold"
-        @click="handleLogout"
-        v-if="local.showLogout"
-      >
-        Logout
-      </span>
+      <transition name="fade">
+        <span
+          class="card text-danger absolute right-2 top-[calc(100%+4px)] z-[2] p-3 px-8 shadow-lg border !rounded-tr-[0px] font-semibold"
+          @click="handleLogout"
+          v-if="local.showLogout"
+        >
+          Logout
+        </span>
+      </transition>
     </span>
   </div>
 </template>

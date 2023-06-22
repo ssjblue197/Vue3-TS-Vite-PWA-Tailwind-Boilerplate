@@ -9,18 +9,22 @@
 
     <div class="flex gap-7">
       <div
-        class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-auto"
+        class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-auto relative"
       >
-        <RequestItem v-for="i in 20" :key="i" />
+        <transition-group mode="out-in" name="list" appear>
+          <RequestItem v-for="i in 20" :key="i" />
+        </transition-group>
       </div>
       <div class="w-[390px]">
-        <RequestDetail>
-          <template #bottom>
-            <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
-              >Pick up now</s-button
-            >
-          </template>
-        </RequestDetail>
+        <transition name="slide-fade-right" appear>
+          <RequestDetail>
+            <template #bottom>
+              <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
+                >Pick up now</s-button
+              >
+            </template>
+          </RequestDetail>
+        </transition>
       </div>
     </div>
     <Teleport to="body">
@@ -54,10 +58,12 @@ const router = useRouter();
 
 interface Local {
   showScanLocation?: boolean;
+  showMessage: boolean;
 }
 
 const local: Local = reactive({
   showScanLocation: false,
+  showMessage: false,
 });
 
 const onScan = (decodedText: string, decodedResult: any) => {
