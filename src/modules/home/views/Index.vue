@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex flex-col justify-end p-4">
+  <div class="container flex flex-col justify-end p-4">
     <div
       class="flex-1 flex items-center justify-center text-[34px] font-[600] text-neutral-900 m-auto"
     >
@@ -11,7 +11,7 @@
         variant="primary"
         @click="
           router.push({
-            name: 'fullfill-request',
+            name: 'fulfill-request',
           })
         "
         >Fullfill request</s-button

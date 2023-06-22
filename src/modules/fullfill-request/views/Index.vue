@@ -2,7 +2,9 @@
   <div class="w-full flex flex-col justify-start p-6 pb-0 bg-neutral-10 gap-6">
     <div class="flex justify-between items-center">
       <span class="text-[22px] leading-[28px] text-neutral-900"> Total: 120 request(s) </span>
-      <s-button variant="primary" class="w-[220px] !h-[40px]"> Scan location code </s-button>
+      <s-button variant="primary" class="w-[220px] !h-[40px]" @click="handleScanningLocation">
+        Scan location code
+      </s-button>
     </div>
 
     <div class="flex gap-7">
@@ -11,76 +13,74 @@
       >
         <RequestItem v-for="i in 20" :key="i" />
       </div>
-      <div
-        class="w-[390px] px-6 py-4 flex flex-col divide-y divide-neutral-40 bg-white rounded-[16px] shadow-[0px_6px_20px_rgba(0,0,0,0.06)] h-fit"
-      >
-        <div class="flex flex-col gap-2 text-[17px] pb-5">
-          <span class="text-neutral-200">Location</span>
-          <span class="text-neutral-900"> AA001A-CA, AA052, BB053C-CA, BB017E-CA, CC64A-CA </span>
-        </div>
-        <div class="flex flex-col gap-4 py-5">
-          <div class="flex justify-between">
-            <span class="text-neutral-200">SKU</span>
-            <span class="text-neutral-900">WORB3H2XL</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-neutral-200">Product</span>
-            <span class="text-neutral-900 flex gap-2">
-              <s-tag>3600</s-tag>
-              <s-tag>Sand</s-tag>
-              <s-tag>XL</s-tag>
-            </span>
-          </div>
-        </div>
-        <div
-          class="flex flex-col gap-5 py-5 relative before:content-[''] before:w-0 before:h-[calc(100%-20px-68px)] before:absolute before:border-l-2 before:border-neutral-40 before:top-[30px] before:z-0 before:left-[9px] before:border-dashed"
-        >
-          <div class="flex justify-between">
-            <span class="text-neutral-200 flex gap-2">
-              <span class="relative z-[2] w-5 h-5 rounded-full bg-success relative">
-                <s-icon
-                  :src="$icon.render('iconBiCheck')"
-                  width="16"
-                  height="16"
-                  class="center !text-white svg-line"
-                ></s-icon>
-              </span>
-              Request by
-            </span>
-            <span class="text-neutral-900 flex flex-col items-end">
-              <span>John Nguyen</span>
-              <span class="text-[12px] text-neutral-200"> 08:43:19 </span>
-            </span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-neutral-200 flex gap-2">
-              <span class="relative bg-white z-[2] w-5 h-5 rounded-full border relative"> </span>
-              Picked up by
-            </span>
-            <span class="text-neutral-900 flex flex-col items-end">
-              <span>N/A</span>
-              <span class="text-[12px] text-neutral-200"> --:--:-- </span>
-            </span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-neutral-200 flex gap-2">
-              <span class="relative bg-white z-[2] w-5 h-5 rounded-full border relative"> </span>
-              Fulfilled by
-            </span>
-            <span class="text-neutral-900 flex flex-col items-end">
-              <span>N/A</span>
-              <span class="text-[12px] text-neutral-200"> --:--:-- </span>
-            </span>
-          </div>
-        </div>
-        <s-button variant="primary" class="!h-[48px]">Pick up now</s-button>
+      <div class="w-[390px]">
+        <RequestDetail>
+          <template #bottom>
+            <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
+              >Pick up now</s-button
+            >
+          </template>
+        </RequestDetail>
       </div>
     </div>
+    <Teleport to="body">
+      <div class="container z-[2] bg-white absolute top-0 left-0" v-if="local.showScanLocation">
+        <ScanQRCode
+          title="Scan Location Code"
+          subtitle="Align the QR code within the frame to scan"
+          @result="onScan"
+          @error="onError"
+        >
+          <template #default>
+            <s-button outline class="!bg-white active:!opacity-80" @click="handleCancelScanning">
+              Cancel scanning
+            </s-button>
+          </template>
+        </ScanQRCode>
+      </div>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
+import ScanQRCode from '@/components/ScanQRCode.vue';
 import RequestItem from '@/components/RequestItem.vue';
+import RequestDetail from '@/components/RequestDetail.vue';
+import EventBus from '@/utils/eventbus';
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+interface Local {
+  showScanLocation?: boolean;
+}
+
+const local: Local = reactive({
+  showScanLocation: false,
+});
+
+const onScan = (decodedText: string, decodedResult: any) => {
+  console.log(decodedResult);
+  if (decodedText) {
+    local.showScanLocation = false;
+  }
+};
+
+const onError = () => {};
+
+const handleScanningLocation = () => {
+  local.showScanLocation = true;
+};
+const handleCancelScanning = () => {
+  local.showScanLocation = false;
+};
+const handlePickup = () => {
+  //TODO handle pickup
+  router.push({
+    name: 'picking-up',
+  });
+};
 </script>
 
 <style scoped></style>

@@ -6,11 +6,11 @@
       @result="onScan"
       @error="onError"
     >
-      <template #default>
+      <!-- <template #default>
         <s-button outline class="!bg-white active:!opacity-80" @click="router.go(-1)">
           Cancel scanning
         </s-button>
-      </template>
+      </template> -->
     </ScanQRCode>
   </div>
 </template>
@@ -24,6 +24,7 @@ const router = useRouter();
 
 const onScan = (decodedText: string, decodedResult: any) => {
   console.log(decodedResult);
+  router.push('/home');
   if (decodedText) {
     let isValidJSON = true;
     let result = {};

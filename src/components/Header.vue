@@ -35,17 +35,45 @@
         ></s-icon>
         <span class="rounded bg-danger w-[6px] h-[6px] absolute top-2 right-[10px]"></span>
       </span>
-      <s-icon :src="$icon.render('iconAvatar')" width="36" height="36"></s-icon>
+      <s-icon
+        :src="$icon.render('iconAvatar')"
+        width="36"
+        height="36"
+        @click="local.showLogout = !local.showLogout"
+      ></s-icon>
+      <span
+        class="card text-danger absolute right-2 top-[calc(100%+4px)] z-[2] p-3 px-8 fade-in shadow-lg border !rounded-tr-[0px] font-semibold"
+        @click="handleLogout"
+        v-if="local.showLogout"
+      >
+        Logout
+      </span>
     </span>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
 const { previousRoute, previousRouteTitle, routeTitle, hideNavigate, hideAction } = route.meta;
+
+interface Local {
+  showLogout?: boolean;
+}
+
+const local: Local = reactive({
+  showLogout: false,
+});
+
+const handleLogout = () => {
+  //TODO Handle logout
+  local.showLogout = false;
+  router.push({
+    name: 'auth',
+  });
+};
 
 onMounted(() => {
   console.log(previousRoute);

@@ -318,8 +318,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   EventBus.$off('changeState');
-  local.html5QrCode.stop();
-  local.html5QrCode = null;
+  stopScanQRCode();
 });
 </script>
 

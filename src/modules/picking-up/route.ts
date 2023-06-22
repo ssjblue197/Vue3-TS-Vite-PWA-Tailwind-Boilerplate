@@ -2,14 +2,13 @@ import type { RouteRecordRaw } from 'vue-router';
 
 export default [
   {
-    path: '/fulfill-request',
-    name: 'fulfill-request',
+    path: '/picking-up',
+    name: 'picking-up',
     component: () => import('./views/Index.vue'),
     meta: {
       layout: 'main',
-      previousRoute: 'home',
-      previousRouteTitle: 'function list',
-      routeTitle: 'Fulfill request'
+      hideNavigate: true,
+      routeTitle: 'Picking up',
     },
   },
 ] as RouteRecordRaw[];

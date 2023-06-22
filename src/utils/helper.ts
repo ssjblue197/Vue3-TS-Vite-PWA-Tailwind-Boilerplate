@@ -31,3 +31,32 @@ export function objectToQueryString(obj: any) {
 export function formatNum(num: number) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
+
+export function formatTime(seconds: number) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = seconds % 60;
+
+  let formattedTime = '';
+  if (hours > 0) {
+    let tmp = String(hours);
+    if (hours < 10) {
+      tmp = '0' + tmp;
+    }
+    formattedTime += tmp + ':';
+  }
+  if (minutes > 0) {
+    let tmp = String(minutes);
+    if (minutes < 10) {
+      tmp = '0' + tmp;
+    }
+    formattedTime += minutes + ':';
+  }
+  let secondStr = String(remainingSeconds);
+  if (remainingSeconds < 10) {
+    secondStr = '0' + secondStr;
+  }
+  formattedTime += secondStr;
+
+  return formattedTime;
+};

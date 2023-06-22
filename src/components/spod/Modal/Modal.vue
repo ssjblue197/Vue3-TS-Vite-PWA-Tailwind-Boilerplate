@@ -8,10 +8,12 @@ withDefaults(
   defineProps<{
     size?: ModalSize;
     position?: ModalPosition;
+    showClose?: boolean;
   }>(),
   {
     size: 'default',
     position: 'top-center',
+    showClose: true,
   }
 );
 
@@ -39,7 +41,12 @@ const { height: windowHeight } = useWindowSize();
             :class="$slots.header ? 'border-b border-border-base ' : ''"
           >
             <slot name="header" />
-            <button @click="closeModal" type="button" class="!text-icon-active hover:!text-primary">
+            <button
+              @click="closeModal"
+              type="button"
+              class="!text-icon-active hover:!text-primary"
+              v-if="showClose"
+            >
               <slot name="close-icon">
                 <s-icon
                   width="20"

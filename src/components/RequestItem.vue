@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full flex flex-col px-5 py-4 rounded-[16px] bg-white shadow-[0px_6px_20px_rgba(0,0,0,0.06)] gap-2"
+    class="w-full flex flex-col px-5 py-4 rounded-[16px] bg-white shadow-[0px_6px_20px_rgba(0,0,0,0.06)] gap-2 hover:border-information-300 hover:border"
   >
     <div class="flex flex-row justify-between">
       <span class="flex flex-nowrap gap-2">
