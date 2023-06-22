@@ -2,8 +2,8 @@ import "nprogress/nprogress.css";
 
 import axios from "axios";
 import NProgress from "nprogress";
-import router from "@/router";
-import { useAccountStore } from "@/stores/account";
+// import router from "@/router";
+// import { useAccountStore } from "@/stores/account";
 import { API_URL } from "@/const";
 
 const http = axios.create({ baseURL: API_URL });

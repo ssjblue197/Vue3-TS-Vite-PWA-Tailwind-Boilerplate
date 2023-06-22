@@ -108,14 +108,14 @@ html {
 
   .slide-down {
     animation-name: slide-down;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
   }
   @keyframes slide-down {
     from {
       top: -100%;
     }
     to {
-      top: 0;
+      top: 16px;
     }
   }
 

@@ -45,7 +45,7 @@
               :src="$icon.render('iconLocation')"
               width="24"
               height="24"
-              class="!text-white cursor-pointer"
+              class="!text-white cursor-pointer svg-line"
             >
             </s-icon>
           </template>
@@ -57,7 +57,7 @@
           :src="$icon.render('iconBox')"
           width="24"
           height="24"
-          class="!text-icon-secondary cursor-pointer"
+          class="!text-white cursor-pointer svg-line"
         >
         </s-icon>
         <span class="text-neutral-900 text-[22px]"> 1 </span>

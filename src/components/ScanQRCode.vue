@@ -27,12 +27,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, reactive } from 'vue';
 import { Html5Qrcode } from 'html5-qrcode';
-import type {
-  QrcodeResult,
-  Html5QrcodeError,
-  CameraDevice,
-  Html5QrcodeCameraScanConfig,
-} from 'html5-qrcode';
+import type { CameraDevice, Html5QrcodeCameraScanConfig } from 'html5-qrcode';
 import EventBus from '@/utils/eventbus';
 
 interface Props {
@@ -69,7 +64,8 @@ const startScanQRCode = async () => {
       .start(
         { facingMode: 'environment' },
         config,
-        (decodedText: string, decodedResult: QrcodeResult) => {
+        /* eslint-disable @typescript-eslint/no-explicit-any */
+        (decodedText: string, decodedResult: any) => {
           emit('result', decodedText, decodedResult);
           const scan = area?.querySelector('#qr-shaded-region');
           if (scan) {
@@ -158,7 +154,8 @@ const startScanQRCode = async () => {
             `;
           }
         },
-        (errorMessage: Html5QrcodeError) => {
+        /* eslint-disable @typescript-eslint/no-explicit-any */
+        (errorMessage: any) => {
           emit('error', errorMessage);
           const scan = area?.querySelector('#qr-shaded-region');
           if (scan) {

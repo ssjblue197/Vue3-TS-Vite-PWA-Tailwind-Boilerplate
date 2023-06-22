@@ -18,18 +18,11 @@
 <script setup lang="ts">
 import ScanQRCode from '@/components/ScanQRCode.vue';
 import { useRouter } from 'vue-router';
-import { soundScan } from '@/utils/helper';
-import type {
-  QrcodeResult,
-  Html5QrcodeError,
-  CameraDevice,
-  Html5QrcodeCameraScanConfig,
-} from 'html5-qrcode';
 import EventBus from '@/utils/eventbus';
 
 const router = useRouter();
 
-const onScan = (decodedText: string, decodedResult: QrcodeResult) => {
+const onScan = (decodedText: string, decodedResult: any) => {
   console.log(decodedResult);
   if (decodedText) {
     let isValidJSON = true;
@@ -48,7 +41,6 @@ const onScan = (decodedText: string, decodedResult: QrcodeResult) => {
       Object.keys(result).length === 2
     ) {
       EventBus.$emit('changeState', 3);
-      soundScan();
 
       // const payload = {
       //   ...result,
@@ -61,6 +53,8 @@ const onScan = (decodedText: string, decodedResult: QrcodeResult) => {
     }
   }
 };
+
+const onError = () => {};
 </script>
 
 <style scoped></style>

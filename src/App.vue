@@ -1,20 +1,29 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import { watch, computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, reactive } from 'vue';
+import { useRoute } from 'vue-router';
 import MainLayout from '@/layouts/MainLayout.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import NewNotifyMessage from '@/components/NewNotifyMessage.vue';
 const route = useRoute();
 
 const layoutName = computed(() => {
   return route.meta.layout;
 });
+
+interface Local {
+  showMessage: boolean;
+}
+
+const local: Local = reactive({
+  showMessage: false,
+});
 </script>
 
 <template>
-  <div class="w-full h-full text-black" id="main">
+  <div class="container text-black" id="main">
     <DefaultLayout v-if="layoutName === 'default'" />
     <MainLayout v-if="layoutName === 'main'" />
+    <NewNotifyMessage v-if="local.showMessage" />
   </div>
 </template>
 

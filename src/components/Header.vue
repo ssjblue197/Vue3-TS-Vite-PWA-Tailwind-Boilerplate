@@ -7,7 +7,7 @@
       v-if="previousRoute && !hideNavigate"
       @click="
         router.push({
-          name: previousRoute,
+          name: String(previousRoute),
         })
       "
     >
@@ -41,14 +41,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
 const { previousRoute, previousRouteTitle, routeTitle, hideNavigate, hideAction } = route.meta;
 
 onMounted(() => {
-  console.log(previousRoute.value);
+  console.log(previousRoute);
 });
 </script>
 
