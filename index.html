@@ -121,8 +121,9 @@
           }
         });
         window.addEventListener('load', () => {
+          console.log(navigator.serviceWorker);
           navigator.serviceWorker
-            .register('/public/firebase-messaging-sw.js')
+            .register('/public/firebase-messaging-sw.ts')
             .then((registration) => {
               console.log('Service Worker registered:', registration);
             })
