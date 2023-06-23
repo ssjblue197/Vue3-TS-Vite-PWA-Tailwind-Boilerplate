@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between">
     <span class="text-neutral-200 flex gap-2">
-      <span class="z-[2] w-5 h-5 rounded-full bg-success relative" v-if="props.done > 0">
+      <span class="z-[2] w-5 h-5 rounded-full bg-success relative" v-if="props.done">
         <s-icon
           :src="$icon.render('iconBiCheck')"
           width="16"
