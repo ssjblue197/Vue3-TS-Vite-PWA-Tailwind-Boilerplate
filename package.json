@@ -38,6 +38,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@types/firebase": "^3.2.1",
     "@types/node": "^20.3.1",
     "@types/nprogress": "^0.2.0",
     "@types/ramda": "^0.29.2",
@@ -49,6 +50,9 @@
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
     "vue-toastification": "^2.0.0-rc.5",
-    "vue-tsc": "^1.4.2"
+    "vue-tsc": "^1.4.2",
+    "workbox-core": "^7.0.0",
+    "workbox-precaching": "^7.0.0",
+    "workbox-webpack-plugin": "^7.0.0"
   }
 }

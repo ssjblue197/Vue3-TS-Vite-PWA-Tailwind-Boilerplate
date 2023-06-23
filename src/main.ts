@@ -32,7 +32,6 @@ app.use(display);
 app.component("ImageLoading", ImageLoading);
 
 app.directive("loading", loading);
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 app.config.errorHandler = (err: any) => {
   const toast = useToast();

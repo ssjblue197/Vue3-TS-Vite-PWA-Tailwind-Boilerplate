@@ -12,9 +12,6 @@ export default defineConfig({
     https: false,
     proxy: {},
     cors: {},
-    hrm: {
-      overlay: false,
-    },
   },
   plugins: [
     vue(),
@@ -22,11 +19,11 @@ export default defineConfig({
       // injectRegister: 'auto',
       injectRegister: null,
       strategies: 'injectManifest',
-      srcDir: 'public',
-      filename: 'firebase-messaging-sw.js',
+      srcDir: 'src/services',
+      filename: 'firebase-messaging-sw.ts',
       injectManifest: {
-        injectionPoint: undefined,
-        // rollupFormat: 'iief',
+        /* comment it when not use precacheAndRoute(self.__WB_MANIFEST) in SW */
+        injectionPoint: undefined, 
       },
       registerType: 'autoUpdate',
       devOptions: {
@@ -61,8 +58,8 @@ export default defineConfig({
         importScripts: ['firebase-messaging-sw.js'],
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         sourcemap: true,
-        swSrc: 'public/firebase-messaging-sw.js',
-        swDest: 'dist/firebase-messaging-sw.js',
+        // swSrc: 'public/firebase-messaging-sw.js',
+        // swDest: 'dist/firebase-messaging-sw.js',
       },
     })
   ],
