@@ -121,7 +121,7 @@
         const intervalMS = 60 * 60 * 1000;
         window.addEventListener('load', () => {
           navigator.serviceWorker
-            .register('/public/firebase-messaging-sw.js')
+            .register('firebase-messaging-sw.js')
             .then((r) => {
               console.warn('Service Worker registration successfully:', r);
               r &&
