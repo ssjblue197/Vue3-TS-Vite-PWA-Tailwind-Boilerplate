@@ -7,7 +7,7 @@
     </div>
     <div class="w-full flex flex-col gap-4 items-center">
       <s-button
-        class="w-[650px]"
+        class="w-[650px] h-[52px]"
         variant="primary"
         @click="
           router.push({
@@ -16,8 +16,8 @@
         "
         >Fullfill request</s-button
       >
-      <s-button class="w-[650px]" outline>Option 2</s-button>
-      <s-button class="w-[650px]" outline>Option 3</s-button>
+      <s-button class="w-[650px] h-[52px]" outline>Option 2</s-button>
+      <s-button class="w-[650px] h-[52px]" outline>Option 3</s-button>
     </div>
   </div>
 </template>

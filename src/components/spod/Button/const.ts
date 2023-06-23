@@ -1,7 +1,7 @@
 export const SIZE: Record<string, string> = {
-  default: 'py-2 px-4 text-base',
+  default: 'py-3 px-4 text-base',
   small: 'py-2 px-4 text-base',
-  large: 'py-2 px-4 text-base',
+  large: 'py-4 px-4 text-base',
 };
 
 export const VARIANT: Record<string, string> = {

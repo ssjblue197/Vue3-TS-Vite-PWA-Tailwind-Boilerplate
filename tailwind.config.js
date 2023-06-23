@@ -53,7 +53,7 @@ module.exports = {
         'primary-400': '#312E93',
         'primary-500': '#2B2880',
         primary: '#4641D2',
-        'information-50': '#E9EBF8',
+        'information-50': '#F0F1FE',
         'information-75': '#C1C6FD',
         'information-100': '#A7AEFC',
         'information-200': '#828CFA',

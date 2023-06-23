@@ -1,7 +1,9 @@
 <template>
   <div class="w-full flex flex-col justify-start p-6 pb-0 bg-neutral-10 gap-6">
     <div class="flex justify-between items-center">
-      <span class="text-[22px] leading-[28px] text-neutral-900"> Total: 120 request(s) </span>
+      <span class="text-[22px] leading-[28px] text-neutral-900">
+        <LaneTag title="All" :count="120" />
+      </span>
       <s-button variant="primary" class="w-[220px] !h-[40px]" @click="handleScanningLocation">
         Scan location code
       </s-button>
@@ -56,6 +58,7 @@ import RequestDetail from '@/components/RequestDetail.vue';
 // import EventBus from '@/utils/eventbus';
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
+import LaneTag from '@/components/LaneTag.vue';
 
 const router = useRouter();
 

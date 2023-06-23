@@ -95,7 +95,7 @@ body {
 
 @layer components {
   .card {
-    @apply bg-white rounded-[16px] shadow-[0px_6px_20px_rgba(0,0,0,0.06)]
+    @apply bg-white rounded-[16px] shadow-[0px_6px_20px_rgba(0,0,0,0.06)] overflow-hidden
   }
   .main-container {
     @apply w-full h-full relative
@@ -186,16 +186,16 @@ body {
 }
 
 /* SLIDE FADE FROM BOTTOM => TOP, TOP => BOTTOM*/
-.slide-fade-down-enter-active {
+.slide-fade-up-enter-active {
   transition: all 0.3s ease-out;
 }
 
-.slide-fade-down-leave-active {
+.slide-fade-up-leave-active {
   transition: all 0.8s ease-out;
 }
 
-.slide-fade-down-enter-from,
-.slide-fade-down-leave-to {
+.slide-fade-up-enter-from,
+.slide-fade-up-leave-to {
   transform: translateY(100%);
   opacity: 0;
 }
