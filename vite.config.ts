@@ -20,7 +20,7 @@ export default defineConfig({
       injectRegister: null,
       strategies: 'injectManifest',
       srcDir: 'public',
-      filename: 'firebase-messaging-sw.ts',
+      filename: 'firebase-messaging-sw.js',
       injectManifest: {
         injectionPoint: undefined, 
         // rollupFormat: 'iief',

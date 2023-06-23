@@ -1,8 +1,10 @@
 <template>
   <div class="main-container flex flex-col items-center p-[50px] justify-between">
-    <div class="flex flex-col items-center gap-3">
-      <span class="text-[34px] font-semibold text-white z-[2]"> {{ props.title }} </span>
-      <span class="text-[20px] font-normal text-white z-[2]">
+    <div class="flex flex-col items-center gap-3 text-center">
+      <span class="text-[34px] font-semibold text-white z-[2] leading-[140%]">
+        {{ props.title }}
+      </span>
+      <span class="text-[20px] font-normal text-white z-[2] leading-[140%]">
         {{ props.subtitle }}
       </span>
     </div>
