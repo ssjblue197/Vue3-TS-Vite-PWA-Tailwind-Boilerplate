@@ -9,7 +9,7 @@
 
     <div class="flex gap-7">
       <div
-        class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-auto relative"
+        class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-scroll relative"
       >
         <transition-group mode="out-in" name="list" appear>
           <RequestItem v-for="i in 20" :key="i" />

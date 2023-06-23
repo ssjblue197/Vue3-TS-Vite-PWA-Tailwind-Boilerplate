@@ -3,7 +3,7 @@
     class="w-full border-b border-neutral-40 bg-white flex items-center flex-nowrap justify-between px-7 relative"
   >
     <span
-      class="flex flex-nowrap gap-1 items-center cursor-pointer absolute left-7 top-[50%] translate-y-[-50%]"
+      class="flex flex-nowrap gap-1 items-center cursor-pointer absolute left-7 top-[50%] translate-y-[-50%] leading-[140%]"
       v-if="route.meta?.previousRoute && !route.meta?.hideNavigate"
       @click="
         router.push({

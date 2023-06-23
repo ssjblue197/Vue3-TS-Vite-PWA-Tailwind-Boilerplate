@@ -25,7 +25,7 @@
       </div>
     </transition>
     <Teleport to="body">
-      <div class="main-main-container z-[2] bg-white absolute top-0 left-0" v-if="local.showScanQR">
+      <div class="main-container z-[2] bg-white absolute top-0 left-0" v-if="local.showScanQR">
         <ScanQRCode
           :title="local.isScanLocation ? 'Scan Location Code' : 'Scan Box ID'"
           subtitle="Align the QR code within the frame to scan"
