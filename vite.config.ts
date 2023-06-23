@@ -19,11 +19,11 @@ export default defineConfig({
       // injectRegister: 'auto',
       injectRegister: null,
       strategies: 'injectManifest',
-      srcDir: 'src/services',
+      srcDir: 'public',
       filename: 'firebase-messaging-sw.ts',
       injectManifest: {
-        /* comment it when not use precacheAndRoute(self.__WB_MANIFEST) in SW */
         injectionPoint: undefined, 
+        // rollupFormat: 'iief',
       },
       registerType: 'autoUpdate',
       devOptions: {

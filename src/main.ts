@@ -17,6 +17,9 @@ import svgIcon from "./svgIcon";
 import ImageLoading from "./components/ImageLoading.vue";
 import loading from "./directives/loading";
 
+import { messaging } from '@/services/firebase';
+import { onMessage } from 'firebase/messaging';
+
 const app = createApp(App);
 spod(app);
 svgIcon(app);
@@ -38,5 +41,24 @@ app.config.errorHandler = (err: any) => {
   toast.error(err.message);
   console.log(err);
 };
+
+
+// Handle incoming messages
+onMessage(messaging, (payload) => {
+  console.log('Message received:', payload);
+  // const notificationStore = useNotificationStore();
+  // const scanStore = useScanStore();
+  // notificationStore.addNotification(payload);
+  // notificationStore.newNotification = payload;
+  // if (payload.data && payload.data.status) {
+  //   scanStore.printingStatus = {
+  //     ...scanStore.printingStatus,
+  //     status: payload.data.status,
+  //   };
+  // }
+  // setTimeout(() => {
+  //   notificationStore.newNotification = null;
+  // }, 4000);
+});
 
 app.mount("#app");
