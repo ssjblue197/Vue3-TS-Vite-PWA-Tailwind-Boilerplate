@@ -20,7 +20,7 @@ declare module 'firebase/messaging' {
 }
 
 
-precacheAndRoute(self.__WB_MANIFEST);
+// precacheAndRoute(self.__WB_MANIFEST);
 
 
 const firebaseConfig = {
@@ -53,4 +53,4 @@ onBackgroundMessage(getMessaging(getApp()), (payload: MessagePayload) => {
 });
 self.skipWaiting()
 clientsClaim()
-cleanupOutdatedCaches()
+// cleanupOutdatedCaches()
