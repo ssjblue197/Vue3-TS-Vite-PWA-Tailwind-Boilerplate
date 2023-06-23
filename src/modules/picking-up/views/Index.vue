@@ -18,7 +18,7 @@
     </div>
     <transition name="slide-fade-right" appear>
       <div class="card p-6 flex flex-col gap-4 h-fit w-[208px]">
-        <CountDown />
+        <CountDown :time="10 * 60" @end="handleEndTime" />
         <s-button variant="danger" outline class="!h-[48px]" @click="handleCancelPickup"
           >Cancel pickup</s-button
         >
@@ -254,6 +254,10 @@ const handleCancelPickup = () => {
   router.push({
     name: 'fulfill-request',
   });
+};
+
+const handleEndTime = () => {
+  console.log('End time');
 };
 </script>
 

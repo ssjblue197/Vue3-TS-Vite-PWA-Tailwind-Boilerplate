@@ -54,7 +54,13 @@ export function formatTime(seconds: number) {
   }
   let secondStr = String(remainingSeconds);
   if (remainingSeconds < 10) {
-    secondStr = '0' + secondStr;
+    if (hours !== 0 || minutes !== 0) {
+      secondStr = '0' + secondStr;
+    } else {
+      if (remainingSeconds !== 0) {
+        secondStr = '0' + secondStr;
+      }
+    }
   }
   formattedTime += secondStr;
 
