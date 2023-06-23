@@ -16,8 +16,8 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
-      injectRegister: 'auto',
-      // injectRegister: null,
+      // injectRegister: 'auto',
+      injectRegister: null,
       strategies: 'injectManifest',
       srcDir: 'public',
       filename: 'firebase-messaging-sw.js',
