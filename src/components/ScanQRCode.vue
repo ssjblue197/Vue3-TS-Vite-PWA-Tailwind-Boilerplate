@@ -1,12 +1,12 @@
 <template>
-  <div class="container flex flex-col items-center p-[50px] justify-between">
+  <div class="main-container flex flex-col items-center p-[50px] justify-between">
     <div class="flex flex-col items-center gap-3">
       <span class="text-[34px] font-semibold text-white z-[2]"> {{ props.title }} </span>
       <span class="text-[20px] font-normal text-white z-[2]">
         {{ props.subtitle }}
       </span>
     </div>
-    <div class="container !absolute w-screen h-screen top-0 left-0 z-1">
+    <div class="main-container !absolute w-screen h-screen top-0 left-0 z-1">
       <div
         id="qr-code-full-region"
         class="w-full h-full bg-[rgba(10,11,13,0.3)] backdrop-blur-[2px] z-1 flex items-center flex-col overflow-hidden absolute top-0 left-0 z-1"

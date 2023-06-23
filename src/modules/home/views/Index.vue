@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-col justify-end p-4">
+  <div class="main-container flex flex-col justify-end p-4">
     <div
       class="flex-1 flex items-center justify-center text-[34px] font-[600] text-neutral-900 m-auto"
     >

@@ -28,7 +28,10 @@
       </div>
     </div>
     <Teleport to="body">
-      <div class="container z-[2] bg-white absolute top-0 left-0" v-if="local.showScanLocation">
+      <div
+        class="main-container z-[2] bg-white absolute top-0 left-0"
+        v-if="local.showScanLocation"
+      >
         <ScanQRCode
           title="Scan Location Code"
           subtitle="Align the QR code within the frame to scan"

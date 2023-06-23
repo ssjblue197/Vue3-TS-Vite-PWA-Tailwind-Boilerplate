@@ -72,6 +72,11 @@ html {
 #app {
   width: 100vw;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .svg-line {
@@ -83,7 +88,7 @@ html {
   .card {
     @apply bg-white rounded-[16px] shadow-[0px_6px_20px_rgba(0,0,0,0.06)]
   }
-  .container {
+  .main-container {
     @apply w-full h-full relative
   }
   .center {

@@ -25,7 +25,7 @@
       </div>
     </transition>
     <Teleport to="body">
-      <div class="container z-[2] bg-white absolute top-0 left-0" v-if="local.showScanQR">
+      <div class="main-main-container z-[2] bg-white absolute top-0 left-0" v-if="local.showScanQR">
         <ScanQRCode
           :title="local.isScanLocation ? 'Scan Location Code' : 'Scan Box ID'"
           subtitle="Align the QR code within the frame to scan"
@@ -63,7 +63,7 @@
     >
       <template #header> REPORT MISSING BOX </template>
       <template #body>
-        <div class="container flex flex-col gap-5 text-[17px]">
+        <div class="main-container flex flex-col gap-5 text-[17px]">
           <div class="text-neutral-900 leading-[140%]">Do you want to report missing box?</div>
           <div class="max-h-[140px] overflow-y-auto flex flex-col gap-3">
             <div class="flex justify-between" v-for="i in 10" :key="i">
@@ -74,7 +74,7 @@
         </div>
       </template>
       <template #footer>
-        <div class="container flex flex-row gap-4">
+        <div class="main-container flex flex-row gap-4">
           <s-button variant="primary" outline class="!h-[48px] flex-1" @click="handleCancelReport"
             >Cancel</s-button
           >
@@ -95,7 +95,7 @@
         <s-input placeholder="Type box ID"></s-input>
       </template>
       <template #footer>
-        <div class="container flex flex-row gap-4">
+        <div class="main-container flex flex-row gap-4">
           <s-button
             variant="primary"
             outline
@@ -111,7 +111,7 @@
     </s-modal>
     <s-modal size="sm" position="center" v-if="local.timeoutModal" :showClose="false">
       <template #body>
-        <div class="container flex flex-col items-center gap-6">
+        <div class="main-container flex flex-col items-center gap-6">
           <s-icon
             :src="$icon.render('iconDanger')"
             width="130"
@@ -136,7 +136,7 @@
     </s-modal>
     <s-modal size="sm" position="center" v-if="local.locationUpdateModal" :showClose="false">
       <template #body>
-        <div class="container flex flex-col items-center gap-6">
+        <div class="main-container flex flex-col items-center gap-6">
           <s-icon
             :src="$icon.render('iconMove')"
             width="130"

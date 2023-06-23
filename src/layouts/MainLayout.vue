@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="main-container">
     <Header class="h-[68px]" />
     <router-view v-slot="{ Component }">
       <component :is="Component" class="!h-[calc(100vh-68px)]" />
