@@ -2,7 +2,7 @@
 
 // export empty type because of tsc --isolatedModules flag
 // Import the functions you need from the SDKs you need
-import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
+// import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 import { clientsClaim } from 'workbox-core';
 import { initializeApp, getApp } from 'firebase/app';
 import { getMessaging } from 'firebase/messaging';
