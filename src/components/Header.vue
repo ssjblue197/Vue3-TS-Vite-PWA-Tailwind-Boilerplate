@@ -4,10 +4,10 @@
   >
     <span
       class="flex flex-nowrap gap-1 items-center cursor-pointer absolute left-7 top-[50%] translate-y-[-50%]"
-      v-if="previousRoute && !hideNavigate"
+      v-if="route.meta?.previousRoute && !route.meta?.hideNavigate"
       @click="
         router.push({
-          name: String(previousRoute),
+          name: String(route.meta?.previousRoute),
         })
       "
     >
@@ -17,14 +17,19 @@
         height="24"
         class="!text-icon-default svg-line"
       ></s-icon>
-      <span v-show="previousRouteTitle">Back to {{ previousRouteTitle }}</span>
+      <span v-show="route.meta?.previousRouteTitle"
+        >Back to {{ route.meta?.previousRouteTitle }}</span
+      >
     </span>
-    <span v-show="routeTitle" class="text-[28px] leading-[36px] text-neutral-900 center">
-      {{ routeTitle }}
+    <span
+      v-show="route.meta?.routeTitle"
+      class="text-[28px] leading-[36px] text-neutral-900 center"
+    >
+      {{ route.meta?.routeTitle }}
     </span>
     <span
       class="flex flex-nowrap gap-3 absolute right-7 top-[50%] translate-y-[-50%]"
-      v-if="!hideAction"
+      v-if="!route.meta?.hideAction"
     >
       <span class="rounded-full border border-neutral-40 p-2 cursor-pointer relative">
         <s-icon
@@ -59,7 +64,6 @@ import { onMounted, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
-const { previousRoute, previousRouteTitle, routeTitle, hideNavigate, hideAction } = route.meta;
 
 interface Local {
   showLogout?: boolean;
@@ -77,9 +81,7 @@ const handleLogout = () => {
   });
 };
 
-onMounted(() => {
-  console.log(previousRoute);
-});
+onMounted(() => {});
 </script>
 
 <style scoped></style>
