@@ -34,51 +34,34 @@
         </span>
       </div>
     </div>
-    <div
-      class="flex flex-col gap-5 py-5 relative before:content-[''] before:w-0 before:h-[calc(100%-20px-68px)] before:absolute before:border-l-2 before:border-neutral-40 before:top-[30px] before:z-0 before:left-[9px] before:border-dashed"
-    >
-      <div class="flex justify-between">
-        <span class="text-neutral-200 flex gap-2">
-          <span class="z-[2] w-5 h-5 rounded-full bg-success relative">
-            <s-icon
-              :src="$icon.render('iconBiCheck')"
-              width="16"
-              height="16"
-              class="center !text-white svg-line"
-            ></s-icon>
-          </span>
-          Request by
-        </span>
-        <span class="text-neutral-900 flex flex-col items-end">
-          <span>John Nguyen</span>
-          <span class="text-[12px] text-neutral-200"> 08:43:19 </span>
-        </span>
-      </div>
-      <div class="flex justify-between">
-        <span class="text-neutral-200 flex gap-2">
-          <span class="relative bg-white z-[2] w-5 h-5 rounded-full border"> </span>
-          Picked up by
-        </span>
-        <span class="text-neutral-900 flex flex-col items-end">
-          <span>N/A</span>
-          <span class="text-[12px] text-neutral-200"> --:--:-- </span>
-        </span>
-      </div>
-      <div class="flex justify-between">
-        <span class="text-neutral-200 flex gap-2">
-          <span class="relative bg-white z-[2] w-5 h-5 rounded-full border"> </span>
-          Fulfilled by
-        </span>
-        <span class="text-neutral-900 flex flex-col items-end">
-          <span>N/A</span>
-          <span class="text-[12px] text-neutral-200"> --:--:-- </span>
-        </span>
-      </div>
-    </div>
+    <TimeLine
+      :data="[
+        {
+          title: 'Request by',
+          name: 'John Nguyen',
+          time: '08:43:19',
+          done: true,
+        },
+        {
+          title: 'Picked up by',
+          name: 'John Nguyen',
+          time: '08:43:19',
+          done: false,
+        },
+        {
+          title: 'Fulfilled by',
+          name: 'John Nguyen',
+          time: '08:43:19',
+          done: false,
+        },
+      ]"
+    />
     <slot name="bottom" />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import TimeLine from './TimeLine.vue';
+</script>
 
 <style scoped></style>
