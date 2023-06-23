@@ -51,6 +51,12 @@ onBackgroundMessage(getMessaging(getApp()), (payload: MessagePayload) => {
   };
   return self.registration.showNotification(notificationTitle, notificationOptions);
 });
+
+self.addEventListener('notificationclick', (event: any) => {
+  console.log(event);
+  //TODO hanlde event when click notification
+});
+
 self.skipWaiting()
 clientsClaim()
 // cleanupOutdatedCaches()
