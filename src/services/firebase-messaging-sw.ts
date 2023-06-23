@@ -34,13 +34,15 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 // const token = await getToken(messaging);
 // console.log("Token", token);
 // chrome.runtime.onInstalled.addListener(async () => {
 //   //TODO Save token into storage
 // })
+console.log(app);
+
 
 onBackgroundMessage(getMessaging(getApp()), (payload: MessagePayload) => {
 
