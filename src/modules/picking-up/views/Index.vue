@@ -167,7 +167,7 @@ import ScanQRCode from '@/components/ScanQRCode.vue';
 import CountDown from '@/components/CountDown.vue';
 import RequestDetail from '@/components/RequestDetail.vue';
 import { useRouter } from 'vue-router';
-import EventBus from '@/utils/eventbus';
+// import EventBus from '@/utils/eventbus';
 import { reactive } from 'vue';
 const router = useRouter();
 

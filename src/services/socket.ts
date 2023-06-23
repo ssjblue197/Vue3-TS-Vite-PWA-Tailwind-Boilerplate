@@ -5,6 +5,9 @@ import {
   SOCKET_EVENT_DISCONNECT,
   SOCKET_EVENT_MESSAGE,
 } from './const';
+import type { Message } from '@/stores/socket';
+
+
 //Init Socket service
 const URL = import.meta.env.VITE_WS_URL;
 
@@ -23,7 +26,7 @@ export function useSocket() {
     console.log('Disconnected from Socket.io server');
   });
 
-  current.on(SOCKET_EVENT_MESSAGE, (message: string) => {
+  current.on(SOCKET_EVENT_MESSAGE, (message: Message) => {
     socketStore.addMessage(message);
   });
 

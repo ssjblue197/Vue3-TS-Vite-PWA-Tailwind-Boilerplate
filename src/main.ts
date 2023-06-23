@@ -11,12 +11,10 @@ import router from "./router";
 import stores from "./stores";
 import date from "./plugins/date";
 import display from "./plugins/display";
-import permission from "./plugins/permission";
 import icon from "./plugins/icon";
 import form from "./plugins/form";
 import svgIcon from "./svgIcon";
 import ImageLoading from "./components/ImageLoading.vue";
-import CheckPermission from "./components/CheckPermission.vue";
 import loading from "./directives/loading";
 
 const app = createApp(App);
@@ -27,13 +25,11 @@ app.use(router);
 app.use(stores);
 app.use(Toast, { position: POSITION.TOP_RIGHT });
 app.use(date);
-app.use(permission);
 app.use(icon);
 app.use(form);
 app.use(display);
 
 app.component("ImageLoading", ImageLoading);
-app.component("CheckPermission", CheckPermission);
 
 app.directive("loading", loading);
 

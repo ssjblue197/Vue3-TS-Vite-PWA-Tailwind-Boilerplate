@@ -50,7 +50,7 @@
 import ScanQRCode from '@/components/ScanQRCode.vue';
 import RequestItem from '@/components/RequestItem.vue';
 import RequestDetail from '@/components/RequestDetail.vue';
-import EventBus from '@/utils/eventbus';
+// import EventBus from '@/utils/eventbus';
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
