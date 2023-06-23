@@ -123,7 +123,7 @@
         window.addEventListener('load', () => {
           console.log(navigator.serviceWorker);
           navigator.serviceWorker
-            .register('/firebase-messaging-sw.ts')
+            .register('/src/services/firebase-messaging-sw.ts')
             .then((registration) => {
               console.log('Service Worker registered:', registration);
             })
