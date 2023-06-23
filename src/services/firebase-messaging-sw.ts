@@ -5,7 +5,7 @@
 // import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 import { clientsClaim } from 'workbox-core';
 import { initializeApp, getApp } from 'firebase/app';
-import { getMessaging } from 'firebase/messaging';
+import { getMessaging, getToken } from 'firebase/messaging';
 import { onBackgroundMessage } from 'firebase/messaging/sw';
 import 'firebase/messaging';
 import { MessagePayload } from 'firebase/messaging';
@@ -43,8 +43,9 @@ const app = initializeApp(firebaseConfig);
 // })
 console.log(app);
 
+const messaging = getMessaging(getApp());
 
-onBackgroundMessage(getMessaging(getApp()), (payload: MessagePayload) => {
+onBackgroundMessage(messaging, (payload: MessagePayload) => {
 
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
   const notificationTitle = payload?.data?.message || '';
@@ -58,6 +59,19 @@ self.addEventListener('notificationclick', (event: any) => {
   console.log(event);
   //TODO hanlde event when click notification
 });
+
+try {
+  Notification.requestPermission().then(async (permission) => {
+    // If the user accepts, let's create a notification
+    if (permission === "granted") {
+      const token = await getToken(messaging);
+      console.log(token);
+      
+    }
+  });
+} catch (error) {
+} finally {
+}
 
 self.skipWaiting()
 clientsClaim()
