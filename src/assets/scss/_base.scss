@@ -49,6 +49,7 @@ html {
 }
 
 body {
+  min-height: 100vh;
   height: env(safe-area-inset-top);
   width: env(safe-area-inset-left);
   margin: env(safe-area-inset-right);
