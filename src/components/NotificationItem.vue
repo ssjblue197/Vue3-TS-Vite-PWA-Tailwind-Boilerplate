@@ -9,9 +9,9 @@
       </div>
       <s-icon
         :src="$icon.render('iconArrowRight')"
-        width="24"
-        height="24"
-        class="!text-neutral-900 svg-line"
+        width="20"
+        height="20"
+        class="!text-neutral-900"
       ></s-icon>
     </div>
   </div>

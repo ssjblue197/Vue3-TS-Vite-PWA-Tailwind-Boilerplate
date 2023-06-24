@@ -97,7 +97,7 @@ body {
   .card {
     @apply bg-white rounded-[16px] shadow-[0px_6px_20px_rgba(0,0,0,0.06)] overflow-hidden
   }
-  .main-container {
+  .wrapper {
     @apply w-full h-full relative
   }
   .center {

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container text-black" id="main">
+  <div class="wrapper text-black" id="main">
     <DefaultLayout v-if="layoutName === 'default'" />
     <MainLayout v-if="layoutName === 'main'" />
     <transition name="slide-fade-down" appear>

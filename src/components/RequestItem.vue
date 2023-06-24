@@ -1,8 +1,8 @@
 <template>
   <div
-    class="w-full flex flex-col px-5 py-4 rounded-[16px] bg-white shadow-[0px_6px_20px_rgba(0,0,0,0.06)] gap-2 hover:border-information-300 hover:border"
+    class="w-full flex flex-col px-5 py-4 rounded-[16px] bg-white shadow-[0px_6px_20px_rgba(0,0,0,0.06)] gap-2 hover:border-information-300 hover:border over relative"
   >
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between overflow-hidden">
       <span class="flex flex-nowrap gap-2">
         <span class="font-semibold text-neutral-200">
           ID: <strong class="text-neutral-900">#9738</strong>
@@ -19,13 +19,16 @@
           </template>
           Priority
         </s-tag>
+        <s-tag variant="danger" class="gap-1 items-center flex !h-5"> New </s-tag>
+        <s-tag class="gap-1 items-center flex !h-5 !bg-low-warning"> Uncheck </s-tag>
+        <s-tag class="gap-1 items-center flex !h-5 text-white !bg-high-warning"> Uncheck </s-tag>
       </span>
       <span class="flex gap-1 text-[13px]">
         <span class="text-neutral-90"> Age: </span>
         <span class="text-primary-200"> 4 hours </span>
       </span>
     </div>
-    <div class="flex flex-row justify-between items-center">
+    <div class="flex flex-row justify-between items-center overflow-hidden">
       <span class="flex flex-nowrap gap-2">
         <s-tag class="!border-neutral-40 border !bg-white gap-2 py-2 px-4">
           <template #before>

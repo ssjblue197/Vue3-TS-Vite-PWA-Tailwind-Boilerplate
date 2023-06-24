@@ -42,21 +42,13 @@ const props = withDefaults(
 const model = useVModel(props, 'modelValue');
 
 const buildClasses = computed(() => {
-  const disabledClasses = props.disabled
-    ? '!bg-gray-100 pointer-events-none'
-    : '';
+  const disabledClasses = props.disabled ? '!bg-gray-100 pointer-events-none' : '';
   const prependAppendClass = {
     '!pl-10': props.hasPrepend,
     '!pr-10': props.hasAppend,
   };
-  if (props.classes)
-    return [prependAppendClass, props.classes, disabledClasses];
-  return [
-    prependAppendClass,
-    SIZE[props.size],
-    VARIANT[props.variant],
-    disabledClasses,
-  ];
+  if (props.classes) return [prependAppendClass, props.classes, disabledClasses];
+  return [prependAppendClass, SIZE[props.size], VARIANT[props.variant], disabledClasses];
 });
 </script>
 <template>

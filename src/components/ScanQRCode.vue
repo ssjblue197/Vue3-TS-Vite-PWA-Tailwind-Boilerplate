@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container flex flex-col items-center p-[50px] justify-between">
+  <div class="wrapper flex flex-col items-center p-[50px] justify-between">
     <div class="flex flex-col items-center gap-3 text-center">
       <span class="text-[34px] font-semibold text-white z-[2] leading-[140%]">
         {{ props.title }}
@@ -8,7 +8,7 @@
         {{ props.subtitle }}
       </span>
     </div>
-    <div class="main-container !absolute w-screen h-screen top-0 left-0 z-1">
+    <div class="wrapper !absolute w-screen h-screen top-0 left-0 z-1">
       <div
         id="qr-code-full-region"
         class="w-full h-full bg-[rgba(10,11,13,0.3)] backdrop-blur-[2px] z-1 flex items-center flex-col overflow-hidden absolute top-0 left-0 z-1"

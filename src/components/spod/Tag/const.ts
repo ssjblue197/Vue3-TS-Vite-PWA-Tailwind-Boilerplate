@@ -1,9 +1,9 @@
 export const VARIANT: Record<string, string> = {
   primary: 'text-white bg-primary-300',
   secondary: 'text-neutral-900  bg-neutral-40',
-  danger: 'text-danger  bg-background-danger',
-  error: 'text-danger  bg-background-error',
-  warning: 'text-warning  bg-background-warning',
+  danger: 'text-white  bg-danger',
+  error: 'text-white  bg-danger',
+  warning: 'text-white  bg-warning',
   success: 'text-success  bg-background-success',
   information: 'text-neutral-900 bg-information-50'
 };

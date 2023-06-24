@@ -1,7 +1,7 @@
 export const SIZE: Record<string, string> = {
   default: 'p-2 text-base text-neutral-primary',
-  small: 'p-2 text-base text-neutral-primary',
-  large: 'p-2 text-base text-neutral-primary',
+  small: 'p-3 text-base text-neutral-primary',
+  large: 'p-4 text-base text-neutral-primary',
 };
 
 export const VARIANT: Record<string, string> = {

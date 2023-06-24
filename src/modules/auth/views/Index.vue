@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div class="wrapper">
     <ScanQRCode
       title="Scan Employee Code to Login"
       subtitle="Align the QR code within the frame to scan"

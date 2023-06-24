@@ -61,7 +61,7 @@ const { height: windowHeight } = useWindowSize();
           <!-- Modal body -->
           <UseElementBounding v-slot="{ height }">
             <div
-              class="p-6 break-word"
+              class="p-6 break-word bg-neutral-10"
               :class="[
                 $slots.header ? '' : 'pt-0',
                 $slots.footer ? 'max-h-[calc(100vh-190px)]' : 'max-h-[calc(100vh-120px)]',

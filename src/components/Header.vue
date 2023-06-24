@@ -28,7 +28,7 @@
       {{ route.meta?.routeTitle }}
     </span>
     <span
-      class="flex flex-nowrap gap-3 absolute right-7 top-[50%] translate-y-[-50%] z-[2]"
+      class="flex flex-nowrap gap-3 absolute right-7 top-[50%] translate-y-[-50%] z-[3]"
       v-if="!route.meta?.hideAction"
     >
       <span class="rounded-full border border-neutral-40 p-2 cursor-pointer relative">
@@ -58,7 +58,7 @@
       </transition>
       <transition name="fade">
         <span
-          class="absolute right-[calc(50%-12px)] top-[calc(100%+4px)] w-[500px] bg-white"
+          class="absolute right-[calc(50%-12px)] top-[calc(100%+4px)] w-[500px] bg-white z-[2]"
           @click="handleLogout"
           v-if="local.showNotification"
         >

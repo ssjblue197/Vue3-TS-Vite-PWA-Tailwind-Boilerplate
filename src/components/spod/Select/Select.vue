@@ -1,13 +1,8 @@
 <script lang="ts" setup>
-import VueMultiselect from "vue-multiselect";
+import VueMultiselect from 'vue-multiselect';
 </script>
 <template>
-  <VueMultiselect
-    selectLabel=""
-    deselectLabel=""
-    selectedLabel=""
-    v-bind="$attrs"
-  />
+  <VueMultiselect selectLabel="" deselectLabel="" selectedLabel="" v-bind="$attrs" />
 </template>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style lang="scss">
