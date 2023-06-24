@@ -59,7 +59,6 @@
       <transition name="fade">
         <span
           class="absolute right-[calc(50%-12px)] top-[calc(100%+4px)] w-[500px] bg-white z-[2]"
-          @click="handleLogout"
           v-if="local.showNotification"
         >
           <Notification />
