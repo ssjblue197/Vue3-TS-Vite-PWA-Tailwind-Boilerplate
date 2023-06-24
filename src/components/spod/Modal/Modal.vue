@@ -40,7 +40,8 @@ const { height: windowHeight } = useWindowSize();
             class="py-4 px-6 rounded-t-lg flex justify-between items-center"
             :class="$slots.header ? 'border-b border-border-base ' : ''"
           >
-            <slot name="header" />
+            <span class="text-neutral-900 text-[20px]"> <slot name="header" /></span>
+
             <button
               @click="closeModal"
               type="button"

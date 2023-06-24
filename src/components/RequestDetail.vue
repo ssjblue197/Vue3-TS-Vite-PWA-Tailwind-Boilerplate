@@ -1,6 +1,11 @@
 <template>
-  <div class="w-full px-6 py-4 flex flex-col divide-y divide-neutral-40 card h-fit">
-    <div class="flex flex-col gap-2 text-[17px] pb-5">
+  <div
+    class="w-full px-6 py-4 flex flex-col card h-fit"
+    :class="{
+      'divide-y divide-neutral-40': !props.hideDivide,
+    }"
+  >
+    <div class="flex flex-col gap-2 text-[17px] pb-5" v-if="!props.hideLocation">
       <span class="text-neutral-200">Location</span>
       <span class="text-neutral-900 flex flex-wrap gap-3">
         <s-tag class="!rounded-[12px] !h-[32px] leading-[1.4] text-[17px]" variant="information"
@@ -20,7 +25,7 @@
         ></span
       >
     </div>
-    <div class="flex flex-col gap-4 py-5">
+    <div class="flex flex-col gap-4 py-5" v-if="!props.hideDetail">
       <div class="flex justify-between">
         <span class="text-neutral-200">SKU</span>
         <span class="text-neutral-900">WORB3H2XL</span>
@@ -61,7 +66,19 @@
 </template>
 
 <script setup lang="ts">
-import TimeLine from './TimeLine.vue';
+import TimeLine from '@/components/TimeLine.vue';
+
+interface Props {
+  hideLocation?: boolean;
+  hideDetail?: boolean;
+  hideDivide?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  hideLocation: false,
+  hideDetail: false,
+  hideDivide: false,
+});
 </script>
 
 <style scoped></style>

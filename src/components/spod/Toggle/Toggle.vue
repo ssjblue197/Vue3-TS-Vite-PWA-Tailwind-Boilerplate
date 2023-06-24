@@ -46,7 +46,7 @@ const buildLabelClasses = computed(() => {
 </script>
 <template>
   <label
-    class="relative inline-flex items-center h-[42px]"
+    class="relative inline-flex items-center h-[30px]"
     :class="[props.disabled ? 'pointer-events-none' : 'cursor-pointer']"
   >
     <input

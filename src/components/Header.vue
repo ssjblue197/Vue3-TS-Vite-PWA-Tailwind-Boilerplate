@@ -28,7 +28,7 @@
       {{ route.meta?.routeTitle }}
     </span>
     <span
-      class="flex flex-nowrap gap-3 absolute right-7 top-[50%] translate-y-[-50%]"
+      class="flex flex-nowrap gap-3 absolute right-7 top-[50%] translate-y-[-50%] z-[2]"
       v-if="!route.meta?.hideAction"
     >
       <span class="rounded-full border border-neutral-40 p-2 cursor-pointer relative">
@@ -37,6 +37,7 @@
           width="20"
           height="20"
           class="!text-icon-default svg-line"
+          @click="local.showNotification = !local.showNotification"
         ></s-icon>
         <span class="rounded bg-danger w-[6px] h-[6px] absolute top-2 right-[10px]"></span>
       </span>
@@ -48,11 +49,20 @@
       ></s-icon>
       <transition name="fade">
         <span
-          class="card text-danger absolute right-2 top-[calc(100%+4px)] z-[2] p-3 px-8 shadow-lg border !rounded-tr-[0px] font-semibold"
+          class="card text-danger absolute right-[calc(50%-12px)] top-[calc(100%+4px)] z-[2] p-6 shadow-lg border !rounded-lg w-[250px] text-left text-[17px] leading-[140%]"
           @click="handleLogout"
           v-if="local.showLogout"
         >
           Logout
+        </span>
+      </transition>
+      <transition name="fade">
+        <span
+          class="absolute right-[calc(50%-12px)] top-[calc(100%+4px)] w-[500px] bg-white"
+          @click="handleLogout"
+          v-if="local.showNotification"
+        >
+          <Notification />
         </span>
       </transition>
     </span>
@@ -62,15 +72,18 @@
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import Notification from '@/components/Nofitication.vue';
 const route = useRoute();
 const router = useRouter();
 
 interface Local {
   showLogout?: boolean;
+  showNotification: boolean;
 }
 
 const local: Local = reactive({
   showLogout: false,
+  showNotification: false,
 });
 
 const handleLogout = () => {

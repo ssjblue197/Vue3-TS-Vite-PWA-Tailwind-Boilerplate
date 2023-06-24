@@ -11,6 +11,16 @@
         variant="primary"
         @click="
           router.push({
+            name: 'pulling-spotter',
+          })
+        "
+        >Go to Pulling Inventory Spotter</s-button
+      >
+      <s-button
+        class="w-[650px] h-[52px]"
+        variant="primary"
+        @click="
+          router.push({
             name: 'fulfill-request',
           })
         "

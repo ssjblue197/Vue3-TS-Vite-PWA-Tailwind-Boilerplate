@@ -16,7 +16,7 @@ export const VARIANT: Record<string, string> = {
   'primary-outline':
     'text-primary bg-white border-primary hover:bg-primary-100 focus:text-primary active:bg-primary-200',
   'secondary-outline':
-    'text-secondary bg-white border-secondary hover:bg-secondary-100 focus:text-secondary active:bg-secondary-200 ',
+    'text-neutral-200 bg-white border-neutral-40 hover:bg-secondary-100 focus:text-secondary active:bg-secondary-200 ',
   'danger-outline':
     'text-danger bg-white border-danger hover:bg-danger-100 focus:text-danger active:bg-danger-200',
   'error-outline': 'text-error bg-white border-error hover:bg-error-100 focus:text-error active:bg-error-200',
