@@ -16,13 +16,13 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
-      // injectRegister: 'auto',
-      injectRegister: null,
+      injectRegister: 'auto',
+      // injectRegister: null,
       strategies: 'injectManifest',
-      srcDir: 'public',
-      filename: 'firebase-messaging-sw.js',
+      srcDir: 'src/services',
+      filename: 'update.ts',
       injectManifest: {
-        injectionPoint: undefined, 
+        // injectionPoint: undefined, 
         // rollupFormat: 'iief',
       },
       registerType: 'autoUpdate',
@@ -55,11 +55,11 @@ export default defineConfig({
         gcm_sender_id: '520641201951',
       },
       workbox: {
-        importScripts: ['firebase-messaging-sw.js'],
+        // importScripts: ['firebase-messaging-sw.js'],
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         sourcemap: true,
-        swSrc: 'public/firebase-messaging-sw.js',
-        swDest: 'dist/firebase-messaging-sw.js',
+        // swSrc: 'src/services/update.ts',
+        // swDest: 'dist/update.ts',
         cleanupOutdatedCaches: true
       },
     })

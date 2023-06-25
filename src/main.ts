@@ -20,6 +20,37 @@ import loading from "./directives/loading";
 import { messaging } from '@/services/firebase';
 import { onMessage } from 'firebase/messaging';
 
+import { registerSW } from 'virtual:pwa-register'
+
+import { registerSW } from 'virtual:pwa-register'
+
+const intervalMS = 60 * 60 * 1000
+
+const updateSW = registerSW({
+  onRegisteredSW(swUrl:any, r:any) {
+    r && setInterval(async () => {
+      if (!(!r.installing && navigator))
+        return
+
+      if (('connection' in navigator) && !navigator.onLine)
+        return
+
+      const resp = await fetch(swUrl, {
+        cache: 'no-store',
+        headers: {
+          'cache': 'no-store',
+          'cache-control': 'no-cache',
+        },
+      })
+
+      if (resp?.status === 200)
+        await r.update()
+    }, intervalMS)
+  }
+})
+console.warn(updateSW);
+
+
 const app = createApp(App);
 
 
