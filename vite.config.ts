@@ -16,22 +16,19 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
-      injectRegister: 'auto',
-      // injectRegister: null,
+      // injectRegister: 'auto',
+      injectRegister: null,
       strategies: 'injectManifest',
-      srcDir: 'src/services',
-      outDir: 'dist', //dist is default
-      filename: 'worker.ts',
+      srcDir: 'public',
+      filename: 'firebase-messaging-sw.js',
       injectManifest: {
-        // injectionPoint: undefined, 
+        injectionPoint: undefined, 
         // rollupFormat: 'iief',
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
       },
-      registerType: 'prompt', //prompt is default
+      registerType: 'autoUpdate',
       devOptions: {
         enabled: true,
         type: 'module',
-        // disableRuntimeConfig: false, //Only work when use injectManifest strategy
         navigateFallback: 'index.html',
       },
       includeAssets: ['favicon.ico', 'robots.txt', '*.svg', '*.{png,ico}'],
@@ -58,11 +55,11 @@ export default defineConfig({
         gcm_sender_id: '520641201951',
       },
       workbox: {
-        // importScripts: ['firebase-messaging-sw.js'],
+        importScripts: ['firebase-messaging-sw.js'],
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         sourcemap: true,
-        swSrc: 'src/services/worker.ts',
-        swDest: 'dist/worker.ts',
+        swSrc: 'public/firebase-messaging-sw.js',
+        swDest: 'dist/firebase-messaging-sw.js',
         cleanupOutdatedCaches: true
       },
     })

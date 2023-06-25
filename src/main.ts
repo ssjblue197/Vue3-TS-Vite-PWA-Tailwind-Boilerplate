@@ -20,38 +20,10 @@ import loading from "./directives/loading";
 import { messaging } from '@/services/firebase';
 import { onMessage } from 'firebase/messaging';
 
-import { registerSW } from 'virtual:pwa-register'
-// const updateSW = registerSW({
-//   onNeedRefresh() {},
-//   onOfflineReady() {},
-// })
-
-const intervalMS = 60 * 60 * 1000
-
-registerSW({
-  onRegisteredSW(swUrl: any, r: any) {
-    r && setInterval(async () => {
-      if (!(!r.installing && navigator))
-        return
-
-      if (('connection' in navigator) && !navigator.onLine)
-        return
-
-      const resp = await fetch(swUrl, {
-        cache: 'no-store',
-        headers: {
-          'cache': 'no-store',
-          'cache-control': 'no-cache',
-        },
-      })
-
-      if (resp?.status === 200)
-        await r.update()
-    }, intervalMS)
-  }
-})
-
 const app = createApp(App);
+
+
+
 spod(app);
 svgIcon(app);
 
@@ -91,6 +63,5 @@ onMessage(messaging, (payload) => {
   //   notificationStore.newNotification = null;
   // }, 4000);
 });
-
 
 app.mount("#app");

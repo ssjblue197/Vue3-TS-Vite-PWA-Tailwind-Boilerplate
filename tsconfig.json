@@ -27,8 +27,7 @@
     "allowSyntheticDefaultImports": true,
     "types": [
       "vite/client",
-      "node",
-      "vite-plugin-pwa/client"
+      "node"
     ],
     //
     "baseUrl": ".",

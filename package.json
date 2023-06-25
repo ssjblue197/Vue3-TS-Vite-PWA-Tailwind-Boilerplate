@@ -35,9 +35,6 @@
     "vue-multiselect": "^3.0.0-beta.2",
     "vue-router": "^4.2.2",
     "vue3-popper": "^1.5.0",
-    "workbox-build": "^7.0.0",
-    "workbox-routing": "^7.0.0",
-    "workbox-strategies": "^7.0.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {
