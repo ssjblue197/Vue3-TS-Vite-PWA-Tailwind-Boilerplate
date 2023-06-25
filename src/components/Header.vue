@@ -31,7 +31,10 @@
       class="flex flex-nowrap gap-3 absolute right-7 top-[50%] translate-y-[-50%] z-[3]"
       v-if="!route.meta?.hideAction"
     >
-      <span class="rounded-full border border-neutral-40 p-2 cursor-pointer relative">
+      <span
+        class="rounded-full border border-neutral-40 p-2 cursor-pointer relative"
+        id="notification-popup"
+      >
         <s-icon
           :src="$icon.render('iconRing')"
           width="20"
@@ -40,30 +43,34 @@
           @click="local.showNotification = !local.showNotification"
         ></s-icon>
         <span class="rounded bg-danger w-[6px] h-[6px] absolute top-2 right-[10px]"></span>
+        <transition name="fade">
+          <span
+            class="absolute right-0 top-[calc(100%+4px)] w-[500px] bg-white z-[2]"
+            v-show="local.showNotification"
+          >
+            <Notification />
+          </span>
+        </transition>
       </span>
-      <s-icon
-        :src="$icon.render('iconAvatar')"
-        width="36"
-        height="36"
-        @click="local.showLogout = !local.showLogout"
-      ></s-icon>
-      <transition name="fade">
-        <span
-          class="card text-danger absolute right-[calc(50%-12px)] top-[calc(100%+4px)] z-[2] p-6 shadow-lg border !rounded-lg w-[250px] text-left text-[17px] leading-[140%]"
-          @click="handleLogout"
-          v-if="local.showLogout"
+      <span class="rounded-full border border-neutral-40 cursor-pointer relative" id="logout-popup">
+        <s-icon
+          :src="$icon.render('iconAvatar')"
+          width="36"
+          height="36"
+          @click="local.showLogout = !local.showLogout"
+          class="cursor-pointer relative"
         >
-          Logout
-        </span>
-      </transition>
-      <transition name="fade">
-        <span
-          class="absolute right-[calc(50%-12px)] top-[calc(100%+4px)] w-[500px] bg-white z-[2]"
-          v-if="local.showNotification"
-        >
-          <Notification />
-        </span>
-      </transition>
+        </s-icon>
+        <transition name="fade">
+          <span
+            class="card text-danger absolute right-0 top-[calc(100%+4px)] z-[2] p-6 shadow-lg border !rounded-lg w-[250px] text-left text-[17px] leading-[140%]"
+            @click="handleLogout"
+            v-show="local.showLogout"
+          >
+            Logout
+          </span>
+        </transition>
+      </span>
     </span>
   </div>
 </template>
@@ -93,7 +100,28 @@ const handleLogout = () => {
   });
 };
 
-onMounted(() => {});
+onMounted(() => {
+  const notificationPopup = document.getElementById('notification-popup');
+  if (notificationPopup) {
+    document.addEventListener('click', function (event: any) {
+      const isClickedOutside = !notificationPopup.contains(event.target);
+      if (isClickedOutside && local.showNotification) {
+        // Perform your desired actions here
+        local.showNotification = false;
+      }
+    });
+  }
+  const logoutPopup = document.getElementById('logout-popup');
+  if (logoutPopup) {
+    document.addEventListener('click', function (event: any) {
+      const isClickedOutside = !logoutPopup.contains(event.target);
+      if (isClickedOutside && local.showLogout) {
+        // Perform your desired actions here
+        local.showLogout = false;
+      }
+    });
+  }
+});
 </script>
 
 <style scoped></style>
