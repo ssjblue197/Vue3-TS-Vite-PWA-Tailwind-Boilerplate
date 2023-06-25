@@ -14,10 +14,14 @@
         class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-scroll relative"
       >
         <transition-group mode="out-in" name="list" appear>
-          <RequestItem v-for="i in 20" :key="i" />
+          <RequestItem
+            v-for="i in 20"
+            :key="i"
+            @click="local.selectRequest ? (local.selectRequest = null) : (local.selectRequest = i)"
+          />
         </transition-group>
       </div>
-      <div class="w-[390px]">
+      <div class="hidden lg:block w-[390px]">
         <transition name="slide-fade-right" appear>
           <RequestDetail>
             <template #bottom>
@@ -45,6 +49,29 @@
         </ScanQRCode>
       </div>
     </Teleport>
+    <Teleport to="body">
+      <div
+        class="absolute center block lg:hidden w-[600px] z-1 bg-white shadow-2xl rounded-[16px]"
+        v-if="local.selectRequest"
+      >
+        <transition name="fade" appear>
+          <RequestDetail>
+            <template #bottom>
+              <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
+                >Pick up now</s-button
+              >
+            </template>
+          </RequestDetail>
+        </transition>
+        <s-icon
+          :src="$icon.render('iconClose')"
+          width="24"
+          height="24"
+          class="!text-neutral-100 absolute top-4 right-4 cursor-pointer"
+          @click="local.selectRequest = null"
+        ></s-icon>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -62,11 +89,13 @@ const router = useRouter();
 interface Local {
   showScanLocation?: boolean;
   showMessage: boolean;
+  selectRequest?: any;
 }
 
 const local: Local = reactive({
   showScanLocation: false,
   showMessage: false,
+  selectRequest: null,
 });
 
 const onScan = (decodedText: string, decodedResult: any) => {

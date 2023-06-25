@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-row justify-center p-6 bg-neutral-10 gap-7">
-    <div class="w-[50%]">
+    <div class="flex-1 lg:basis-1/2 lg:flex-none">
       <transition name="slide-fade-left" appear>
         <RequestDetail>
           <template #bottom>

@@ -25,7 +25,7 @@
         {{ props.count }}
       </s-tag>
       <s-icon
-        :src="$icon.render('iconCloseGray')"
+        :src="$icon.render('iconClose')"
         width="24"
         height="24"
         class="!text-icon-default svg-line"
