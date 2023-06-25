@@ -51,7 +51,7 @@
     </Teleport>
     <Teleport to="body">
       <div
-        class="absolute center block lg:hidden w-[600px] z-1 bg-white shadow-2xl rounded-[16px]"
+        class="absolute center block lg:hidden w-[80%] max-w-[600px] z-1 bg-white shadow-2xl rounded-[16px]"
         v-if="local.selectRequest"
       >
         <transition name="fade" appear>
