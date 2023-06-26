@@ -58,8 +58,8 @@ export default defineConfig({
         // importScripts: ['firebase-messaging-sw.js'],
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         sourcemap: true,
-        // swSrc: 'src/services/update.ts',
-        // swDest: 'dist/update.ts',
+        swSrc: 'src/services/update.ts',
+        swDest: 'dist/update.ts',
         cleanupOutdatedCaches: true
       },
     })

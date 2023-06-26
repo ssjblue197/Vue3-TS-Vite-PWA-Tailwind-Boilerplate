@@ -20,15 +20,14 @@ import loading from "./directives/loading";
 import { messaging } from '@/services/firebase';
 import { onMessage } from 'firebase/messaging';
 
-import { registerSW } from 'virtual:pwa-register'
+import { registerSW } from 'virtual:pwa-register';
 
-import { registerSW } from 'virtual:pwa-register'
-
-const intervalMS = 60 * 60 * 1000
+const intervalMS = 60 * 1000
 
 const updateSW = registerSW({
   onRegisteredSW(swUrl:any, r:any) {
     r && setInterval(async () => {
+      
       if (!(!r.installing && navigator))
         return
 
