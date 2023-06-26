@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 onMounted(() => {
-  console.log(props);
+  // console.log(props);
 });
 </script>
 

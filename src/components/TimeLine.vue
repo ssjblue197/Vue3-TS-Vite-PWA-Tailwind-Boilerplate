@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import TimeLineMark from './TimeLineMark.vue';
 
-interface Mark {
+export interface Mark {
   title?: string;
   name?: string;
   time?: string;

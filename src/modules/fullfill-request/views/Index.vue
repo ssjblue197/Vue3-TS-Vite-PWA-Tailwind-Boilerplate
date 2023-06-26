@@ -2,7 +2,7 @@
   <div class="w-full flex flex-col justify-start p-6 pb-0 bg-neutral-10 gap-6">
     <div class="flex justify-between items-center">
       <span class="text-[22px] leading-[28px] text-neutral-900">
-        <LaneTag title="All" :count="120" />
+        <LaneTag title="All" :count="requestStore.total" />
       </span>
       <s-button variant="primary" class="w-[220px] !h-[40px]" @click="handleScanningLocation">
         Scan location code
@@ -12,18 +12,21 @@
     <div class="flex gap-7">
       <div
         class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-scroll relative"
+        v-if="local.requestList.length > 0"
       >
         <transition-group mode="out-in" name="list" appear>
           <RequestItem
-            v-for="i in 20"
-            :key="i"
-            @click="local.selectRequest ? (local.selectRequest = null) : (local.selectRequest = i)"
+            v-for="request in local.requestList"
+            :key="request?.id"
+            :data="request"
+            @click="handleSelectRequest(request)"
+            :active="local.selectRequest?.id === request.id"
           />
         </transition-group>
       </div>
       <div class="hidden lg:block w-[390px]">
         <transition name="slide-fade-right" appear>
-          <RequestDetail>
+          <RequestDetail v-if="local.selectRequest" :data="local.selectRequest">
             <template #bottom>
               <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
                 >Pick up now</s-button
@@ -76,26 +79,38 @@
 </template>
 
 <script setup lang="ts">
+import { reactive, onMounted } from 'vue';
 import ScanQRCode from '@/components/ScanQRCode.vue';
 import RequestItem from '@/components/RequestItem.vue';
 import RequestDetail from '@/components/RequestDetail.vue';
 // import EventBus from '@/utils/eventbus';
-import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import LaneTag from '@/components/LaneTag.vue';
+import { useRequestStore } from '@/stores/request';
+import type { Request } from '@/modules/fullfill-request/types';
+import type { RequestParams } from '@/api/request';
 
+const requestStore = useRequestStore();
 const router = useRouter();
 
 interface Local {
   showScanLocation?: boolean;
   showMessage: boolean;
   selectRequest?: any;
+  requestList: Array<Request>;
+  loadMore: boolean;
+  isEnd: boolean;
+  filter?: RequestParams;
 }
 
 const local: Local = reactive({
   showScanLocation: false,
   showMessage: false,
   selectRequest: null,
+  requestList: [],
+  loadMore: false,
+  isEnd: false,
+  filter: null,
 });
 
 const onScan = (decodedText: string, decodedResult: any) => {
@@ -119,6 +134,35 @@ const handlePickup = () => {
     name: 'picking-up',
   });
 };
+
+const setDefaultFilter = () => {
+  return {
+    employee: '',
+    limit: 10,
+    page: 1,
+    type: '',
+    location: '',
+  };
+};
+
+const loadData = async () => {
+  local.filter = setDefaultFilter();
+  const data = await requestStore.getListRequest(local.filter);
+  if (data.length > 0) {
+    local.requestList = data;
+    local.selectRequest = data[0];
+  }
+};
+
+const handleSelectRequest = (request: Request) => {
+  if (!local.selectRequest || (local.selectRequest && local.selectRequest.id !== request.id)) {
+    local.selectRequest = request;
+  }
+};
+
+onMounted(() => {
+  loadData();
+});
 </script>
 
 <style scoped></style>

@@ -1,14 +1,11 @@
 import http from './http';
+import { objectToQueryString } from '@/utils/helper';
 
 export interface AuthParams {
-  username: string;
-  password: string;
+  code: string;
+  token: string;
 }
 
 export function login(params: AuthParams) {
-  return http.post(`auth`, params);
-}
-
-export function me() {
-  return http.get(`me`);
+  return http.get(`internal-request/login?${objectToQueryString(params)}`);
 }

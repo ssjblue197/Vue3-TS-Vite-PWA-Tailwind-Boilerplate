@@ -66,3 +66,8 @@ export function formatTime(seconds: number) {
 
   return formattedTime;
 };
+
+export function  formatDateTime(value: string) {
+  if (!value) return;
+  return value;
+}
