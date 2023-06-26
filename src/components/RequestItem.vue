@@ -8,7 +8,7 @@
     <div class="flex flex-row justify-between overflow-hidden">
       <span class="flex flex-nowrap gap-2">
         <span class="font-semibold text-neutral-200">
-          ID: <strong class="text-neutral-900">#{{ props.data.id }}</strong>
+          ID: <strong class="text-neutral-900">#{{ props.data?.id }}</strong>
         </span>
         <s-tag
           variant="primary"
@@ -52,8 +52,8 @@
         <s-tag
           class="!border-neutral-40 border bg-white gap-2 py-2 px-4"
           :class="{
-            '!bg-success-50': props.data.stock_level === STOCK_LEVEL.in_coming,
-            '!bg-danger-50': props.data.stock_level === STOCK_LEVEL.out_of_stock,
+            '!bg-success-50': props.data?.stock_level === STOCK_LEVEL.in_coming,
+            '!bg-danger-50': props.data?.stock_level === STOCK_LEVEL.out_of_stock,
           }"
         >
           <template #before>
@@ -66,7 +66,7 @@
             </s-icon>
           </template>
           <span class="text-[17px] text-neutral-900 max-w-[200px] truncate leading-[140%]">
-            {{ displayLocation(props.data) }}
+            {{ props.data && displayLocation(props?.data) }}
           </span>
         </s-tag>
       </span>
@@ -94,7 +94,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  data: null,
+  data: undefined,
   active: false,
 });
 

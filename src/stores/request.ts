@@ -1,4 +1,3 @@
-import http from '@/api/http';
 import { defineStore } from 'pinia';
 import type { Request} from '@/modules/fullfill-request/types';
 import type { RequestParams } from '@/api/request';

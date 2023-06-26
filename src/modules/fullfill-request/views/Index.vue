@@ -71,7 +71,7 @@
           width="24"
           height="24"
           class="!text-neutral-100 absolute top-4 right-4 cursor-pointer"
-          @click="local.selectRequest = null"
+          @click="local.selectRequest = undefined"
         ></s-icon>
       </div>
     </Teleport>
@@ -96,7 +96,7 @@ const router = useRouter();
 interface Local {
   showScanLocation?: boolean;
   showMessage: boolean;
-  selectRequest?: any;
+  selectRequest?: Request;
   requestList: Array<Request>;
   loadMore: boolean;
   isEnd: boolean;
@@ -106,11 +106,11 @@ interface Local {
 const local: Local = reactive({
   showScanLocation: false,
   showMessage: false,
-  selectRequest: null,
+  selectRequest: undefined,
   requestList: [],
   loadMore: false,
   isEnd: false,
-  filter: null,
+  filter: undefined,
 });
 
 const onScan = (decodedText: string, decodedResult: any) => {

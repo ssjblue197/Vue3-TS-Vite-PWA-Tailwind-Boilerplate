@@ -8,7 +8,7 @@
     <div class="flex flex-col gap-2 text-[17px] pb-5" v-if="!props.hideLocation">
       <span class="text-neutral-200">Location</span>
       <span class="text-neutral-900 flex flex-wrap gap-3">
-        <template v-if="props.data?.locations?.length > 0">
+        <template v-if="props.data?.locations && props.data?.locations?.length > 0">
           <s-tag
             class="!rounded-[12px] !h-[32px] leading-[1.4] text-[17px]"
             variant="information"
@@ -45,7 +45,7 @@
 import { onMounted } from 'vue';
 import TimeLine from '@/components/TimeLine.vue';
 import type { Request } from '@/modules/fullfill-request/types';
-import { STOCK_LEVEL, STEP_EMPLOYEE } from '@/modules/fullfill-request/const';
+import { STEP_EMPLOYEE } from '@/modules/fullfill-request/const';
 import type { Mark as TimelineStep } from '@/components/TimeLine.vue';
 import { formatDateTime } from '@/utils/helper';
 
@@ -60,7 +60,7 @@ const props = withDefaults(defineProps<Props>(), {
   hideLocation: false,
   hideDetail: false,
   hideDivide: false,
-  data: null,
+  data: undefined,
 });
 //TODO update type any
 const generateTimeline = (data: any) => {

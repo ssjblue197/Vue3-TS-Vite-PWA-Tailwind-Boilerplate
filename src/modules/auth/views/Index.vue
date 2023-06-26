@@ -6,51 +6,53 @@
       @result="onScan"
       @error="onError"
     >
-      <!-- <template #default>
-        <s-button outline class="!bg-white active:!opacity-80" @click="router.go(-1)">
-          Cancel scanning
+      <template #default>
+        <s-button
+          outline
+          class="!bg-white active:!opacity-80"
+          @click="router.go(-1)"
+          v-if="local.invalidQR"
+        >
+          Try again
         </s-button>
-      </template> -->
+      </template>
     </ScanQRCode>
   </div>
 </template>
 
 <script setup lang="ts">
+import { reactive } from 'vue';
 import ScanQRCode from '@/components/ScanQRCode.vue';
 import { useRouter } from 'vue-router';
 import EventBus from '@/utils/eventbus';
+import { useAuthStore } from '@/stores/auth';
+import { useNotificationStore } from '@/stores/notification';
 
+const notificationStore = useNotificationStore();
+const authStore = useAuthStore();
 const router = useRouter();
 
-const onScan = (decodedText: string, decodedResult: any) => {
+interface Local {
+  invalidQR: boolean;
+}
+
+const local: Local = reactive({
+  invalidQR: false,
+});
+
+const onScan = async (decodedText: string, decodedResult: any) => {
   console.log(decodedResult);
-  router.push('/home');
   if (decodedText) {
-    let isValidJSON = true;
-    let result = {};
-
-    try {
-      result = JSON.parse(decodedText);
-    } catch (error) {
-      isValidJSON = false;
-    }
-
-    if (
-      isValidJSON &&
-      Object.keys(result).includes('employee_code') &&
-      Object.keys(result).includes('department') &&
-      Object.keys(result).length === 2
-    ) {
+    if (!Number.isNaN(+decodedText) && notificationStore.firebaseToken) {
       EventBus.$emit('changeState', 3);
+      const payload = {
+        code: decodedText,
+        token: notificationStore.firebaseToken,
+      };
+      const data = await authStore.login(payload);
+      console.log(data);
 
-      // const payload = {
-      //   ...result,
-      //   token: notificationStore.firebaseToken,
-      // }
-
-      //TODO Handle Login
-
-      router.push('/home');
+      console.log(payload);
     }
   }
 };
