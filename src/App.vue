@@ -119,7 +119,7 @@ const refreshFCMToken = async () => {
 
 onMounted(() => {
   socket.asyncConnect();
-  // refreshFCMToken();
+  refreshFCMToken();
   if (Notification.permission !== 'granted') {
     local.showPopupEnableNotify = true;
   }
