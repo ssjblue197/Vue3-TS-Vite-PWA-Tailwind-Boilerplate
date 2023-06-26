@@ -146,7 +146,7 @@ const onClearFilter = async () => {
 
 const onScan = async (decodedText: string, decodedResult: any) => {
   if (decodedText) {
-    console.log(decodedText);
+    console.log(decodedResult);
     local.filter.page = 1;
     local.isEnd = false;
     local.filter.location = decodedText;

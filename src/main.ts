@@ -20,6 +20,7 @@ import loading from "./directives/loading";
 import { messaging } from '@/services/firebase';
 import { onMessage } from 'firebase/messaging';
 
+// @ts-ignore
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
 

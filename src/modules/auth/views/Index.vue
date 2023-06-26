@@ -23,14 +23,14 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import ScanQRCode from '@/components/ScanQRCode.vue';
-import { useRouter } from 'vue-router';
+// import { useRouter } from 'vue-router';
 import EventBus from '@/utils/eventbus';
 import { useAuthStore } from '@/stores/auth';
 import { useNotificationStore } from '@/stores/notification';
 
 const notificationStore = useNotificationStore();
 const authStore = useAuthStore();
-const router = useRouter();
+// const router = useRouter();
 
 interface Local {
   invalidQR: boolean;
@@ -51,8 +51,6 @@ const onScan = async (decodedText: string, decodedResult: any) => {
       };
       const data = await authStore.login(payload);
       console.log(data);
-
-      console.log(payload);
     }
   }
 };

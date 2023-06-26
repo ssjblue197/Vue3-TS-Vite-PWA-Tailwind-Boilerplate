@@ -32,7 +32,7 @@
       </span>
       <span class="flex gap-1 text-[13px]">
         <span class="text-neutral-90"> Age: </span>
-        <span class="text-primary-200"> {{ timeFromNow(props.data.created_at) }} </span>
+        <span class="text-primary-200"> {{ timeFromNow(props.data?.created_at) }} </span>
       </span>
     </div>
     <div class="flex flex-row justify-between items-center overflow-hidden">

@@ -76,7 +76,7 @@ export function  formatDateTime(value: string) {
 }
 
 
-export const replaceTimeFromNow = (timeNow: string) =>  {  
+export const replaceTimeFromNow = (timeNow: string | undefined) =>  {  
   if (!timeNow) return timeNow;
   if (timeNow.includes("few seconds")) {
     timeNow = timeNow.replace("few seconds", "sec");
@@ -117,7 +117,7 @@ export const replaceTimeFromNow = (timeNow: string) =>  {
   return timeNow;
 }
 
-export function timeFromNow(date: string) {
+export function timeFromNow(date: string | undefined) {
   if (!date) return;
   return replaceTimeFromNow(moment(date).fromNow(true));
 }
