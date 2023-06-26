@@ -9,7 +9,7 @@
   <Teleport to="body">
     <div
       v-if="local.showPopupEnableNotify && checkAppInstalled()"
-      class="wraper !z-[9999] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
+      class="wraper !z-[9998] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
     >
       <div
         class="w-[80%] mb-5 flex flex-col p-5 items-center bg-white rounded-[28px] gap-5 relative mx-auto"
@@ -24,7 +24,7 @@
       </div>
     </div>
   </Teleport>
-  <!-- <Teleport to="body">
+  <Teleport to="body">
     <div
       v-if="!checkAppInstalled()"
       class="wraper !z-[9999] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
@@ -51,7 +51,7 @@
         <img src="@/assets/images/logo.png" alt="icon" class="h-full" />
       </div>
     </div>
-  </Teleport> -->
+  </Teleport>
 </template>
 
 <script setup lang="ts">
