@@ -1,4 +1,4 @@
-
+import moment from 'moment';
 export function queryStringToObject(queryString: string) {
   var pairs = queryString.split('&');
   var result: any = {};
@@ -69,5 +69,55 @@ export function formatTime(seconds: number) {
 
 export function  formatDateTime(value: string) {
   if (!value) return;
+  if (value.includes('T')) {
+    return moment(value).format('YYYY-MM-DD HH:mm:ss');    
+  }
   return value;
+}
+
+
+export const replaceTimeFromNow = (timeNow: string) =>  {  
+  if (!timeNow) return timeNow;
+  if (timeNow.includes("few seconds")) {
+    timeNow = timeNow.replace("few seconds", "sec");
+  }
+  if (timeNow.includes("seconds ")) {
+    timeNow = timeNow.replace("seconds", "sec");
+  }
+  if (timeNow.includes("minutes")) {
+    timeNow = timeNow.replace("minutes", "min");
+  }
+  if (timeNow.includes("minute")) {
+    timeNow = timeNow.replace("minute", "min");
+  }
+  if (timeNow.includes("hours")) {
+    timeNow = timeNow.replace("hours", "hr");
+  }
+  if (timeNow.includes("hour")) {
+    timeNow = timeNow.replace("hour ", "hr");
+  }
+  // if (timeNow.includes("days")) {
+  //   timeNow = timeNow.replace("days", "d");
+  // }
+  // if (timeNow.includes("day")) {
+  //   timeNow = timeNow.replace("day", "d");
+  // }
+  // if (timeNow.includes("months")) {
+  //   timeNow = timeNow.replace("months", "m");
+  // }
+  // if (timeNow.includes("month")) {
+  //   timeNow = timeNow.replace("month", "m");
+  // }
+  // if (timeNow.includes("years")) {
+  //   timeNow = timeNow.replace("years", "y");
+  // }
+  // if (timeNow.includes("year")) {
+  //   timeNow = timeNow.replace("year", "y");
+  // }
+  return timeNow;
+}
+
+export function timeFromNow(date: string) {
+  if (!date) return;
+  return replaceTimeFromNow(moment(date).fromNow(true));
 }

@@ -3,8 +3,8 @@ import { objectToQueryString } from '@/utils/helper';
 
 export interface RequestParams {
   employee?: string;
-  limit?: number;
-  page?: number;
+  limit: number;
+  page: number;
   type?: string;
   location?: string;
 }

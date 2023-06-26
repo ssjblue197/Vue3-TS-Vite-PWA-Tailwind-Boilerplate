@@ -2,7 +2,11 @@
   <div class="w-full flex flex-col justify-start p-6 pb-0 bg-neutral-10 gap-6">
     <div class="flex justify-between items-center">
       <span class="text-[22px] leading-[28px] text-neutral-900">
-        <LaneTag title="All" :count="requestStore.total" />
+        <LaneTag
+          :title="local.filter.location ? local.filter.location : 'All'"
+          :count="requestStore.total"
+          @clear="onClearFilter"
+        />
       </span>
       <s-button variant="primary" class="w-[220px] !h-[40px]" @click="handleScanningLocation">
         Scan location code
@@ -11,17 +15,24 @@
 
     <div class="flex gap-7">
       <div
-        class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-scroll relative"
+        class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-scroll relative items-center"
+        id="scroll-area"
         v-if="local.requestList.length > 0"
       >
         <transition-group mode="out-in" name="list" appear>
           <RequestItem
+            ref="requestList"
             v-for="request in local.requestList"
             :key="request?.id"
             :data="request"
             @click="handleSelectRequest(request)"
             :active="local.selectRequest?.id === request.id"
           />
+          <infinite-loading
+            target="#scroll-area"
+            @infinite="loadData(false)"
+            v-if="!local.isEnd"
+          ></infinite-loading>
         </transition-group>
       </div>
       <div class="hidden lg:block w-[390px]">
@@ -58,7 +69,7 @@
         v-if="local.selectRequest"
       >
         <transition name="fade" appear>
-          <RequestDetail>
+          <RequestDetail v-if="local.selectRequest" :data="local.selectRequest">
             <template #bottom>
               <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
                 >Pick up now</s-button
@@ -79,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, ref } from 'vue';
 import ScanQRCode from '@/components/ScanQRCode.vue';
 import RequestItem from '@/components/RequestItem.vue';
 import RequestDetail from '@/components/RequestDetail.vue';
@@ -89,9 +100,11 @@ import LaneTag from '@/components/LaneTag.vue';
 import { useRequestStore } from '@/stores/request';
 import type { Request } from '@/modules/fullfill-request/types';
 import type { RequestParams } from '@/api/request';
+import axios from 'axios';
 
 const requestStore = useRequestStore();
 const router = useRouter();
+const requestList = ref();
 
 interface Local {
   showScanLocation?: boolean;
@@ -100,8 +113,19 @@ interface Local {
   requestList: Array<Request>;
   loadMore: boolean;
   isEnd: boolean;
-  filter?: RequestParams;
+  filter: RequestParams;
 }
+
+const setDefaultFilter = () => {
+  return {
+    employee: '',
+    limit: 5,
+    page: 1,
+    // type: 'load-more',
+    type: '',
+    location: '',
+  };
+};
 
 const local: Local = reactive({
   showScanLocation: false,
@@ -110,12 +134,23 @@ const local: Local = reactive({
   requestList: [],
   loadMore: false,
   isEnd: false,
-  filter: undefined,
+  filter: setDefaultFilter(),
 });
 
-const onScan = (decodedText: string, decodedResult: any) => {
-  console.log(decodedResult);
+const onClearFilter = async () => {
+  local.filter.page = 1;
+  local.isEnd = false;
+  local.filter.location = '';
+  await loadData();
+};
+
+const onScan = async (decodedText: string, decodedResult: any) => {
   if (decodedText) {
+    console.log(decodedText);
+    local.filter.page = 1;
+    local.isEnd = false;
+    local.filter.location = decodedText;
+    await loadData();
     local.showScanLocation = false;
   }
 };
@@ -135,22 +170,25 @@ const handlePickup = () => {
   });
 };
 
-const setDefaultFilter = () => {
-  return {
-    employee: '',
-    limit: 10,
-    page: 1,
-    type: '',
-    location: '',
-  };
-};
-
-const loadData = async () => {
-  local.filter = setDefaultFilter();
-  const data = await requestStore.getListRequest(local.filter);
-  if (data.length > 0) {
-    local.requestList = data;
-    local.selectRequest = data[0];
+const loadData = async (init = true) => {
+  try {
+    if (!init) {
+      local.loadMore = true;
+      local.filter.page += 1;
+    } else {
+      local.requestList = [];
+    }
+    const data = await requestStore.getListRequest(local.filter);
+    if (data.length > 0) {
+      local.requestList = [...local.requestList, ...data];
+      if (init) {
+        local.selectRequest = local.requestList[0];
+      }
+    } else {
+      local.isEnd = true;
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) console.warn(error);
   }
 };
 
@@ -160,9 +198,8 @@ const handleSelectRequest = (request: Request) => {
   }
 };
 
-onMounted(() => {
-  loadData();
-});
+loadData();
+onMounted(() => {});
 </script>
 
 <style scoped></style>

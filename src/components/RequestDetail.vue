@@ -99,7 +99,7 @@ const generateTimeline = (data: any) => {
 };
 
 onMounted(() => {
-  console.log(props.data);
+  // console.log(props.data);
 });
 </script>
 

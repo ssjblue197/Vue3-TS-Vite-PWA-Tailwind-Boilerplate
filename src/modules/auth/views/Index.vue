@@ -10,7 +10,7 @@
         <s-button
           outline
           class="!bg-white active:!opacity-80"
-          @click="router.go(-1)"
+          @click="tryScanAgain"
           v-if="local.invalidQR"
         >
           Try again
@@ -55,6 +55,11 @@ const onScan = async (decodedText: string, decodedResult: any) => {
       console.log(payload);
     }
   }
+};
+
+const tryScanAgain = () => {
+  EventBus.$emit('changeState', 0);
+  local.invalidQR = false;
 };
 
 const onError = () => {};

@@ -28,6 +28,7 @@
     "ramda": "^0.29.0",
     "sass": "^1.63.4",
     "socket.io-client": "^4.6.2",
+    "v3-infinite-loading": "^1.2.2",
     "vee-validate": "^4.9.6",
     "vite-plugin-pwa": "^0.16.4",
     "vue": "^3.2.47",
