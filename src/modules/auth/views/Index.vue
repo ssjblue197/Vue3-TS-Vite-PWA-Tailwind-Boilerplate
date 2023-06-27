@@ -41,7 +41,6 @@ const local: Local = reactive({
 });
 
 const onScan = async (decodedText: string, decodedResult: any) => {
-  console.log(decodedResult);
   if (decodedText) {
     if (notificationStore.firebaseToken) {
       EventBus.$emit('changeState', 3);
