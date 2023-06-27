@@ -6,7 +6,7 @@
       <NewNotifyMessage v-if="local.showMessage" />
     </transition>
   </div>
-  <!-- <Teleport to="body">
+  <Teleport to="body">
     <div
       v-if="local.showPopupEnableNotify && checkAppInstalled()"
       class="wraper !z-[9998] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
@@ -23,7 +23,7 @@
         </s-button>
       </div>
     </div>
-  </Teleport> -->
+  </Teleport>
   <!-- <Teleport to="body">
     <div
       v-if="!checkAppInstalled()"
