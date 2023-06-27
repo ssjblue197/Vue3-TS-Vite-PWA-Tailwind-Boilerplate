@@ -43,7 +43,7 @@ const local: Local = reactive({
 const onScan = async (decodedText: string, decodedResult: any) => {
   console.log(decodedResult);
   if (decodedText) {
-    if (!Number.isNaN(+decodedText) && notificationStore.firebaseToken) {
+    if (notificationStore.firebaseToken) {
       EventBus.$emit('changeState', 3);
       const payload = {
         code: '10170',

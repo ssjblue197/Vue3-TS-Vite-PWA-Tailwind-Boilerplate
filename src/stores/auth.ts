@@ -2,8 +2,10 @@ import { defineStore } from 'pinia';
 import type { Employee } from '@/modules/fullfill-request/types';
 import { login } from '@/api/auth';
 import type { AuthParams } from '@/api/auth';
+import { useNotificationStore } from  '@/stores/notification';
 import axios from 'axios';
 
+const notificationStore = useNotificationStore();
 export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
@@ -20,7 +22,10 @@ export const useAuthStore = defineStore('auth', {
         return data.data;
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.log(error);
+          notificationStore.showMessage({
+            title: 'Login failed!',
+            message: error?.response?.data?.message
+          });
         }
       }
     }

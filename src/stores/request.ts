@@ -32,7 +32,10 @@ export const useRequestStore = defineStore('request', {
         return data.data || [];
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          notificationStore.showMessage(error?.response?.data?.message);
+          notificationStore.showMessage({
+            title: 'Get request failed!',
+            message: error?.response?.data?.message
+          });
         }
       }
     },
