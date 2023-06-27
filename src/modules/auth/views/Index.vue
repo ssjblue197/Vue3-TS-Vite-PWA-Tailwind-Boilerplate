@@ -27,11 +27,9 @@ import { useRouter } from 'vue-router';
 import EventBus from '@/utils/eventbus';
 import { useAuthStore } from '@/stores/auth';
 import { useNotificationStore } from '@/stores/notification';
-import { useRequestStore } from '@/stores/request';
 import { usePickingUpStore } from '@/stores/pickingup';
 
 const pickingUpStore = usePickingUpStore();
-const requestStore = useRequestStore();
 const notificationStore = useNotificationStore();
 const authStore = useAuthStore();
 const router = useRouter();

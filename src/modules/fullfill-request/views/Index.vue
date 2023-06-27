@@ -148,7 +148,7 @@ const handlePickup = async () => {
   }
 };
 
-const loadData = async (init = true) => {
+const loadData = async () => {
   try {
     requestStore.selectRequest = undefined;
     requestStore.total = 0;
