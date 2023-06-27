@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import type { Request} from '@/modules/fullfill-request/types';
 import type { RequestParams, ReceivePayload } from '@/api/request';
-import { getList, receiveRequest } from '@/api/request';
+import { getList, receiveRequest, getCurrentPickingUp } from '@/api/request';
 import { useNotificationStore } from  '@/stores/notification';
 import { useAuthStore } from '@/stores/auth';
 import axios from 'axios';
@@ -24,6 +24,12 @@ export const useRequestStore = defineStore('request', {
     }
   },
   actions: {
+    async getCurrentPickingUp(payload: ReceivePayload) {
+      try {
+        const { data } = await getCurrentPickingUp(payload);
+        return data;
+      } catch (error) {}
+    },
     async getListRequest(params: RequestParams) {
       try {
         const { data } = await getList(params);

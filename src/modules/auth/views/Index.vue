@@ -27,7 +27,9 @@ import { useRouter } from 'vue-router';
 import EventBus from '@/utils/eventbus';
 import { useAuthStore } from '@/stores/auth';
 import { useNotificationStore } from '@/stores/notification';
+import { useRequestStore } from '@/stores/request';
 
+const requestStore = useRequestStore();
 const notificationStore = useNotificationStore();
 const authStore = useAuthStore();
 const router = useRouter();
@@ -50,9 +52,18 @@ const onScan = async (decodedText: string) => {
       };
       const data = await authStore.login(payload);
       if (data) {
-        router.push({
-          name: 'home',
+        const currentPickup = await requestStore.getCurrentPickingUp({
+          employee_id: data?.employee?.id,
         });
+        if (currentPickup) {
+          router.push({
+            name: 'picking-up',
+          });
+        } else {
+          router.push({
+            name: 'home',
+          });
+        }
       } else {
         local.invalidQR = true;
       }
