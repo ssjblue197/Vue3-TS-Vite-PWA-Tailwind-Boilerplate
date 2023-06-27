@@ -17,9 +17,8 @@ export const useRequestStore = defineStore('request', {
         employee: '',
         limit: ITEMS_PER_PAGE,
         page: 1,
-        // type: 'load-more',
-        type: '',
         location: '',
+        device: 'ipad'
       } as RequestParams,
       selectRequest: undefined as Request | undefined
     }
@@ -57,9 +56,8 @@ export const useRequestStore = defineStore('request', {
         employee: '',
         limit: ITEMS_PER_PAGE,
         page: 1,
-        // type: 'load-more',
-        type: '',
         location: '',
+        device: 'ipad'
       }
     }
   },

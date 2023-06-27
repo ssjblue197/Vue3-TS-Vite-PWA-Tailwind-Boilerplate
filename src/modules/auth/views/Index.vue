@@ -46,7 +46,7 @@ const onScan = async (decodedText: string, decodedResult: any) => {
     if (notificationStore.firebaseToken) {
       EventBus.$emit('changeState', 3);
       const payload = {
-        code: '10170',
+        code: decodedText,
         token: notificationStore.firebaseToken,
       };
       const data = await authStore.login(payload);
@@ -54,6 +54,8 @@ const onScan = async (decodedText: string, decodedResult: any) => {
         router.push({
           name: 'home',
         });
+      } else {
+        EventBus.$emit('changeState', 0);
       }
     }
   }
