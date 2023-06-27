@@ -43,17 +43,18 @@ const local: Local = reactive({
 const onScan = async (decodedText: string, decodedResult: any) => {
   console.log(decodedResult);
   if (decodedText) {
-    router.push({
-      name: 'home',
-    });
     if (!Number.isNaN(+decodedText) && notificationStore.firebaseToken) {
       EventBus.$emit('changeState', 3);
       const payload = {
-        code: decodedText,
+        code: '10170',
         token: notificationStore.firebaseToken,
       };
       const data = await authStore.login(payload);
-      console.log(data);
+      if (data) {
+        router.push({
+          name: 'home',
+        });
+      }
     }
   }
 };
