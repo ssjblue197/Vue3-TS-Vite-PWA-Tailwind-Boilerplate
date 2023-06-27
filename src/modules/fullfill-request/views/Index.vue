@@ -16,7 +16,7 @@
     <div class="flex gap-7">
       <div
         class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-scroll relative items-center"
-        id="scroll-area"
+        id="scroll-area scroll-touch"
         v-if="local.requestList.length > 0"
       >
         <transition-group mode="out-in" name="list" appear>
@@ -162,6 +162,8 @@ const loadData = async (init = true) => {
       requestStore.filter.limit += ITEMS_PER_PAGE;
     } else {
       local.requestList = [];
+      requestStore.selectRequest = undefined;
+      requestStore.total = 0;
     }
     const data = await requestStore.getListRequest(requestStore.filter);
     if (data.length > 0) {
