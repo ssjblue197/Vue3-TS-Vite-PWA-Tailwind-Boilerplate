@@ -10,13 +10,15 @@ export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
       employee: null as Employee | null,
+      time_checking_id: null as number | null
     }
   },
   actions: {
     async login(payload: AuthParams) {
       try {
         const { data } = await login(payload);
-        this.employee = data;
+        this.employee = data?.employee || null;
+        this.time_checking_id = data?.time_checking_id || null;
         return data;
       } catch (error) {
         if (axios.isAxiosError(error)) {

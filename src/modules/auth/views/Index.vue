@@ -42,7 +42,7 @@ const local: Local = reactive({
 
 const onScan = async (decodedText: string) => {
   if (decodedText) {
-    if (notificationStore.firebaseToken) {
+    if (!Number.isNaN(+decodedText) && notificationStore.firebaseToken) {
       EventBus.$emit('changeState', 3);
       const payload = {
         code: decodedText,
@@ -54,7 +54,7 @@ const onScan = async (decodedText: string) => {
           name: 'home',
         });
       } else {
-        EventBus.$emit('changeState', 0);
+        local.invalidQR = true;
       }
     }
   }

@@ -28,11 +28,11 @@
             @click="handleSelectRequest(request)"
             :active="requestStore.selectRequest?.id === request.id"
           />
-          <infinite-loading
+          <!-- <infinite-loading
             target="#scroll-area"
             @infinite="loadData(false)"
             v-show="!local.isEnd"
-          ></infinite-loading>
+          ></infinite-loading> -->
         </transition-group>
       </div>
       <div class="hidden lg:block w-[390px]" v-if="requestStore.selectRequest">

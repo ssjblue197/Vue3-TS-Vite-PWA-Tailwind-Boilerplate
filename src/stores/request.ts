@@ -3,8 +3,10 @@ import type { Request} from '@/modules/fullfill-request/types';
 import type { RequestParams, ReceivePayload } from '@/api/request';
 import { getList, receiveRequest } from '@/api/request';
 import { useNotificationStore } from  '@/stores/notification';
+import { useAuthStore } from '@/stores/auth';
 import axios from 'axios';
 
+const authStore = useAuthStore();
 const notificationStore = useNotificationStore();
 export const ITEMS_PER_PAGE = 10;
 
@@ -14,7 +16,7 @@ export const useRequestStore = defineStore('request', {
       requestList: [] as Array<Request>,
       total: 0,
       filter: {
-        employee: '',
+        employee: authStore.employee?.id || '',
         location: '',
         device: 'ipad'
       } as RequestParams,
@@ -51,7 +53,7 @@ export const useRequestStore = defineStore('request', {
     },
     setDefaultFilter() {
       this.filter = {
-        employee: '',
+        employee: authStore.employee?.id || '',
         location: '',
         device: 'ipad'
       }
