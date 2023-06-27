@@ -15,8 +15,6 @@ export const useRequestStore = defineStore('request', {
       total: 0,
       filter: {
         employee: '',
-        limit: ITEMS_PER_PAGE,
-        page: 1,
         location: '',
         device: 'ipad'
       } as RequestParams,
@@ -27,8 +25,8 @@ export const useRequestStore = defineStore('request', {
     async getListRequest(params: RequestParams) {
       try {
         const { data } = await getList(params);
-        this.total = data?.total || 0;
-        return data.data || [];
+        this.total = data.length || 0;
+        return data || [];
       } catch (error) {
         if (axios.isAxiosError(error)) {
           notificationStore.showMessage({
@@ -54,8 +52,6 @@ export const useRequestStore = defineStore('request', {
     setDefaultFilter() {
       this.filter = {
         employee: '',
-        limit: ITEMS_PER_PAGE,
-        page: 1,
         location: '',
         device: 'ipad'
       }

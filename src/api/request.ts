@@ -3,9 +3,6 @@ import { objectToQueryString } from '@/utils/helper';
 
 export interface RequestParams {
   employee?: string;
-  limit: number;
-  page: number;
-  type?: string;
   location?: string;
   device?: string
 }
@@ -25,4 +22,9 @@ export function receiveRequest(payload: ReceivePayload) {
   }
   return http.put(`internal-request/receive-request/${payload.request_id}`, data);
 }
+
+export function getCurrentPickingUp(payload: ReceivePayload) {
+  return http.get(`internal-request/picking-up/${payload.employee_id}`);
+}
+
 
