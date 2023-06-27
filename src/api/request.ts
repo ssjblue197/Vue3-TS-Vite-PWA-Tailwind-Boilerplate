@@ -1,16 +1,9 @@
 import http from './http';
 import { objectToQueryString } from '@/utils/helper';
-
-export interface RequestParams {
-  employee?: any;
-  location?: string;
-  device?: string
-}
-
-export interface ReceivePayload {
-  employee_id?: number;
-  request_id?: number;
-}
+import type {
+  RequestParams,
+  ReceivePayload,
+} from './types';
 
 export function getList(params: RequestParams) {
   return http.get(`internal-request?${objectToQueryString(params)}`);

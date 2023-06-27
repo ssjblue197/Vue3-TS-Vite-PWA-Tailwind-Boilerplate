@@ -43,4 +43,5 @@ export interface Request {
   created_at?: string;
   received_at?: string,
   fulfilled_at?: string,
+  expried_at?: string
 }

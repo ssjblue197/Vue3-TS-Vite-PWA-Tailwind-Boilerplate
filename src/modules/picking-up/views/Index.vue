@@ -2,7 +2,7 @@
   <div class="w-full flex flex-row justify-center p-6 bg-neutral-10 gap-7">
     <div class="flex-1 lg:basis-1/2 lg:flex-none">
       <transition name="slide-fade-left" appear>
-        <RequestDetail :data="requestStore.selectRequest">
+        <RequestDetail :data="local.currentPickingUp">
           <template #bottom>
             <span class="flex flex-col gap-4">
               <s-button variant="primary" class="!h-[48px]" @click="handleScanningBoxID"
@@ -18,7 +18,7 @@
     </div>
     <transition name="slide-fade-right" appear>
       <div class="card p-6 flex flex-col gap-4 h-fit w-[208px]">
-        <CountDown :time="10 * 60" @end="handleEndTime" />
+        <CountDown :time="local.countDown" @end="handleEndTime" />
         <s-button variant="danger" outline class="!h-[48px]" @click="handleCancelPickup"
           >Cancel pickup</s-button
         >
@@ -163,15 +163,19 @@
 </template>
 
 <script setup lang="ts">
+import { reactive, onMounted } from 'vue';
 import ScanQRCode from '@/components/ScanQRCode.vue';
 import CountDown from '@/components/CountDown.vue';
 import RequestDetail from '@/components/RequestDetail.vue';
 import { useRouter } from 'vue-router';
 // import EventBus from '@/utils/eventbus';
-import { reactive } from 'vue';
-import { useRequestStore } from '@/stores/request';
+import { usePickingUpStore } from '@/stores/pickingup';
+import { useAuthStore } from '@/stores/auth';
+import type { Request } from '@/modules/fullfill-request/types';
+import { checkPickupTimeOut } from '@/utils/helper';
 
-const requestStore = useRequestStore();
+const authStore = useAuthStore();
+const pickingUpStore = usePickingUpStore();
 const router = useRouter();
 
 interface Local {
@@ -181,6 +185,8 @@ interface Local {
   checkReceiveModal?: boolean;
   timeoutModal?: boolean;
   locationUpdateModal?: boolean;
+  currentPickingUp?: Request;
+  countDown: number;
 }
 
 const local: Local = reactive({
@@ -190,6 +196,8 @@ const local: Local = reactive({
   checkReceiveModal: false,
   timeoutModal: false,
   locationUpdateModal: false,
+  currentPickingUp: undefined,
+  countDown: 0,
 });
 
 const onScan = (decodedText: string, decodedResult: any) => {
@@ -262,6 +270,20 @@ const handleCancelPickup = () => {
 const handleEndTime = () => {
   console.log('End time');
 };
+
+const loadData = async () => {
+  local.currentPickingUp = await pickingUpStore.getCurrentPickingUp({
+    employee_id: authStore.employee?.id,
+  });
+};
+
+onMounted(async () => {
+  await loadData();
+  if (local.currentPickingUp) {
+    const res = checkPickupTimeOut(local.currentPickingUp.expried_at);
+    local.countDown = res.range;
+  }
+});
 </script>
 
 <style scoped></style>

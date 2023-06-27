@@ -7,8 +7,10 @@
     </transition>
   </div>
   <Teleport to="body">
+    <!-- <div
+      v-if="local.showPopupEnableNotify && checkAppInstalled()" -->
     <div
-      v-if="local.showPopupEnableNotify && checkAppInstalled()"
+      v-if="local.showPopupEnableNotify"
       class="wraper !z-[9998] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
     >
       <div
@@ -24,7 +26,7 @@
       </div>
     </div>
   </Teleport>
-  <Teleport to="body">
+  <!-- <Teleport to="body">
     <div
       v-if="!checkAppInstalled()"
       class="wraper !z-[9999] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
@@ -51,7 +53,7 @@
         <img src="@/assets/images/logo.png" alt="icon" class="h-full" />
       </div>
     </div>
-  </Teleport>
+  </Teleport> -->
 </template>
 
 <script setup lang="ts">

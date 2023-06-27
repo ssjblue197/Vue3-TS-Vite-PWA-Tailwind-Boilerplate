@@ -1,14 +1,12 @@
 import { defineStore } from 'pinia';
 import type { Request} from '@/modules/fullfill-request/types';
-import type { RequestParams, ReceivePayload } from '@/api/request';
-import { getList, receiveRequest, getCurrentPickingUp } from '@/api/request';
+import type { RequestParams, ReceivePayload } from '@/api/types';
+import { getList, receiveRequest } from '@/api/request';
 import { useNotificationStore } from  '@/stores/notification';
-import { useAuthStore } from '@/stores/auth';
 import axios from 'axios';
 
-const authStore = useAuthStore();
 const notificationStore = useNotificationStore();
-export const ITEMS_PER_PAGE = 10;
+
 
 export const useRequestStore = defineStore('request', {
   state: () => {
@@ -16,7 +14,7 @@ export const useRequestStore = defineStore('request', {
       requestList: [] as Array<Request>,
       total: 0,
       filter: {
-        employee: authStore.employee?.id || '',
+        employee: undefined,
         location: '',
         device: 'ipad'
       } as RequestParams,
@@ -24,12 +22,6 @@ export const useRequestStore = defineStore('request', {
     }
   },
   actions: {
-    async getCurrentPickingUp(payload: ReceivePayload) {
-      try {
-        const { data } = await getCurrentPickingUp(payload);
-        return data;
-      } catch (error) {}
-    },
     async getListRequest(params: RequestParams) {
       try {
         const { data } = await getList(params);
@@ -59,7 +51,7 @@ export const useRequestStore = defineStore('request', {
     },
     setDefaultFilter() {
       this.filter = {
-        employee: authStore.employee?.id || '',
+        employee: undefined,
         location: '',
         device: 'ipad'
       }

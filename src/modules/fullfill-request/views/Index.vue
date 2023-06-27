@@ -15,8 +15,8 @@
 
     <div class="flex gap-7">
       <div
-        class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-scroll relative items-center"
-        id="scroll-area scroll-touch"
+        class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-scroll relative items-center scroll-touch"
+        id="scroll-area"
         v-if="local.requestList.length > 0"
       >
         <transition-group mode="out-in" name="list" appear>
@@ -28,11 +28,6 @@
             @click="handleSelectRequest(request)"
             :active="requestStore.selectRequest?.id === request.id"
           />
-          <!-- <infinite-loading
-            target="#scroll-area"
-            @infinite="loadData(false)"
-            v-show="!local.isEnd"
-          ></infinite-loading> -->
         </transition-group>
       </div>
       <div class="hidden lg:block w-[390px]" v-if="requestStore.selectRequest">
@@ -98,41 +93,34 @@ import RequestDetail from '@/components/RequestDetail.vue';
 import { useRouter } from 'vue-router';
 import LaneTag from '@/components/LaneTag.vue';
 import { useRequestStore } from '@/stores/request';
+import { useAuthStore } from '@/stores/auth';
 import type { Request } from '@/modules/fullfill-request/types';
+import { isPortrait } from '@/utils/device';
 import axios from 'axios';
 
+const authStore = useAuthStore();
 const requestStore = useRequestStore();
 const router = useRouter();
 const requestList = ref();
 
 interface Local {
   showScanLocation?: boolean;
-  showMessage: boolean;
   requestList: Array<Request>;
-  isEnd: boolean;
-  lastCountItems: number;
 }
 
 const local: Local = reactive({
   showScanLocation: false,
-  showMessage: false,
   requestList: [],
-  isEnd: false,
-  lastCountItems: 0,
 });
 
 const onClearFilter = async () => {
   requestStore.setDefaultFilter();
-  local.isEnd = false;
   await loadData();
 };
 
-const onScan = async (decodedText: string, decodedResult: any) => {
+const onScan = async (decodedText: string) => {
   if (decodedText) {
-    console.log(decodedResult);
     requestStore.filter.location = decodedText;
-    // requestStore.filter.limit = ITEMS_PER_PAGE;
-    local.isEnd = false;
     await loadData();
     local.showScanLocation = false;
   }
@@ -149,7 +137,7 @@ const handleCancelScanning = () => {
 const handlePickup = async () => {
   //TODO handle pickup
   const payload = {
-    employee_id: 3, //Fake
+    employee_id: authStore.employee?.id,
     request_id: requestStore.selectRequest?.id,
   };
   const data = await requestStore.receiveRequest(payload);
@@ -162,25 +150,20 @@ const handlePickup = async () => {
 
 const loadData = async (init = true) => {
   try {
-    if (!init) {
-      // requestStore.filter.limit += ITEMS_PER_PAGE;
-    } else {
-      local.requestList = [];
-      requestStore.selectRequest = undefined;
-      requestStore.total = 0;
-    }
+    requestStore.selectRequest = undefined;
+    requestStore.total = 0;
+    requestStore.filter = {
+      ...requestStore.filter,
+      employee: authStore.employee?.id,
+    };
+
     const data = await requestStore.getListRequest(requestStore.filter);
     if (data.length > 0) {
-      // local.requestList = [...local.requestList, ...data];
-      local.requestList = [...data];
-      if (init) {
+      local.requestList = data;
+      if (!isPortrait) {
         requestStore.selectRequest = local.requestList[0];
       }
     }
-    if (local.lastCountItems >= data.length) {
-      local.isEnd = true;
-    }
-    local.lastCountItems = data.length;
   } catch (error) {
     if (axios.isAxiosError(error)) console.warn(error);
   }

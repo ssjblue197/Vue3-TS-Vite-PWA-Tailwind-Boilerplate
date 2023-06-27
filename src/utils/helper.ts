@@ -121,3 +121,30 @@ export function timeFromNow(date: string | undefined) {
   if (!date) return;
   return replaceTimeFromNow(moment(date).fromNow(true));
 }
+
+export function dateStringToSeconds(dateString: string, format: string) {
+  const dateObj = moment(dateString, format);
+  const milliseconds = dateObj.valueOf();
+  const seconds = Math.floor(milliseconds / 1000);
+  return seconds;
+}
+
+export function checkPickupTimeOut(expired?: string) {
+  if (!expired) return {
+    valid: false,
+    range: 0
+  }
+  const endTime = dateStringToSeconds(expired, 'YYYY-MM-DD hh:mm:ss')
+  const now = Math.floor(Date.now() / 1000);
+  if (now > endTime) {
+    return {
+      valid: false,
+      range: 0
+    }
+  } else {
+    return {
+      valid: true,
+      range: endTime - now
+    }
+  }
+}

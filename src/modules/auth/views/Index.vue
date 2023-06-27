@@ -28,7 +28,9 @@ import EventBus from '@/utils/eventbus';
 import { useAuthStore } from '@/stores/auth';
 import { useNotificationStore } from '@/stores/notification';
 import { useRequestStore } from '@/stores/request';
+import { usePickingUpStore } from '@/stores/pickingup';
 
+const pickingUpStore = usePickingUpStore();
 const requestStore = useRequestStore();
 const notificationStore = useNotificationStore();
 const authStore = useAuthStore();
@@ -51,12 +53,10 @@ const onScan = async (decodedText: string) => {
         token: notificationStore.firebaseToken,
       };
       const data = await authStore.login(payload);
-      console.log(data);
       if (data) {
-        const currentPickup = await requestStore.getCurrentPickingUp({
+        const currentPickup = await pickingUpStore.getCurrentPickingUp({
           employee_id: data?.employee?.id,
         });
-        console.log(currentPickup);
         if (currentPickup && currentPickup?.status === 'picking_up') {
           router.push({
             name: 'picking-up',
