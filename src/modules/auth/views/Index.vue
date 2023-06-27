@@ -51,11 +51,13 @@ const onScan = async (decodedText: string) => {
         token: notificationStore.firebaseToken,
       };
       const data = await authStore.login(payload);
+      console.log(data);
       if (data) {
         const currentPickup = await requestStore.getCurrentPickingUp({
           employee_id: data?.employee?.id,
         });
-        if (currentPickup) {
+        console.log(currentPickup);
+        if (currentPickup && currentPickup?.status === 'picking_up') {
           router.push({
             name: 'picking-up',
           });
