@@ -97,7 +97,7 @@ import RequestDetail from '@/components/RequestDetail.vue';
 // import EventBus from '@/utils/eventbus';
 import { useRouter } from 'vue-router';
 import LaneTag from '@/components/LaneTag.vue';
-import { useRequestStore, ITEMS_PER_PAGE } from '@/stores/request';
+import { useRequestStore } from '@/stores/request';
 import type { Request } from '@/modules/fullfill-request/types';
 import axios from 'axios';
 
@@ -109,7 +109,6 @@ interface Local {
   showScanLocation?: boolean;
   showMessage: boolean;
   requestList: Array<Request>;
-  loadMore: boolean;
   isEnd: boolean;
   lastCountItems: number;
 }
@@ -118,7 +117,6 @@ const local: Local = reactive({
   showScanLocation: false,
   showMessage: false,
   requestList: [],
-  loadMore: false,
   isEnd: false,
   lastCountItems: 0,
 });
@@ -133,7 +131,7 @@ const onScan = async (decodedText: string, decodedResult: any) => {
   if (decodedText) {
     console.log(decodedResult);
     requestStore.filter.location = decodedText;
-    requestStore.filter.limit = ITEMS_PER_PAGE;
+    // requestStore.filter.limit = ITEMS_PER_PAGE;
     local.isEnd = false;
     await loadData();
     local.showScanLocation = false;
@@ -165,8 +163,7 @@ const handlePickup = async () => {
 const loadData = async (init = true) => {
   try {
     if (!init) {
-      local.loadMore = true;
-      requestStore.filter.limit += ITEMS_PER_PAGE;
+      // requestStore.filter.limit += ITEMS_PER_PAGE;
     } else {
       local.requestList = [];
       requestStore.selectRequest = undefined;

@@ -40,7 +40,7 @@ const local: Local = reactive({
   invalidQR: false,
 });
 
-const onScan = async (decodedText: string, decodedResult: any) => {
+const onScan = async (decodedText: string) => {
   if (decodedText) {
     if (notificationStore.firebaseToken) {
       EventBus.$emit('changeState', 3);
