@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center">
       <span class="text-[22px] leading-[28px] text-neutral-900">
         <LaneTag
-          :title="local.filter.location ? local.filter.location : 'All'"
+          :title="requestStore.filter.location ? requestStore.filter.location : 'All'"
           :count="requestStore.total"
           @clear="onClearFilter"
         />
@@ -26,18 +26,18 @@
             :key="request?.id"
             :data="request"
             @click="handleSelectRequest(request)"
-            :active="local.selectRequest?.id === request.id"
+            :active="requestStore.selectRequest?.id === request.id"
           />
           <infinite-loading
             target="#scroll-area"
             @infinite="loadData(false)"
-            v-if="!local.isEnd"
+            v-show="!local.isEnd"
           ></infinite-loading>
         </transition-group>
       </div>
-      <div class="hidden lg:block w-[390px]">
+      <div class="hidden lg:block w-[390px]" v-if="requestStore.selectRequest">
         <transition name="slide-fade-right" appear>
-          <RequestDetail v-if="local.selectRequest" :data="local.selectRequest">
+          <RequestDetail :data="requestStore.selectRequest">
             <template #bottom>
               <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
                 >Pick up now</s-button
@@ -66,10 +66,10 @@
     <Teleport to="body">
       <div
         class="absolute center block lg:hidden w-[80%] max-w-[600px] z-1 bg-white shadow-2xl rounded-[16px]"
-        v-if="local.selectRequest"
+        v-if="requestStore.selectRequest"
       >
         <transition name="fade" appear>
-          <RequestDetail v-if="local.selectRequest" :data="local.selectRequest">
+          <RequestDetail v-if="requestStore.selectRequest" :data="requestStore.selectRequest">
             <template #bottom>
               <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
                 >Pick up now</s-button
@@ -82,7 +82,7 @@
           width="24"
           height="24"
           class="!text-neutral-100 absolute top-4 right-4 cursor-pointer"
-          @click="local.selectRequest = undefined"
+          @click="requestStore.selectRequest = undefined"
         ></s-icon>
       </div>
     </Teleport>
@@ -97,9 +97,8 @@ import RequestDetail from '@/components/RequestDetail.vue';
 // import EventBus from '@/utils/eventbus';
 import { useRouter } from 'vue-router';
 import LaneTag from '@/components/LaneTag.vue';
-import { useRequestStore } from '@/stores/request';
+import { useRequestStore, ITEMS_PER_PAGE } from '@/stores/request';
 import type { Request } from '@/modules/fullfill-request/types';
-import type { RequestParams } from '@/api/request';
 import axios from 'axios';
 
 const requestStore = useRequestStore();
@@ -109,47 +108,33 @@ const requestList = ref();
 interface Local {
   showScanLocation?: boolean;
   showMessage: boolean;
-  selectRequest?: Request;
   requestList: Array<Request>;
   loadMore: boolean;
   isEnd: boolean;
-  filter: RequestParams;
+  lastCountItems: number;
 }
-
-const setDefaultFilter = () => {
-  return {
-    employee: '',
-    limit: 5,
-    page: 1,
-    // type: 'load-more',
-    type: '',
-    location: '',
-  };
-};
 
 const local: Local = reactive({
   showScanLocation: false,
   showMessage: false,
-  selectRequest: undefined,
   requestList: [],
   loadMore: false,
   isEnd: false,
-  filter: setDefaultFilter(),
+  lastCountItems: 0,
 });
 
 const onClearFilter = async () => {
-  local.filter.page = 1;
+  requestStore.setDefaultFilter();
   local.isEnd = false;
-  local.filter.location = '';
   await loadData();
 };
 
 const onScan = async (decodedText: string, decodedResult: any) => {
   if (decodedText) {
     console.log(decodedResult);
-    local.filter.page = 1;
+    requestStore.filter.location = decodedText;
+    requestStore.filter.limit = ITEMS_PER_PAGE;
     local.isEnd = false;
-    local.filter.location = decodedText;
     await loadData();
     local.showScanLocation = false;
   }
@@ -174,27 +159,33 @@ const loadData = async (init = true) => {
   try {
     if (!init) {
       local.loadMore = true;
-      local.filter.page += 1;
+      requestStore.filter.limit += ITEMS_PER_PAGE;
     } else {
       local.requestList = [];
     }
-    const data = await requestStore.getListRequest(local.filter);
+    const data = await requestStore.getListRequest(requestStore.filter);
     if (data.length > 0) {
-      local.requestList = [...local.requestList, ...data];
+      // local.requestList = [...local.requestList, ...data];
+      local.requestList = [...data];
       if (init) {
-        local.selectRequest = local.requestList[0];
+        requestStore.selectRequest = local.requestList[0];
       }
-    } else {
+    }
+    if (local.lastCountItems >= data.length) {
       local.isEnd = true;
     }
+    local.lastCountItems = data.length;
   } catch (error) {
     if (axios.isAxiosError(error)) console.warn(error);
   }
 };
 
 const handleSelectRequest = (request: Request) => {
-  if (!local.selectRequest || (local.selectRequest && local.selectRequest.id !== request.id)) {
-    local.selectRequest = request;
+  if (
+    !requestStore.selectRequest ||
+    (requestStore.selectRequest && requestStore.selectRequest.id !== request.id)
+  ) {
+    requestStore.selectRequest = request;
   }
 };
 
