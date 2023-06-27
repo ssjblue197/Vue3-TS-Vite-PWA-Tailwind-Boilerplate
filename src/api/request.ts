@@ -2,7 +2,7 @@ import http from './http';
 import { objectToQueryString } from '@/utils/helper';
 
 export interface RequestParams {
-  employee?: string;
+  employee?: any;
   location?: string;
   device?: string
 }
