@@ -47,7 +47,9 @@
             >
             </s-icon>
           </template>
-          <span class="text-[17px] text-neutral-900"> {{ props.data?.product?.sku }} </span>
+          <span class="text-[17px] text-neutral-900 max-w-[160px] truncate">
+            {{ props.data?.product?.name }}
+          </span>
         </s-tag>
         <s-tag
           class="!border-neutral-40 border bg-white gap-2 py-2 px-4"
@@ -65,7 +67,7 @@
             >
             </s-icon>
           </template>
-          <span class="text-[17px] text-neutral-900 max-w-[200px] truncate leading-[140%]">
+          <span class="text-[17px] text-neutral-900 max-w-[160px] truncate leading-[140%]">
             {{ props.data && displayLocation(props?.data) }}
           </span>
         </s-tag>

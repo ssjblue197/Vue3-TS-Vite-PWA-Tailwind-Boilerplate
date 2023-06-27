@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia';
 import type { Request} from '@/modules/fullfill-request/types';
-import type { RequestParams } from '@/api/request';
-import { getList } from '@/api/request';
+import type { RequestParams, ReceivePayload } from '@/api/request';
+import { getList, receiveRequest } from '@/api/request';
+import { useNotificationStore } from  '@/stores/notification';
 import axios from 'axios';
 
+const notificationStore = useNotificationStore();
 export const ITEMS_PER_PAGE = 10;
 
 export const useRequestStore = defineStore('request', {
@@ -30,8 +32,20 @@ export const useRequestStore = defineStore('request', {
         return data.data || [];
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.log(error);
-          
+          notificationStore.showMessage(error?.response?.data?.message);
+        }
+      }
+    },
+    async receiveRequest(payload: ReceivePayload) {
+      try {
+        const { data } = await receiveRequest(payload);
+        return data.data || [];
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          notificationStore.showMessage({
+            title: 'Pickup error!',
+            message: error?.response?.data?.message
+          });
         }
       }
     },

@@ -148,11 +148,18 @@ const handleScanningLocation = () => {
 const handleCancelScanning = () => {
   local.showScanLocation = false;
 };
-const handlePickup = () => {
+const handlePickup = async () => {
   //TODO handle pickup
-  router.push({
-    name: 'picking-up',
-  });
+  const payload = {
+    employee_id: 3, //Fake
+    request_id: requestStore.selectRequest?.id,
+  };
+  const data = await requestStore.receiveRequest(payload);
+  if (data) {
+    router.push({
+      name: 'picking-up',
+    });
+  }
 };
 
 const loadData = async (init = true) => {

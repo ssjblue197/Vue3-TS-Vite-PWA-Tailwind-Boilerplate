@@ -17,14 +17,20 @@
       <span>now</span>
     </span>
     <span class="flex justify-between text-[17px] font-semibold text-neutral-900">
-      Reported successfully!</span
+      {{ props.data?.title }}</span
     >
-    <span class="flex justify-between text-neutral-900 text-[17px]"
-      >Successfully reported missing box.</span
-    >
+    <span class="flex justify-between text-neutral-900 text-[17px]">{{ props.data?.message }}</span>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+  data?: any;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  data: null,
+});
+</script>
 
 <style scoped></style>

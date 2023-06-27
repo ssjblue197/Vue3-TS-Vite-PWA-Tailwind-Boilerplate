@@ -3,7 +3,7 @@
     <DefaultLayout v-if="layoutName === 'default'" />
     <MainLayout v-if="layoutName === 'main'" />
     <transition name="slide-fade-down" appear>
-      <NewNotifyMessage v-if="local.showMessage" />
+      <NewNotifyMessage v-if="notificationStore.newMessage" :data="notificationStore.newMessage" />
     </transition>
   </div>
   <Teleport to="body">
@@ -24,7 +24,7 @@
       </div>
     </div>
   </Teleport>
-  <Teleport to="body">
+  <!-- <Teleport to="body">
     <div
       v-if="!checkAppInstalled()"
       class="wraper !z-[9999] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
@@ -51,7 +51,7 @@
         <img src="@/assets/images/logo.png" alt="icon" class="h-full" />
       </div>
     </div>
-  </Teleport>
+  </Teleport> -->
 </template>
 
 <script setup lang="ts">
@@ -75,13 +75,11 @@ const layoutName = computed(() => {
 });
 
 interface Local {
-  showMessage: boolean;
   showPopupEnableNotify: boolean;
   deferredPrompt: any;
 }
 
 const local: Local = reactive({
-  showMessage: false,
   showPopupEnableNotify: false,
   deferredPrompt: null,
 });
