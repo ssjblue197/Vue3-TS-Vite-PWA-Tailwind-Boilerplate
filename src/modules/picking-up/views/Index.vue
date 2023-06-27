@@ -2,7 +2,7 @@
   <div class="w-full flex flex-row justify-center p-6 bg-neutral-10 gap-7">
     <div class="flex-1 lg:basis-1/2 lg:flex-none">
       <transition name="slide-fade-left" appear>
-        <RequestDetail>
+        <RequestDetail :data="requestStore.selectRequest">
           <template #bottom>
             <span class="flex flex-col gap-4">
               <s-button variant="primary" class="!h-[48px]" @click="handleScanningBoxID"
@@ -169,6 +169,9 @@ import RequestDetail from '@/components/RequestDetail.vue';
 import { useRouter } from 'vue-router';
 // import EventBus from '@/utils/eventbus';
 import { reactive } from 'vue';
+import { useRequestStore } from '@/stores/request';
+
+const requestStore = useRequestStore();
 const router = useRouter();
 
 interface Local {

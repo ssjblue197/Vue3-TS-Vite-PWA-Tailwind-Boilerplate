@@ -23,14 +23,14 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import ScanQRCode from '@/components/ScanQRCode.vue';
-// import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import EventBus from '@/utils/eventbus';
-import { useAuthStore } from '@/stores/auth';
-import { useNotificationStore } from '@/stores/notification';
+// import { useAuthStore } from '@/stores/auth';
+// import { useNotificationStore } from '@/stores/notification';
 
-const notificationStore = useNotificationStore();
-const authStore = useAuthStore();
-// const router = useRouter();
+// const notificationStore = useNotificationStore();
+// const authStore = useAuthStore();
+const router = useRouter();
 
 interface Local {
   invalidQR: boolean;
@@ -43,15 +43,18 @@ const local: Local = reactive({
 const onScan = async (decodedText: string, decodedResult: any) => {
   console.log(decodedResult);
   if (decodedText) {
-    if (!Number.isNaN(+decodedText) && notificationStore.firebaseToken) {
-      EventBus.$emit('changeState', 3);
-      const payload = {
-        code: decodedText,
-        token: notificationStore.firebaseToken,
-      };
-      const data = await authStore.login(payload);
-      console.log(data);
-    }
+    router.push({
+      name: 'home',
+    });
+    // if (!Number.isNaN(+decodedText) && notificationStore.firebaseToken) {
+    //   EventBus.$emit('changeState', 3);
+    //   const payload = {
+    //     code: decodedText,
+    //     token: notificationStore.firebaseToken,
+    //   };
+    //   const data = await authStore.login(payload);
+    //   console.log(data);
+    // }
   }
 };
 
