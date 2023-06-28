@@ -7,6 +7,7 @@
     </div>
     <div class="w-full flex flex-col gap-4 items-center">
       <s-button
+        v-if="authStore.employee?.department.toLowerCase() === 'pulling'"
         class="w-[650px] h-[52px]"
         variant="primary"
         @click="
@@ -17,6 +18,7 @@
         >Go to Pulling Inventory Spotter</s-button
       >
       <s-button
+        v-if="authStore.employee?.department.toLowerCase() === 'inventory'"
         class="w-[650px] h-[52px]"
         variant="primary"
         @click="
@@ -34,6 +36,9 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore();
 const router = useRouter();
 </script>
 

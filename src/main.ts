@@ -19,6 +19,9 @@ import loading from "./directives/loading";
 
 import { messaging } from '@/services/firebase';
 import { onMessage } from 'firebase/messaging';
+import { FIREBASE_EVENTS } from '@/utils/const';
+
+import EventBus from '@/utils/eventbus';
 
 // @ts-ignore
 import InfiniteLoading from "v3-infinite-loading";
@@ -50,10 +53,42 @@ app.config.errorHandler = (err: any) => {
   console.log(err);
 };
 
-
 // Handle incoming messages
 onMessage(messaging, (payload) => {
   console.log('Message received:', payload);
+  if (payload.data) {
+    switch (payload.data.event_name) {
+      case FIREBASE_EVENTS.EVENT_CREATE:
+        EventBus.$emit(FIREBASE_EVENTS.EVENT_CREATE);  
+      break;
+      case FIREBASE_EVENTS.EVENT_RECEIVE:
+        EventBus.$emit(FIREBASE_EVENTS.EVENT_RECEIVE);  
+      break;
+      case FIREBASE_EVENTS.EVENT_FULFILL:
+        EventBus.$emit(FIREBASE_EVENTS.EVENT_FULFILL);  
+      break;
+      case FIREBASE_EVENTS.EVENT_REJECT:
+        EventBus.$emit(FIREBASE_EVENTS.EVENT_REJECT);  
+      break;
+      case FIREBASE_EVENTS.EVENT_RELEASE:
+        EventBus.$emit(FIREBASE_EVENTS.EVENT_RELEASE);  
+      break;
+      case FIREBASE_EVENTS.EVENT_TIMEOUT:
+        EventBus.$emit(FIREBASE_EVENTS.EVENT_TIMEOUT);  
+      break;
+      case FIREBASE_EVENTS.EVENT_CONFIRM:
+        EventBus.$emit(FIREBASE_EVENTS.EVENT_CONFIRM);  
+      break;
+      case FIREBASE_EVENTS.EVENT_UPDATE_PRIORITY:
+        EventBus.$emit(FIREBASE_EVENTS.EVENT_UPDATE_PRIORITY);  
+      break;
+      case FIREBASE_EVENTS.EVENT_REPORT_MISSING_BOX:
+        EventBus.$emit(FIREBASE_EVENTS.EVENT_REPORT_MISSING_BOX);  
+      break;
+      default:
+        break;
+    }
+  }
   // const notificationStore = useNotificationStore();
   // const scanStore = useScanStore();
   // notificationStore.addNotification(payload);
@@ -64,9 +99,6 @@ onMessage(messaging, (payload) => {
   //     status: payload.data.status,
   //   };
   // }
-  // setTimeout(() => {
-  //   notificationStore.newNotification = null;
-  // }, 4000);
 });
 
 app.mount("#app");

@@ -6,7 +6,7 @@
       @result="onScan"
       @error="onError"
     >
-      <template #default>
+      <!-- <template #default>
         <s-button
           outline
           class="!bg-white active:!opacity-80"
@@ -15,13 +15,13 @@
         >
           Try again
         </s-button>
-      </template>
+      </template> -->
     </ScanQRCode>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+// import { reactive } from 'vue';
 import ScanQRCode from '@/components/ScanQRCode.vue';
 import { useRouter } from 'vue-router';
 import EventBus from '@/utils/eventbus';
@@ -34,16 +34,17 @@ const notificationStore = useNotificationStore();
 const authStore = useAuthStore();
 const router = useRouter();
 
-interface Local {
-  invalidQR: boolean;
-}
+// interface Local {
+//   invalidQR: boolean;
+// }
 
-const local: Local = reactive({
-  invalidQR: false,
-});
+// const local: Local = reactive({
+//   invalidQR: false,
+// });
 
 const onScan = async (decodedText: string) => {
   if (decodedText) {
+    console.log(decodedText);
     if (!Number.isNaN(+decodedText) && notificationStore.firebaseToken) {
       EventBus.$emit('changeState', 3);
       const payload = {
@@ -51,7 +52,7 @@ const onScan = async (decodedText: string) => {
         token: notificationStore.firebaseToken,
       };
       const data = await authStore.login(payload);
-      if (data) {
+      if (data && Object.keys(data).length > 0) {
         const currentPickup = await pickingUpStore.getCurrentPickingUp({
           employee_id: data?.employee?.id,
         });
@@ -65,16 +66,19 @@ const onScan = async (decodedText: string) => {
           });
         }
       } else {
-        local.invalidQR = true;
+        // local.invalidQR = true;
+        setTimeout(() => {
+          EventBus.$emit('changeState', 0);
+        }, 1000);
       }
     }
   }
 };
 
-const tryScanAgain = () => {
-  EventBus.$emit('changeState', 0);
-  local.invalidQR = false;
-};
+// const tryScanAgain = () => {
+//   EventBus.$emit('changeState', 0);
+//   // local.invalidQR = false;
+// };
 
 const onError = () => {};
 </script>

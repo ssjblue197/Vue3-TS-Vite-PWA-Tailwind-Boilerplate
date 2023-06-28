@@ -17,9 +17,7 @@
         height="24"
         class="!text-icon-default svg-line"
       ></s-icon>
-      <span v-show="route.meta?.previousRouteTitle"
-        >Back to {{ route.meta?.previousRouteTitle }}</span
-      >
+      <span v-show="route.meta?.previousRouteTitle">Back</span>
     </span>
     <span
       v-show="route.meta?.routeTitle"

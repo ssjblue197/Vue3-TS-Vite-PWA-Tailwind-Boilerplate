@@ -1,4 +1,5 @@
-import moment from 'moment';
+// import moment from 'moment';
+import moment from 'moment-timezone'
 export function queryStringToObject(queryString: string) {
   var pairs = queryString.split('&');
   var result: any = {};
@@ -70,56 +71,32 @@ export function formatTime(seconds: number) {
 export function  formatDateTime(value: string) {
   if (!value) return;
   if (value.includes('T')) {
-    return moment(value).format('YYYY-MM-DD HH:mm:ss');    
+    return (value.split('.')[0]).replace('T', ' ');    
   }
   return value;
 }
 
 
-export const replaceTimeFromNow = (timeNow: string | undefined) =>  {  
-  if (!timeNow) return timeNow;
-  if (timeNow.includes("few seconds")) {
-    timeNow = timeNow.replace("few seconds", "sec");
-  }
-  if (timeNow.includes("seconds ")) {
-    timeNow = timeNow.replace("seconds", "sec");
-  }
-  if (timeNow.includes("minutes")) {
-    timeNow = timeNow.replace("minutes", "min");
-  }
-  if (timeNow.includes("minute")) {
-    timeNow = timeNow.replace("minute", "min");
-  }
-  if (timeNow.includes("hours")) {
-    timeNow = timeNow.replace("hours", "hr");
-  }
-  if (timeNow.includes("hour")) {
-    timeNow = timeNow.replace("hour ", "hr");
-  }
-  // if (timeNow.includes("days")) {
-  //   timeNow = timeNow.replace("days", "d");
-  // }
-  // if (timeNow.includes("day")) {
-  //   timeNow = timeNow.replace("day", "d");
-  // }
-  // if (timeNow.includes("months")) {
-  //   timeNow = timeNow.replace("months", "m");
-  // }
-  // if (timeNow.includes("month")) {
-  //   timeNow = timeNow.replace("month", "m");
-  // }
-  // if (timeNow.includes("years")) {
-  //   timeNow = timeNow.replace("years", "y");
-  // }
-  // if (timeNow.includes("year")) {
-  //   timeNow = timeNow.replace("year", "y");
-  // }
-  return timeNow;
-}
-
 export function timeFromNow(date: string | undefined) {
   if (!date) return;
-  return replaceTimeFromNow(moment(date).fromNow(true));
+  const startStr = (date.split('.')[0]).replace('T', ' ')
+  const endStr = moment().tz("America/Los_Angeles").format('YYYY-MM-DD HH:mm:ss');
+
+  const timeEnd = moment(endStr, 'YYYY-MM-DD HH:mm:ss');
+  const timeStart = moment(startStr, 'YYYY-MM-DD HH:mm');
+  const diffSeconds = timeEnd.diff(timeStart, 'seconds');
+  if (diffSeconds >= 86400) {
+    return String(Math.floor(diffSeconds/(86400))) + ' days'
+  }
+  if (diffSeconds >= 3600 && diffSeconds < 86400) {
+    return String(Math.floor(diffSeconds/3600)) + ' hours'
+  }
+  if (diffSeconds > 60 && diffSeconds < 3600) {
+    return String(Math.floor(diffSeconds/60)) + ' minutes'
+  }
+  if (diffSeconds < 60) {
+    return String(Math.floor(diffSeconds)) + ' seconds'
+  }
 }
 
 export function dateStringToSeconds(dateString: string, format: string) {
@@ -134,9 +111,13 @@ export function checkPickupTimeOut(expired?: string) {
     valid: false,
     range: 0
   }
-  const endTime = dateStringToSeconds(expired, 'YYYY-MM-DD hh:mm:ss')
-  const now = Math.floor(Date.now() / 1000);
-  if (now > endTime) {
+
+  const timeNow = moment().tz("America/Los_Angeles").format('YYYY-MM-DD HH:mm:ss');
+  
+  const endTimeSec = dateStringToSeconds(expired, 'YYYY-MM-DD hh:mm:ss'); 
+  const timeNowSec = dateStringToSeconds(timeNow, 'YYYY-MM-DD hh:mm:ss'); 
+
+  if (timeNowSec > endTimeSec) {
     return {
       valid: false,
       range: 0
@@ -144,7 +125,17 @@ export function checkPickupTimeOut(expired?: string) {
   } else {
     return {
       valid: true,
-      range: endTime - now
+      range: endTimeSec - timeNowSec
     }
   }
 }
+
+export function getErrorMessage(error: any) {
+  if (error?.response?.data?.errors)  {
+    const errorValues = Object.values(error?.response?.data?.errors);
+    if (errorValues.length > 0) {
+      return errorValues.join(' ');
+    }
+  }
+  return error?.response?.data?.message;
+} 

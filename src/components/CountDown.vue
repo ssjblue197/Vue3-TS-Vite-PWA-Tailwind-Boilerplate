@@ -17,7 +17,7 @@
       </g>
     </svg>
     <span class="text-information-300 text-[34px] font-semibold center">
-      {{ displayTimmer }}
+      {{ displayTimer }}
     </span>
   </div>
 </template>
@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, onBeforeUnmount, computed } from 'vue';
 import { formatTime } from '@/utils/helper';
+import { watch } from 'vue';
 interface Props {
   time: number;
 }
@@ -69,7 +70,14 @@ const local: Local = reactive({
   remainingPathColor: COLOR_CODES.info.color,
 });
 
-const displayTimmer = computed(() => {
+watch(
+  () => props.time,
+  () => {
+    local.currentTime = props.time;
+  }
+);
+
+const displayTimer = computed(() => {
   return formatTime(local.currentTime);
 });
 const calculateTimeFraction = () => {

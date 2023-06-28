@@ -4,6 +4,7 @@ import { login } from '@/api/auth';
 import type { AuthParams } from '@/api/auth';
 import { useNotificationStore } from  '@/stores/notification';
 import axios from 'axios';
+import { getErrorMessage } from '@/utils/helper';
 
 const notificationStore = useNotificationStore();
 export const useAuthStore = defineStore('auth', {
@@ -23,8 +24,8 @@ export const useAuthStore = defineStore('auth', {
       } catch (error) {
         if (axios.isAxiosError(error)) {
           notificationStore.showMessage({
-            title: 'Login failed!',
-            message: error?.response?.data?.message
+            title: 'Scanning Error!',
+            message: getErrorMessage(error)
           });
         }
       }

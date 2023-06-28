@@ -22,6 +22,7 @@
     "html5-qrcode": "^2.3.8",
     "is-mobile": "^4.0.0",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.4",
     "pinia-plugin-persistedstate": "^3.1.0",

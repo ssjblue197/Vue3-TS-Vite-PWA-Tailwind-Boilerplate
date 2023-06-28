@@ -51,9 +51,19 @@
           @error="onError"
         >
           <template #default>
-            <s-button outline class="!bg-white active:!opacity-80" @click="handleCancelScanning">
-              Cancel scanning
-            </s-button>
+            <span class="flex flex-row gap-4">
+              <s-button outline class="!bg-white active:!opacity-80" @click="handleCancelScanning">
+                Cancel scanning
+              </s-button>
+              <s-button
+                outline
+                variant="danger"
+                class="!bg-white active:!opacity-80"
+                @click="handleCannotScan"
+              >
+                I can not scan
+              </s-button>
+            </span>
           </template>
         </ScanQRCode>
       </div>
@@ -81,15 +91,67 @@
         ></s-icon>
       </div>
     </Teleport>
+    <s-modal size="sm" position="center" v-if="requestStore.fulfillSuccessModal" :showClose="false">
+      <template #body>
+        <div class="wrapper flex flex-col items-center gap-6">
+          <s-icon
+            :src="$icon.render('iconMove')"
+            width="130"
+            height="130"
+            class="!text-white svg-line"
+          ></s-icon>
+          <div class="flex flex-col text-center gap-3">
+            <div class="text-[22px] text-primary">Successful!</div>
+            <div class="text-[17px] text-neutral-200 leading-[140%]">
+              You have fulfilled the request.
+            </div>
+          </div>
+          <s-button
+            variant="primary"
+            class="w-full !h-[48px] flex-1"
+            @click="requestStore.fulfillSuccessModal = false"
+            >Close</s-button
+          >
+        </div>
+      </template>
+    </s-modal>
+    <s-modal
+      @close="local.locationCodeModal = false"
+      size="sm"
+      position="center"
+      v-if="local.locationCodeModal"
+    >
+      <template #header> LOCATION CODE </template>
+      <template #body>
+        <s-input placeholder="Type location code" v-model="local.locationCode"></s-input>
+      </template>
+      <template #footer>
+        <div class="wrapper flex flex-row gap-4">
+          <s-button
+            variant="primary"
+            outline
+            class="!h-[48px] flex-1"
+            @click="handleCancelInputLocationCode"
+            >Cancel</s-button
+          >
+          <s-button
+            variant="primary"
+            class="!h-[48px] flex-1"
+            @click="handleConfirmInputLocationCode"
+            >Confirm</s-button
+          >
+        </div>
+      </template>
+    </s-modal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted, ref } from 'vue';
+import { reactive, onMounted, ref, onBeforeUnmount } from 'vue';
 import ScanQRCode from '@/components/ScanQRCode.vue';
 import RequestItem from '@/components/RequestItem.vue';
 import RequestDetail from '@/components/RequestDetail.vue';
-// import EventBus from '@/utils/eventbus';
+import EventBus from '@/utils/eventbus';
 import { useRouter } from 'vue-router';
 import LaneTag from '@/components/LaneTag.vue';
 import { useRequestStore } from '@/stores/request';
@@ -97,6 +159,8 @@ import { useAuthStore } from '@/stores/auth';
 import type { Request } from '@/modules/fullfill-request/types';
 import { isPortrait } from '@/utils/device';
 import axios from 'axios';
+import { FIREBASE_EVENTS } from '@/utils/const';
+import { debounce } from '@/utils/debounce';
 
 const authStore = useAuthStore();
 const requestStore = useRequestStore();
@@ -106,11 +170,15 @@ const requestList = ref();
 interface Local {
   showScanLocation?: boolean;
   requestList: Array<Request>;
+  locationCodeModal: boolean;
+  locationCode: string;
 }
 
 const local: Local = reactive({
   showScanLocation: false,
   requestList: [],
+  locationCodeModal: false,
+  locationCode: '',
 });
 
 const onClearFilter = async () => {
@@ -121,7 +189,7 @@ const onClearFilter = async () => {
 const onScan = async (decodedText: string) => {
   if (decodedText) {
     requestStore.filter.location = decodedText;
-    await loadData();
+    await loadData(true);
     local.showScanLocation = false;
   }
 };
@@ -133,6 +201,10 @@ const handleScanningLocation = () => {
 };
 const handleCancelScanning = () => {
   local.showScanLocation = false;
+};
+const handleCannotScan = () => {
+  local.showScanLocation = false;
+  local.locationCodeModal = true;
 };
 const handlePickup = async () => {
   //TODO handle pickup
@@ -148,9 +220,27 @@ const handlePickup = async () => {
   }
 };
 
-const loadData = async () => {
+const handleCancelInputLocationCode = () => {
+  local.locationCodeModal = false;
+  local.locationCode = '';
+};
+const handleConfirmInputLocationCode = async () => {
+  if (local.locationCode) {
+    requestStore.filter.location = local.locationCode;
+  } else {
+    requestStore.filter.location = '';
+  }
+  await loadData(true);
+  local.locationCode = '';
+  local.locationCodeModal = false;
+};
+
+const loadData = async (init = false) => {
   try {
-    requestStore.selectRequest = undefined;
+    if (init) {
+      local.requestList = [];
+      requestStore.selectRequest = undefined;
+    }
     requestStore.total = 0;
     requestStore.filter = {
       ...requestStore.filter,
@@ -160,7 +250,7 @@ const loadData = async () => {
     const data = await requestStore.getListRequest(requestStore.filter);
     if (data.length > 0) {
       local.requestList = data;
-      if (!isPortrait) {
+      if (!isPortrait && init) {
         requestStore.selectRequest = local.requestList[0];
       }
     }
@@ -178,8 +268,32 @@ const handleSelectRequest = (request: Request) => {
   }
 };
 
-loadData();
-onMounted(() => {});
+const debounceLoadData = debounce(loadData, 1000);
+
+loadData(true);
+onMounted(() => {
+  EventBus.$on(FIREBASE_EVENTS.EVENT_CREATE, debounceLoadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_RECEIVE, debounceLoadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_FULFILL, debounceLoadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_REJECT, debounceLoadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_RELEASE, debounceLoadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_TIMEOUT, debounceLoadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_CONFIRM, debounceLoadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_UPDATE_PRIORITY, debounceLoadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_REPORT_MISSING_BOX, debounceLoadData);
+});
+
+onBeforeUnmount(() => {
+  EventBus.$off(FIREBASE_EVENTS.EVENT_CREATE);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_RECEIVE);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_FULFILL);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_REJECT);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_RELEASE);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_TIMEOUT);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_CONFIRM);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_UPDATE_PRIORITY);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_REPORT_MISSING_BOX);
+});
 </script>
 
 <style scoped></style>

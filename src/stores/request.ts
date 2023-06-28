@@ -18,7 +18,8 @@ export const useRequestStore = defineStore('request', {
         location: '',
         device: 'ipad'
       } as RequestParams,
-      selectRequest: undefined as Request | undefined
+      selectRequest: undefined as Request | undefined,
+      fulfillSuccessModal: false as boolean
     }
   },
   actions: {
