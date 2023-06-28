@@ -115,9 +115,16 @@ body {
 }
 
 .request-list {
+  @apply select-none;
+  touch-action: none;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 }
+
+*:not(html) {
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
 
 .request-list > * {
   -webkit-transform: translateZ(0px);

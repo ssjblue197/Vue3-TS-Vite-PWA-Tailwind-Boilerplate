@@ -202,14 +202,6 @@ const handleSelectRequest = (request: Request) => {
 
 loadData();
 onMounted(() => {});
-
-document.addEventListener(
-  "touchmove",
-  function (e) {
-    e.preventDefault();
-  },
-  { passive: false }
-);
 </script>
 
 <style scoped></style>
