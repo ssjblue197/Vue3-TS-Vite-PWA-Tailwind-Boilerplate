@@ -125,6 +125,10 @@ body {
   }
 }
 
+.request-list > * {
+  -webkit-transform: translateZ(0px);
+}
+
 /*  LIST ANIMATION* /
 
 .list-move, /* apply transition to moving elements */
