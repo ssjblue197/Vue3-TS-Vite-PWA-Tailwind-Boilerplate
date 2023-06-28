@@ -158,6 +158,30 @@
         </div>
       </template>
     </s-modal>
+    <s-modal size="sm" position="center" v-if="local.outOfStockModal" :showClose="false">
+      <template #body>
+        <div class="wrapper flex flex-col items-center gap-6">
+          <s-icon
+            :src="$icon.render('iconDanger')"
+            width="130"
+            height="130"
+            class="!text-white svg-line"
+          ></s-icon>
+          <div class="flex flex-col text-center gap-3">
+            <div class="text-[22px] text-danger">Out of stock!</div>
+            <div class="text-[17px] text-neutral-200 leading-[140%]">
+              Please reach out to the relevant department for assistance.
+            </div>
+          </div>
+          <s-button
+            variant="primary"
+            class="w-full !h-[48px] flex-1"
+            @click="local.outOfStockModal = false"
+            >Close</s-button
+          >
+        </div>
+      </template>
+    </s-modal>
     <s-modal size="sm" position="center" v-if="local.locationUpdateModal" :showClose="false">
       <template #body>
         <div class="wrapper flex flex-col items-center gap-6">
@@ -211,7 +235,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, onBeforeUnmount } from 'vue';
 import ScanQRCode from '@/components/ScanQRCode.vue';
 import CountDown from '@/components/CountDown.vue';
 import RequestDetail from '@/components/RequestDetail.vue';
@@ -223,6 +247,8 @@ import type { Request } from '@/modules/fullfill-request/types';
 import { checkPickupTimeOut } from '@/utils/helper';
 import { useRequestStore } from '@/stores/request';
 import type { Box } from '@/modules/picking-up/types';
+import { FIREBASE_EVENTS } from '@/utils/const';
+import { debounce } from '@/utils/debounce';
 
 const requestStore = useRequestStore();
 const authStore = useAuthStore();
@@ -236,6 +262,7 @@ interface Local {
   checkReceiveModal?: boolean;
   locationCodeModal?: boolean;
   timeoutModal?: boolean;
+  outOfStockModal?: boolean;
   locationUpdateModal?: boolean;
   cancelPickupModal?: boolean;
   currentPickingUp?: Request;
@@ -252,6 +279,7 @@ const local: Local = reactive({
   checkReceiveModal: false,
   locationCodeModal: false,
   timeoutModal: false,
+  outOfStockModal: false,
   locationUpdateModal: false,
   cancelPickupModal: false,
   currentPickingUp: undefined,
@@ -421,7 +449,9 @@ const handleCancelPickup = async () => {
 
 const handleEndTime = () => {
   console.log('End time');
-  local.timeoutModal = true;
+  if (local.timeoutModal) {
+    handleCheckTimeout();
+  }
 };
 
 const handleTimeoutPickup = () => {
@@ -435,14 +465,96 @@ const loadData = async () => {
     employee_id: authStore.employee?.id,
     location: requestStore.filter.location,
   });
-  if (local.currentPickingUp) {
+  console.log(local.currentPickingUp);
+
+  if (local.currentPickingUp && Object.keys(local.currentPickingUp).length > 0) {
     const res = checkPickupTimeOut(local.currentPickingUp.expried_at);
     local.countDown = res.range;
+  } else {
+    router.push({
+      name: 'fulfill-request',
+    });
+  }
+};
+
+const debounceLoadData = debounce(loadData, 500);
+
+const handleCheckRelease = async () => {
+  const newestPickingUp = await pickingUpStore.getCurrentPickingUp({
+    employee_id: authStore.employee?.id,
+    location: requestStore.filter.location,
+  });
+  if (!newestPickingUp || (newestPickingUp && Object.keys(newestPickingUp).length === 0)) {
+    router.push({
+      name: 'fulfill-request',
+    });
+  }
+};
+
+const handleCheckTimeout = async () => {
+  const newestPickingUp = await pickingUpStore.getCurrentPickingUp({
+    employee_id: authStore.employee?.id,
+    location: requestStore.filter.location,
+  });
+  if (!newestPickingUp || (newestPickingUp && Object.keys(newestPickingUp).length === 0)) {
+    local.timeoutModal = true;
+  }
+};
+
+const isNomarLane = (lane: string) => {
+  if (lane.charAt(0) === lane.charAt(1)) {
+    return true;
+  }
+  return false;
+};
+
+const compareDiffLocations = (oldLocations: any, newLocations: any) => {
+  if (oldLocations.length === 0 || newLocations.length === 0) return false;
+  if (
+    (isNomarLane(oldLocations) && !isNomarLane(newLocations)) ||
+    (!isNomarLane(oldLocations) && isNomarLane(newLocations)) ||
+    (isNomarLane(oldLocations) &&
+      isNomarLane(newLocations) &&
+      oldLocations[0].charAt(0) !== newLocations[0].charAt(0))
+  ) {
+    return true;
+  }
+  return false;
+};
+
+const handleCheckLocation = async () => {
+  const newestPickingUp = await pickingUpStore.getCurrentPickingUp({
+    employee_id: authStore.employee?.id,
+    location: requestStore.filter.location,
+  });
+  if (newestPickingUp && Object.keys(newestPickingUp).length > 0) {
+    if (newestPickingUp.locations.length === 0) {
+      local.outOfStockModal = true;
+    } else {
+      if (
+        requestStore.filter.location &&
+        compareDiffLocations(local.currentPickingUp?.locations, newestPickingUp.locations)
+      ) {
+        local.locationUpdateModal = true;
+      }
+    }
   }
 };
 
 loadData();
-onMounted(async () => {});
+onMounted(() => {
+  EventBus.$on(FIREBASE_EVENTS.EVENT_RELEASE, handleCheckRelease);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_TIMEOUT, handleCheckTimeout);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_FULFILL, handleCheckLocation);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_REPORT_MISSING_BOX, handleCheckLocation);
+});
+
+onBeforeUnmount(() => {
+  EventBus.$off(FIREBASE_EVENTS.EVENT_RELEASE);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_TIMEOUT);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_FULFILL);
+  EventBus.$off(FIREBASE_EVENTS.EVENT_REPORT_MISSING_BOX);
+});
 </script>
 
 <style scoped></style>

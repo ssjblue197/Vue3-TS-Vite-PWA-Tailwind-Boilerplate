@@ -10,10 +10,11 @@
       <span class="text-neutral-900 flex flex-wrap gap-3">
         <template v-if="props.data?.locations && props.data?.locations?.length > 0">
           <s-tag
-            class="!rounded-[12px] !h-[32px] leading-[1.4] text-[17px]"
+            class="!rounded-[12px] !h-[32px] leading-[1.4] text-[17px] shadow-sm active:shadow-none"
             variant="information"
             v-for="(location, index) in props.data?.locations"
             :key="index"
+            @click.stop="emit('filterLane', location)"
             >{{ location }}</s-tag
           >
         </template>
@@ -30,9 +31,39 @@
       <div class="flex justify-between">
         <span class="text-neutral-200">Product</span>
         <span class="text-neutral-900 flex gap-2">
-          <s-tag size="small">{{ props.data?.product?.style }}</s-tag>
-          <s-tag size="small">{{ props.data?.product?.color }}</s-tag>
-          <s-tag size="small">{{ props.data?.product?.size }}</s-tag>
+          <s-tag
+            class="shadow-sm active:shadow-none"
+            size="small"
+            @click.stop="
+              emit('filterKeyword', {
+                title: props.data?.product?.style,
+                value: props.data?.product?.style,
+              })
+            "
+            >{{ props.data?.product?.style }}</s-tag
+          >
+          <s-tag
+            class="shadow-sm active:shadow-none"
+            size="small"
+            @click.stop="
+              emit('filterKeyword', {
+                title: props.data?.product?.color,
+                value: props.data?.product?.color,
+              })
+            "
+            >{{ props.data?.product?.color }}</s-tag
+          >
+          <s-tag
+            class="shadow-sm active:shadow-none"
+            size="small"
+            @click.stop="
+              emit('filterKeyword', {
+                title: props.data?.product?.size,
+                value: props.data?.product?.size,
+              })
+            "
+            >{{ props.data?.product?.size }}</s-tag
+          >
         </span>
       </div>
     </div>
@@ -62,6 +93,9 @@ const props = withDefaults(defineProps<Props>(), {
   hideDivide: false,
   data: undefined,
 });
+
+const emit = defineEmits(['filterLane', 'filterKeyword']);
+
 //TODO update type any
 const generateTimeline = (data: any) => {
   const result: Array<TimelineStep> = [];

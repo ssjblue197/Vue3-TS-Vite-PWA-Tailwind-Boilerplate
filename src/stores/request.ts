@@ -16,7 +16,12 @@ export const useRequestStore = defineStore('request', {
       filter: {
         employee: undefined,
         location: '',
-        device: 'ipad'
+        device: 'ipad',
+        keyword: {
+          type: '',
+          value: '',
+          title: ''
+        }
       } as RequestParams,
       selectRequest: undefined as Request | undefined,
       fulfillSuccessModal: false as boolean
@@ -54,7 +59,20 @@ export const useRequestStore = defineStore('request', {
       this.filter = {
         employee: undefined,
         location: '',
-        device: 'ipad'
+        device: 'ipad',
+        keyword: {
+          value: '',
+          title: ''
+        }
+      }
+    },
+    setDefaultFilterKeyword() {
+      this.filter = {
+        ...this.filter,
+        keyword: {
+          value: '',
+          title: ''
+        }
       }
     }
   },

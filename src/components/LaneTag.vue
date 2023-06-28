@@ -15,6 +15,7 @@
         >{{ props.title }}</span
       >
       <s-tag
+        v-if="!props.hideCount"
         size="small"
         variant="primary"
         class="rounded-lg"
@@ -43,6 +44,7 @@ interface Props {
   count?: number;
   disabled?: boolean;
   hideClear?: boolean;
+  hideCount?: boolean;
 }
 
 const emit = defineEmits(['clear']);
@@ -53,6 +55,7 @@ const props = withDefaults(defineProps<Props>(), {
   value: 'all',
   disabled: false,
   hideClear: false,
+  hideCount: false,
 });
 </script>
 

@@ -37,7 +37,15 @@
     </div>
     <div class="flex flex-row justify-between items-center overflow-hidden">
       <span class="flex flex-nowrap gap-2">
-        <s-tag class="!border-neutral-40 border !bg-white gap-2 py-2 px-4">
+        <s-tag
+          class="!border-neutral-40 border !bg-white gap-2 py-2 px-4"
+          @click.stop="
+            emit('filterKeyword', {
+              title: props.data?.product?.name,
+              value: props.data?.product?.sku,
+            })
+          "
+        >
           <template #before>
             <s-icon
               :src="$icon.render('iconShirt')"
@@ -52,11 +60,13 @@
           </span>
         </s-tag>
         <s-tag
-          class="!border-neutral-40 border bg-white gap-2 py-2 px-4"
+          v-if="props.data?.locations.length > 0"
+          class="!border-neutral-40 border bg-white gap-2 py-2 px-4 shadow-sm active:shadow-none"
           :class="{
             '!bg-success-50': props.data?.stock_level === STOCK_LEVEL.in_coming,
             '!bg-danger-50': props.data?.stock_level === STOCK_LEVEL.out_of_stock,
           }"
+          @click.stop="emit('filterLane', props.data?.locations[0])"
         >
           <template #before>
             <s-icon
@@ -100,12 +110,14 @@ const props = withDefaults(defineProps<Props>(), {
   data: undefined,
   active: false,
 });
+const emit = defineEmits(['filterLane', 'filterKeyword']);
 
 const displayLocation = (data: Request) => {
   if (data.locations.length > 0) {
-    return props.data?.locations?.join(', ');
+    // return props.data?.locations?.join(', ');
+    return data.locations[0];
   } else {
-    return props.data?.stock_level;
+    return data.stock_level;
   }
 };
 

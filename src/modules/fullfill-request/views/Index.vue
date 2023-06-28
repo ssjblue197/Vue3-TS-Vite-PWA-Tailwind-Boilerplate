@@ -1,11 +1,17 @@
 <template>
   <div class="w-full flex flex-col justify-start p-6 pb-0 bg-neutral-10 gap-6">
     <div class="flex justify-between items-center">
-      <span class="text-[22px] leading-[28px] text-neutral-900">
+      <span class="text-[22px] leading-[28px] text-neutral-900 flex gap-4">
         <LaneTag
           :title="requestStore.filter.location ? requestStore.filter.location : 'All'"
           :count="requestStore.total"
           @clear="onClearFilter"
+        />
+        <LaneTag
+          v-if="requestStore.filter.keyword.value"
+          :title="requestStore.filter.keyword.title"
+          hideCount
+          @clear="onClearFilter(false)"
         />
       </span>
       <s-button variant="primary" class="w-[220px] !h-[40px]" @click="handleScanningLocation">
@@ -27,12 +33,18 @@
             :data="request"
             @click="handleSelectRequest(request)"
             :active="requestStore.selectRequest?.id === request.id"
+            @filterLane="handleFilterLane"
+            @filterKeyword="handleFilterKeyword"
           />
         </transition-group>
       </div>
       <div class="hidden lg:block w-[390px]" v-if="requestStore.selectRequest">
         <transition name="slide-fade-right" appear>
-          <RequestDetail :data="requestStore.selectRequest">
+          <RequestDetail
+            :data="requestStore.selectRequest"
+            @filterLane="handleFilterLane"
+            @filterKeyword="handleFilterKeyword"
+          >
             <template #bottom>
               <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
                 >Pick up now</s-button
@@ -75,7 +87,12 @@
           v-if="requestStore.selectRequest"
         >
           <div class="w-[80%] max-w-[600px] center">
-            <RequestDetail v-if="requestStore.selectRequest" :data="requestStore.selectRequest">
+            <RequestDetail
+              v-if="requestStore.selectRequest"
+              :data="requestStore.selectRequest"
+              @filterLane="handleFilterLane"
+              @filterKeyword="handleFilterKeyword"
+            >
               <template #bottom>
                 <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
                   >Pick up now</s-button
@@ -183,8 +200,27 @@ const local: Local = reactive({
   locationCode: '',
 });
 
-const onClearFilter = async () => {
-  requestStore.setDefaultFilter();
+const handleFilterKeyword = async (data: any) => {
+  requestStore.filter = {
+    ...requestStore.filter,
+    keyword: {
+      ...data,
+    },
+  };
+  await loadData(true);
+};
+
+const handleFilterLane = async (lane: string) => {
+  requestStore.filter.location = lane;
+  await loadData(true);
+};
+
+const onClearFilter = async (isFilterLane = true) => {
+  if (!isFilterLane) {
+    requestStore.setDefaultFilterKeyword();
+  } else {
+    requestStore.setDefaultFilter();
+  }
   await loadData();
 };
 
@@ -270,7 +306,7 @@ const handleSelectRequest = (request: Request) => {
   }
 };
 
-const debounceLoadData = debounce(loadData, 1000);
+const debounceLoadData = debounce(loadData, 500);
 
 loadData(true);
 onMounted(() => {
