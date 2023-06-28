@@ -114,11 +114,9 @@ body {
   }
 }
 
-.scroll-touch {
-  -webkit-overflow-scrolling: touch;
-}
-
 .request-list {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
   @supports (-webkit-touch-callout: none) {
     /* CSS specific to iOS devices */
     .request-list {

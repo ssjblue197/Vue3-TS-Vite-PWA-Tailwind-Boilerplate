@@ -21,22 +21,20 @@
 
     <div class="flex gap-7">
       <div
-        class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-scroll relative items-center scroll-touch request-list"
+        class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-auto relative items-center request-list"
         id="scroll-area"
         v-if="local.requestList.length > 0"
       >
-        <!-- <transition-group mode="out-in" name="list" appear> -->
-        <template v-for="i in 30">
+        <transition-group mode="out-in" name="list" appear>
           <RequestItem
             ref="requestList"
             v-for="request in local.requestList"
-            :key="request?.id + i"
+            :key="request?.id"
             :data="request"
             @click="handleSelectRequest(request)"
             :active="requestStore.selectRequest?.id === request.id"
           />
-        </template>
-        <!-- </transition-group> -->
+        </transition-group>
       </div>
       <div class="hidden lg:block w-[390px]" v-if="requestStore.selectRequest">
         <transition name="slide-fade-right" appear>
