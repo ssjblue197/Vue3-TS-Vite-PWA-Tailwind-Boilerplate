@@ -25,18 +25,18 @@
         id="scroll-area"
         v-if="local.requestList.length > 0"
       >
-        <transition-group mode="out-in" name="list" appear>
-          <template v-for="i in 30">
-            <RequestItem
-              ref="requestList"
-              v-for="request in local.requestList"
-              :key="request?.id + i"
-              :data="request"
-              @click="handleSelectRequest(request)"
-              :active="requestStore.selectRequest?.id === request.id"
-            />
-          </template>
-        </transition-group>
+        <!-- <transition-group mode="out-in" name="list" appear> -->
+        <template v-for="i in 30">
+          <RequestItem
+            ref="requestList"
+            v-for="request in local.requestList"
+            :key="request?.id + i"
+            :data="request"
+            @click="handleSelectRequest(request)"
+            :active="requestStore.selectRequest?.id === request.id"
+          />
+        </template>
+        <!-- </transition-group> -->
       </div>
       <div class="hidden lg:block w-[390px]" v-if="requestStore.selectRequest">
         <transition name="slide-fade-right" appear>
