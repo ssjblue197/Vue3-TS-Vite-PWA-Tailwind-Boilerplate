@@ -1,151 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-    <meta name="msapplication-TileColor" content="#00a300" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+  <meta name="msapplication-TileColor" content="#00a300" />
+  <meta name="theme-color" content="#ffffff" />
+  <!-- <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
-    />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-touch-fullscreen" content="yes" />
-    <meta
-      name="apple-mobile-web-app-title"
-      content="Today is your opportunity to build the tomorrow you want"
-    />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash_screens/iPhone_14_Pro_Max_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash_screens/iPhone_14_Pro_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash_screens/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash_screens/iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash_screens/iPhone_13_mini__iPhone_12_mini__iPhone_11_Pro__iPhone_XS__iPhone_X_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash_screens/iPhone_11_Pro_Max__iPhone_XS_Max_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash_screens/iPhone_11__iPhone_XR_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash_screens/iPhone_8_Plus__iPhone_7_Plus__iPhone_6s_Plus__iPhone_6_Plus_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash_screens/iPhone_8__iPhone_7__iPhone_6s__iPhone_6__4.7__iPhone_SE_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash_screens/9.7__iPad_Pro__7.9__iPad_mini__9.7__iPad_Air__9.7__iPad_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash_screens/iPhone_14_Pro_Max_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash_screens/iPhone_14_Pro_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash_screens/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash_screens/iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash_screens/iPhone_13_mini__iPhone_12_mini__iPhone_11_Pro__iPhone_XS__iPhone_X_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash_screens/iPhone_11_Pro_Max__iPhone_XS_Max_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash_screens/iPhone_11__iPhone_XR_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash_screens/iPhone_8_Plus__iPhone_7_Plus__iPhone_6s_Plus__iPhone_6_Plus_portrait.png"
-    />
-    <title>Swift POD Application</title>
-  </head>
-  <body>
-    <div id="app" class="vh100"></div>
-    <script type="module" src="/src/main.ts"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        const intervalMS = 60 * 60 * 1000;
-        window.addEventListener('load', () => {
-          navigator.serviceWorker
-            .register('firebase-messaging-sw.js')
-            .then((r) => {
-              console.warn('Service Worker registration successfully:', r);
-              r &&
-                setInterval(async () => {
-                  if (!(!r.installing && navigator)) return;
+    /> -->
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi">
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Today is your opportunity to build the tomorrow you want" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    href="/splash_screens/iPhone_14_Pro_Max_landscape.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    href="/splash_screens/iPhone_14_Pro_landscape.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    href="/splash_screens/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_landscape.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    href="/splash_screens/iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_landscape.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    href="/splash_screens/iPhone_13_mini__iPhone_12_mini__iPhone_11_Pro__iPhone_XS__iPhone_X_landscape.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    href="/splash_screens/iPhone_11_Pro_Max__iPhone_XS_Max_landscape.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    href="/splash_screens/iPhone_11__iPhone_XR_landscape.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    href="/splash_screens/iPhone_8_Plus__iPhone_7_Plus__iPhone_6s_Plus__iPhone_6_Plus_landscape.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    href="/splash_screens/iPhone_8__iPhone_7__iPhone_6s__iPhone_6__4.7__iPhone_SE_landscape.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    href="/splash_screens/9.7__iPad_Pro__7.9__iPad_mini__9.7__iPad_Air__9.7__iPad_landscape.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    href="/splash_screens/iPhone_14_Pro_Max_portrait.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    href="/splash_screens/iPhone_14_Pro_portrait.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    href="/splash_screens/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_portrait.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    href="/splash_screens/iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_portrait.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    href="/splash_screens/iPhone_13_mini__iPhone_12_mini__iPhone_11_Pro__iPhone_XS__iPhone_X_portrait.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    href="/splash_screens/iPhone_11_Pro_Max__iPhone_XS_Max_portrait.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    href="/splash_screens/iPhone_11__iPhone_XR_portrait.png" />
+  <link rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    href="/splash_screens/iPhone_8_Plus__iPhone_7_Plus__iPhone_6s_Plus__iPhone_6_Plus_portrait.png" />
+  <title>Swift POD Application</title>
+</head>
 
-                  if ('connection' in navigator && !navigator.onLine) return;
+<body>
+  <div id="app" class="vh100"></div>
+  <script type="module" src="/src/main.ts"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      const intervalMS = 60 * 60 * 1000;
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('firebase-messaging-sw.js')
+          .then((r) => {
+            console.warn('Service Worker registration successfully:', r);
+            r &&
+              setInterval(async () => {
+                if (!(!r.installing && navigator)) return;
 
-                  const resp = await fetch(swUrl, {
+                if ('connection' in navigator && !navigator.onLine) return;
+
+                const resp = await fetch(swUrl, {
+                  cache: 'no-store',
+                  headers: {
                     cache: 'no-store',
-                    headers: {
-                      cache: 'no-store',
-                      'cache-control': 'no-cache',
-                    },
-                  });
+                    'cache-control': 'no-cache',
+                  },
+                });
 
-                  if (resp?.status === 200) await r.update();
-                }, intervalMS);
-            })
-            .catch((error) => {
-              console.warn('Service Worker registration failed:', error);
-            });
-        });
-      }
-    </script>
-  </body>
+                if (resp?.status === 200) await r.update();
+              }, intervalMS);
+          })
+          .catch((error) => {
+            console.warn('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
+</body>
+
 </html>
