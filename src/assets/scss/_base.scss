@@ -52,7 +52,6 @@ html {
   margin: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
-  -webkit-overflow-scrolling: touch !important;
 }
 
 body {
@@ -62,7 +61,6 @@ body {
   margin: env(safe-area-inset-right);
   // you can also use fallback values
   padding: env(safe-area-inset-bottom, 20px);
-  -webkit-overflow-scrolling: touch !important;
 }
 
 * {
@@ -90,18 +88,10 @@ body {
   left: 0;
   padding: 0;
   margin: 0;
-  -webkit-overflow-scrolling: touch !important;
 }
 
 .vh100 {
   height: 100vh;
-}
-
-@supports (-webkit-touch-callout: none) {
-  /* CSS specific to iOS devices */
-  .vh100 {
-    height: -webkit-fill-available;
-  }
 }
 
 .svg-line {
@@ -126,6 +116,15 @@ body {
 
 .scroll-touch {
   -webkit-overflow-scrolling: touch;
+}
+
+.request-list {
+  @supports (-webkit-touch-callout: none) {
+    /* CSS specific to iOS devices */
+    .request-list {
+      height: -webkit-fill-available;
+    }
+  }
 }
 
 /*  LIST ANIMATION* /
