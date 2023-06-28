@@ -77,8 +77,11 @@
 import { onMounted, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Notification from '@/components/Nofitication.vue';
+import { useAuthStore } from '@/stores/auth';
+
 const route = useRoute();
 const router = useRouter();
+const authStore = useAuthStore();
 
 interface Local {
   showLogout?: boolean;
@@ -93,6 +96,8 @@ const local: Local = reactive({
 const handleLogout = () => {
   //TODO Handle logout
   local.showLogout = false;
+  authStore.employee = null;
+  authStore.time_checking_id = null;
   router.push({
     name: 'auth',
   });

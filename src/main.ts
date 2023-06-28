@@ -54,7 +54,7 @@ app.config.errorHandler = (err: any) => {
 };
 
 // Handle incoming messages
-onMessage(messaging, (payload) => {
+onMessage(messaging, (payload: any) => {
   console.log('Message received:', payload);
   if (payload.data) {
     switch (payload.data.event_name) {

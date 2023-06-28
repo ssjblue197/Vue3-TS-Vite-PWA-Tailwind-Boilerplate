@@ -7,6 +7,7 @@ import axios from 'axios';
 import { getErrorMessage } from '@/utils/helper';
 
 const notificationStore = useNotificationStore();
+
 export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
