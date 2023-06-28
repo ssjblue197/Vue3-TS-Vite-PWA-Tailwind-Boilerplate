@@ -1,36 +1,41 @@
-@import 'typo';
-@import 'form';
+@import "typo";
+@import "form";
 
 @font-face {
-  font-family: 'Poppins';
-  src: local('Poppins'), url('@/assets/fonts/Poppins/Poppins-Thin.ttf') format('truetype');
+  font-family: "Poppins";
+  src: local("Poppins"),
+    url("@/assets/fonts/Poppins/Poppins-Thin.ttf") format("truetype");
   font-weight: thin;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: local('Poppins'), url('@/assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+  font-family: "Poppins";
+  src: local("Poppins"),
+    url("@/assets/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: local('Poppins'), url('@/assets/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+  font-family: "Poppins";
+  src: local("Poppins"),
+    url("@/assets/fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: local('Poppins'), url('@/assets/fonts/Poppins/Poppins-Italic.ttf') format('truetype');
+  font-family: "Poppins";
+  src: local("Poppins"),
+    url("@/assets/fonts/Poppins/Poppins-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
 }
 
 :root {
-  font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol,;
+  font-family: "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol;
   line-height: 1.5;
   font-weight: 400;
   font-size: 16px;
@@ -76,20 +81,18 @@ body {
     border-radius: 4px;
     cursor: pointer;
   }
-  
 }
-
 
 #app {
   width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
   padding: 0;
   margin: 0;
   -webkit-overflow-scrolling: touch !important;
 }
- 
+
 .vh100 {
   height: 100vh;
 }
@@ -111,13 +114,13 @@ body {
     @apply select-none;
   }
   .card {
-    @apply bg-white rounded-[16px] shadow-[0px_6px_20px_rgba(0,0,0,0.06)] overflow-hidden
+    @apply bg-white rounded-[16px] shadow-[0px_6px_20px_rgba(0,0,0,0.06)] overflow-hidden;
   }
   .wrapper {
-    @apply w-full h-full relative
+    @apply w-full h-full relative;
   }
   .center {
-    @apply absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]
+    @apply absolute left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%];
   }
 }
 
@@ -145,7 +148,6 @@ body {
   position: absolute;
 }
 
-
 /* FADE */
 .fade-enter-active,
 .fade-leave-active {
@@ -172,7 +174,6 @@ body {
   opacity: 0;
 }
 
-
 /* SLIDE FADE FROM RIGHT => LEFT, LEFT => RIGHT*/
 .slide-fade-right-enter-active {
   transition: all 0.3s ease-out;
@@ -187,7 +188,6 @@ body {
   transform: translateX(30px);
   opacity: 0;
 }
-
 
 /* SLIDE FADE FROM TOP => BOTTOM, BOTTOM => TOP*/
 .slide-fade-down-enter-active {
@@ -219,7 +219,6 @@ body {
   opacity: 0;
 }
 
-
 /* Scale UP => 1, Scale DOWN to 0*/
 .bounce-enter-active {
   animation: bounce-in 0.5s;
@@ -228,7 +227,7 @@ body {
   animation: bounce-in 0.5s reverse;
 }
 
-  /* Key frames */
+/* Key frames */
 
 @keyframes bounce-in {
   0% {
@@ -241,6 +240,3 @@ body {
     transform: scale(1);
   }
 }
-
-
-

@@ -3,12 +3,18 @@
     <div class="flex justify-between items-center">
       <span class="text-[22px] leading-[28px] text-neutral-900">
         <LaneTag
-          :title="requestStore.filter.location ? requestStore.filter.location : 'All'"
+          :title="
+            requestStore.filter.location ? requestStore.filter.location : 'All'
+          "
           :count="requestStore.total"
           @clear="onClearFilter"
         />
       </span>
-      <s-button variant="primary" class="w-[220px] !h-[40px]" @click="handleScanningLocation">
+      <s-button
+        variant="primary"
+        class="w-[220px] !h-[40px]"
+        @click="handleScanningLocation"
+      >
         Scan location code
       </s-button>
     </div>
@@ -20,21 +26,26 @@
         v-if="local.requestList.length > 0"
       >
         <transition-group mode="out-in" name="list" appear>
-          <RequestItem
-            ref="requestList"
-            v-for="request in local.requestList"
-            :key="request?.id"
-            :data="request"
-            @click="handleSelectRequest(request)"
-            :active="requestStore.selectRequest?.id === request.id"
-          />
+          <template v-for="i in 30">
+            <RequestItem
+              ref="requestList"
+              v-for="request in local.requestList"
+              :key="request?.id + i"
+              :data="request"
+              @click="handleSelectRequest(request)"
+              :active="requestStore.selectRequest?.id === request.id"
+            />
+          </template>
         </transition-group>
       </div>
       <div class="hidden lg:block w-[390px]" v-if="requestStore.selectRequest">
         <transition name="slide-fade-right" appear>
           <RequestDetail :data="requestStore.selectRequest">
             <template #bottom>
-              <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
+              <s-button
+                variant="primary"
+                class="!h-[48px]"
+                @click="handlePickup"
                 >Pick up now</s-button
               >
             </template>
@@ -43,7 +54,10 @@
       </div>
     </div>
     <Teleport to="body">
-      <div class="wrapper z-[2] bg-white absolute top-0 left-0" v-if="local.showScanLocation">
+      <div
+        class="wrapper z-[2] bg-white absolute top-0 left-0"
+        v-if="local.showScanLocation"
+      >
         <ScanQRCode
           title="Scan Location Code"
           subtitle="Align the QR code within the frame to scan"
@@ -51,7 +65,11 @@
           @error="onError"
         >
           <template #default>
-            <s-button outline class="!bg-white active:!opacity-80" @click="handleCancelScanning">
+            <s-button
+              outline
+              class="!bg-white active:!opacity-80"
+              @click="handleCancelScanning"
+            >
               Cancel scanning
             </s-button>
           </template>
@@ -64,9 +82,15 @@
         v-if="requestStore.selectRequest"
       >
         <transition name="fade" appear>
-          <RequestDetail v-if="requestStore.selectRequest" :data="requestStore.selectRequest">
+          <RequestDetail
+            v-if="requestStore.selectRequest"
+            :data="requestStore.selectRequest"
+          >
             <template #bottom>
-              <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
+              <s-button
+                variant="primary"
+                class="!h-[48px]"
+                @click="handlePickup"
                 >Pick up now</s-button
               >
             </template>
@@ -85,18 +109,18 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted, ref } from 'vue';
-import ScanQRCode from '@/components/ScanQRCode.vue';
-import RequestItem from '@/components/RequestItem.vue';
-import RequestDetail from '@/components/RequestDetail.vue';
+import { reactive, onMounted, ref } from "vue";
+import ScanQRCode from "@/components/ScanQRCode.vue";
+import RequestItem from "@/components/RequestItem.vue";
+import RequestDetail from "@/components/RequestDetail.vue";
 // import EventBus from '@/utils/eventbus';
-import { useRouter } from 'vue-router';
-import LaneTag from '@/components/LaneTag.vue';
-import { useRequestStore } from '@/stores/request';
-import { useAuthStore } from '@/stores/auth';
-import type { Request } from '@/modules/fullfill-request/types';
-import { isPortrait } from '@/utils/device';
-import axios from 'axios';
+import { useRouter } from "vue-router";
+import LaneTag from "@/components/LaneTag.vue";
+import { useRequestStore } from "@/stores/request";
+import { useAuthStore } from "@/stores/auth";
+import type { Request } from "@/modules/fullfill-request/types";
+import { isPortrait } from "@/utils/device";
+import axios from "axios";
 
 const authStore = useAuthStore();
 const requestStore = useRequestStore();
@@ -143,7 +167,7 @@ const handlePickup = async () => {
   const data = await requestStore.receiveRequest(payload);
   if (data) {
     router.push({
-      name: 'picking-up',
+      name: "picking-up",
     });
   }
 };
