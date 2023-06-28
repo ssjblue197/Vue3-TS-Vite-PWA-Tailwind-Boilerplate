@@ -115,14 +115,10 @@ body {
 }
 
 .request-list {
+  @apply select-none;
+  touch-action: none;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  @supports (-webkit-touch-callout: none) {
-    /* CSS specific to iOS devices */
-    .request-list {
-      height: -webkit-fill-available;
-    }
-  }
 }
 
 .request-list > * {

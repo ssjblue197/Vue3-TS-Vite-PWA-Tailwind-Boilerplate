@@ -25,16 +25,16 @@
         id="scroll-area"
         v-if="local.requestList.length > 0"
       >
-        <transition-group mode="out-in" name="list" appear>
-          <RequestItem
-            ref="requestList"
-            v-for="request in local.requestList"
-            :key="request?.id"
-            :data="request"
-            @click="handleSelectRequest(request)"
-            :active="requestStore.selectRequest?.id === request.id"
-          />
-        </transition-group>
+        <!-- <transition-group mode="out-in" name="list" appear> -->
+        <RequestItem
+          ref="requestList"
+          v-for="request in local.requestList"
+          :key="request?.id"
+          :data="request"
+          @click="handleSelectRequest(request)"
+          :active="requestStore.selectRequest?.id === request.id"
+        />
+        <!-- </transition-group> -->
       </div>
       <div class="hidden lg:block w-[390px]" v-if="requestStore.selectRequest">
         <transition name="slide-fade-right" appear>
@@ -202,6 +202,14 @@ const handleSelectRequest = (request: Request) => {
 
 loadData();
 onMounted(() => {});
+
+document.addEventListener(
+  "touchmove",
+  function (e) {
+    e.preventDefault();
+  },
+  { passive: false }
+);
 </script>
 
 <style scoped></style>
