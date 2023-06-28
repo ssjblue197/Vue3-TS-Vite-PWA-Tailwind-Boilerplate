@@ -1,7 +1,8 @@
 export interface RequestParams {
   employee?: number;
   location?: string;
-  device?: string
+  device?: string;
+  keyword?: any;
 }
 
 export interface ReceivePayload {

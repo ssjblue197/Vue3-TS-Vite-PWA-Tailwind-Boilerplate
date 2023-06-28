@@ -248,7 +248,6 @@ import { checkPickupTimeOut } from '@/utils/helper';
 import { useRequestStore } from '@/stores/request';
 import type { Box } from '@/modules/picking-up/types';
 import { FIREBASE_EVENTS } from '@/utils/const';
-import { debounce } from '@/utils/debounce';
 
 const requestStore = useRequestStore();
 const authStore = useAuthStore();
@@ -476,8 +475,6 @@ const loadData = async () => {
     });
   }
 };
-
-const debounceLoadData = debounce(loadData, 500);
 
 const handleCheckRelease = async () => {
   const newestPickingUp = await pickingUpStore.getCurrentPickingUp({

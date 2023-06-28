@@ -60,7 +60,7 @@
           </span>
         </s-tag>
         <s-tag
-          v-if="props.data?.locations.length > 0"
+          v-if="props.data?.locations && props.data?.locations?.length > 0"
           class="!border-neutral-40 border bg-white gap-2 py-2 px-4 shadow-sm active:shadow-none"
           :class="{
             '!bg-success-50': props.data?.stock_level === STOCK_LEVEL.in_coming,
