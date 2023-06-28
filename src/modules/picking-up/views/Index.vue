@@ -222,7 +222,7 @@ import { useAuthStore } from '@/stores/auth';
 import type { Request } from '@/modules/fullfill-request/types';
 import { checkPickupTimeOut } from '@/utils/helper';
 import { useRequestStore } from '@/stores/request';
-import type { Box } from '@/modules/fullfill-request/types';
+import type { Box } from '@/modules/picking-up/types';
 
 const requestStore = useRequestStore();
 const authStore = useAuthStore();
