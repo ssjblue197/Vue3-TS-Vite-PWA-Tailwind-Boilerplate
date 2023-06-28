@@ -421,7 +421,7 @@ const handleCancelPickup = async () => {
 
 const handleEndTime = () => {
   console.log('End time');
-  // local.timeoutModal = true;
+  local.timeoutModal = true;
 };
 
 const handleTimeoutPickup = () => {

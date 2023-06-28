@@ -69,27 +69,29 @@
       </div>
     </Teleport>
     <Teleport to="body">
-      <div
-        class="absolute center block lg:hidden w-[80%] max-w-[600px] z-1 bg-white shadow-2xl rounded-[16px]"
-        v-if="requestStore.selectRequest"
-      >
-        <transition name="fade" appear>
-          <RequestDetail v-if="requestStore.selectRequest" :data="requestStore.selectRequest">
-            <template #bottom>
-              <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
-                >Pick up now</s-button
-              >
-            </template>
-          </RequestDetail>
-        </transition>
-        <s-icon
-          :src="$icon.render('iconClose')"
-          width="24"
-          height="24"
-          class="!text-neutral-100 absolute top-4 right-4 cursor-pointer"
-          @click="requestStore.selectRequest = undefined"
-        ></s-icon>
-      </div>
+      <transition name="fade" appear>
+        <div
+          class="absolute center block lg:hidden w-screen h-screen z-1 bg-[rgba(0,0,0,0.5)] shadow-2xl rounded-[16px]"
+          v-if="requestStore.selectRequest"
+        >
+          <div class="w-[80%] max-w-[600px] center">
+            <RequestDetail v-if="requestStore.selectRequest" :data="requestStore.selectRequest">
+              <template #bottom>
+                <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
+                  >Pick up now</s-button
+                >
+              </template>
+            </RequestDetail>
+            <s-icon
+              :src="$icon.render('iconClose')"
+              width="24"
+              height="24"
+              class="!text-neutral-100 absolute top-4 right-4 cursor-pointer"
+              @click="requestStore.selectRequest = undefined"
+            ></s-icon>
+          </div>
+        </div>
+      </transition>
     </Teleport>
     <s-modal size="sm" position="center" v-if="requestStore.fulfillSuccessModal" :showClose="false">
       <template #body>

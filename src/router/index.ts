@@ -9,6 +9,7 @@ import {
 
 import http from '@/api/http';
 import { acceptRouteNames } from '@/utils/sidebar';
+import { useAuthStore } from '@/stores/auth';
 
 const routes = import.meta.glob('@/modules/**/route.ts', { eager: true });
 
@@ -39,6 +40,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  if (to.name !== 'auth') {
+    if (!authStore.employee) {
+      next({
+        name: 'auth'
+      })
+    }
+  }
   next();
 });
 

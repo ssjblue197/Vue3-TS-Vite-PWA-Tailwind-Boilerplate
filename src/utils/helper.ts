@@ -113,7 +113,6 @@ export function checkPickupTimeOut(expired?: string) {
   }
 
   const timeNow = moment().tz("America/Los_Angeles").format('YYYY-MM-DD HH:mm:ss');
-  
   const endTimeSec = dateStringToSeconds(expired, 'YYYY-MM-DD hh:mm:ss'); 
   const timeNowSec = dateStringToSeconds(timeNow, 'YYYY-MM-DD hh:mm:ss'); 
 

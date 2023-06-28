@@ -6,8 +6,6 @@ import { useNotificationStore } from  '@/stores/notification';
 import axios from 'axios';
 import { getErrorMessage } from '@/utils/helper';
 
-const notificationStore = useNotificationStore();
-
 export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
@@ -17,6 +15,7 @@ export const useAuthStore = defineStore('auth', {
   },
   actions: {
     async login(payload: AuthParams) {
+      const notificationStore = useNotificationStore();
       try {
         const { data } = await login(payload);
         this.employee = data?.employee || null;

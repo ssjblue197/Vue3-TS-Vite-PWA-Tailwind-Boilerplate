@@ -35,8 +35,8 @@ app.component("infinite-loading", InfiniteLoading);
 spod(app);
 svgIcon(app);
 
-app.use(router);
 app.use(stores);
+app.use(router);
 app.use(Toast, { position: POSITION.TOP_RIGHT });
 app.use(date);
 app.use(icon);
