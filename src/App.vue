@@ -61,7 +61,7 @@ import MainLayout from '@/layouts/MainLayout.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import NewNotifyMessage from '@/components/NewNotifyMessage.vue';
 import { useSocket } from '@/services/socket';
-import { checkAppInstalled } from '@/utils/device';
+// import { checkAppInstalled } from '@/utils/device';
 import { useNotificationStore } from '@/stores/notification';
 import { getToken } from 'firebase/messaging';
 import { messaging } from '@/utils/firebase';
