@@ -324,7 +324,7 @@ const onScan = async (decodedText: string) => {
       };
       const data = await pickingUpStore.fulfillRequest(payload);
       if (data && Object.keys(data).length > 0) {
-        EventBus.$emit('showFulfillSuccessModal');
+        requestStore.fulfillSuccessModal = true;
         router.push({
           name: 'fulfill-request',
         });

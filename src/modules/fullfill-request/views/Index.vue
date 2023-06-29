@@ -290,6 +290,8 @@ const handleConfirmInputLocationCode = async () => {
 };
 
 const loadData = async (init = false) => {
+  console.log('Loading data');
+
   try {
     if (init) {
       local.isLoading = true;
