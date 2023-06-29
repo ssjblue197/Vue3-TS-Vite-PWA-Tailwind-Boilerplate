@@ -24,8 +24,8 @@
         >
       </div>
     </transition>
-    <Teleport to="body">
-      <div class="wrapper z-[2] bg-white absolute top-0 left-0" v-if="local.showScanQR">
+    <Teleport to="#main">
+      <div class="wrapper z-[4] bg-white absolute top-0 left-0" v-if="local.showScanQR">
         <ScanQRCode
           :title="local.isScanLocation ? 'Scan Location Code' : 'Scan Box ID'"
           subtitle="Align the QR code within the frame to scan"
@@ -482,8 +482,6 @@ const loadData = async () => {
     employee_id: authStore.employee?.id,
     location: requestStore.filter.location,
   });
-  console.log(local.currentPickingUp);
-
   if (local.currentPickingUp && Object.keys(local.currentPickingUp).length > 0) {
     const res = checkPickupTimeOut(local.currentPickingUp.expried_at);
     local.countDown = res.range;
@@ -511,6 +509,7 @@ const handleCheckRelease = async () => {
 //     employee_id: authStore.employee?.id,
 //     location: requestStore.filter.location,
 //   });
+//   console.log('TIMEOUT HANDLE: ', newestPickingUp);
 //   if (!newestPickingUp || (newestPickingUp && Object.keys(newestPickingUp).length === 0)) {
 //     local.timeoutModal = true;
 //   }

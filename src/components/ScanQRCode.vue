@@ -58,7 +58,7 @@ const local: Local = reactive({
 const startScanQRCode = async () => {
   const area = document.querySelector('#qr-code-full-region');
   const config: Html5QrcodeCameraScanConfig = {
-    fps: 2,
+    fps: 10,
     qrbox: local.scanArea,
   };
   if (local.html5QrCode.getState() !== 2) {
@@ -278,8 +278,13 @@ const resumeScan = async () => {
 };
 
 const stopScanQRCode = async () => {
-  if (local.html5QrCode.getState() === 2) {
+  if (local.html5QrCode?.getState() === 2) {
     await local.html5QrCode.stop();
+    local.html5QrCode = null;
+  } else if (local.html5QrCode?.getState() === 3) {
+    await local.html5QrCode.resume();
+    await local.html5QrCode.stop();
+    local.html5QrCode = null;
   }
 };
 
@@ -321,7 +326,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   console.log('CAMERA OFF');
   EventBus.$off('changeState');
-  stopScanQRCode();
+  if (local.html5QrCode) stopScanQRCode();
 });
 </script>
 

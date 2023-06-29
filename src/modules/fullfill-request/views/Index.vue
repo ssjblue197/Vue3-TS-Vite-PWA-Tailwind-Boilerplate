@@ -6,6 +6,7 @@
           :title="requestStore.filter.location ? requestStore.filter.location : 'All'"
           :count="requestStore.total"
           @clear="onClearFilter"
+          isLane
         />
         <LaneTag
           v-if="requestStore.filter.keyword.value"
@@ -49,6 +50,7 @@
             :data="requestStore.selectRequest"
             @filterLane="handleFilterLane"
             @filterKeyword="handleFilterKeyword"
+            :showHeader="false"
           >
             <template #bottom>
               <s-button
@@ -66,8 +68,8 @@
         </transition>
       </div>
     </div>
-    <Teleport to="body">
-      <div class="wrapper z-[2] bg-white absolute top-0 left-0" v-if="local.showScanLocation">
+    <Teleport to="#main">
+      <div class="wrapper z-[4] bg-white absolute top-0 left-0" v-if="local.showScanLocation">
         <ScanQRCode
           title="Scan Location Code"
           subtitle="Align the QR code within the frame to scan"
@@ -92,10 +94,10 @@
         </ScanQRCode>
       </div>
     </Teleport>
-    <Teleport to="body">
+    <Teleport to="#main">
       <transition name="fade" appear>
         <div
-          class="fixed center block lg:hidden w-screen h-screen z-1 bg-[rgba(0,0,0,0.5)] shadow-2xl"
+          class="fixed center block lg:hidden w-screen h-screen z-[4] bg-[rgba(0,0,0,0.5)] shadow-2xl"
           v-if="requestStore.selectRequest"
         >
           <div class="w-[80%] max-w-[600px] center">
@@ -104,6 +106,7 @@
               :data="requestStore.selectRequest"
               @filterLane="handleFilterLane"
               @filterKeyword="handleFilterKeyword"
+              showHeader
             >
               <template #bottom>
                 <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
@@ -115,7 +118,7 @@
               :src="$icon.render('iconClose')"
               width="24"
               height="24"
-              class="!text-neutral-100 absolute top-4 right-4 cursor-pointer"
+              class="!text-neutral-100 absolute top-5 right-5 cursor-pointer"
               @click="requestStore.selectRequest = undefined"
             ></s-icon>
           </div>
@@ -221,12 +224,12 @@ const handleFilterKeyword = async (data: any) => {
       ...data,
     },
   };
-  await loadData();
+  await loadData(true);
 };
 
 const handleFilterLane = async (lane: string) => {
   requestStore.filter.location = lane;
-  await loadData();
+  await loadData(true);
 };
 
 const onClearFilter = async (isFilterLane = true) => {
@@ -235,13 +238,13 @@ const onClearFilter = async (isFilterLane = true) => {
   } else {
     requestStore.setDefaultFilter();
   }
-  await loadData();
+  await loadData(true);
 };
 
 const onScan = async (decodedText: string) => {
   if (decodedText) {
     requestStore.filter.location = decodedText;
-    await loadData();
+    await loadData(true);
     local.showScanLocation = false;
   }
 };

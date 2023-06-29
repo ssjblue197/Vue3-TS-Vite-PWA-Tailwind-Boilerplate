@@ -5,7 +5,7 @@
     >
       I want to...
     </div>
-    <div class="w-full flex flex-col gap-4 items-center">
+    <div class="w-full flex flex-col gap-4 items-center pb-6">
       <!-- <s-button
         v-if="authStore.employee?.department.toLowerCase() === 'pulling'"
         class="w-[650px] h-[52px]"
@@ -28,18 +28,28 @@
         "
         >Fullfill request</s-button
       >
-      <s-button class="w-[650px] h-[52px]" outline>Option 2</s-button>
-      <s-button class="w-[650px] h-[52px]" outline>Option 3</s-button>
+      <!-- <s-button class="w-[650px] h-[52px]" outline>Option 2</s-button> -->
+      <!-- <s-button class="w-[650px] h-[52px]" outline>Option 3</s-button> -->
+      <s-button class="w-[650px] h-[52px]" variant="danger" @click="handleLogout">Logout</s-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-// import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from '@/stores/auth';
 
-// const authStore = useAuthStore();
+const authStore = useAuthStore();
 const router = useRouter();
+
+const handleLogout = () => {
+  //TODO Handle logout
+  authStore.employee = null;
+  authStore.time_checking_id = null;
+  router.push({
+    name: 'auth',
+  });
+};
 </script>
 
 <style scoped></style>

@@ -23,6 +23,7 @@ export const useNotificationStore = defineStore('notification', {
       this.firebaseToken = null;
     },
     showMessage(message: Message) {
+      this.newMessage = null;
       this.newMessage = message;
       setTimeout(() => {
         this.newMessage = null;

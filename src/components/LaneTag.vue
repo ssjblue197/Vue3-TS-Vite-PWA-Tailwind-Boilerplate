@@ -12,7 +12,7 @@
         :class="{
           '!text-neutral-90': disabled,
         }"
-        >{{ props.title }}</span
+        >{{ displayTitle(props.title) }}</span
       >
       <s-tag
         v-if="!props.hideCount"
@@ -40,6 +40,7 @@
 <script setup lang="ts">
 interface Props {
   title?: string;
+  isLane?: boolean;
   value?: string;
   count?: number;
   disabled?: boolean;
@@ -51,12 +52,24 @@ const emit = defineEmits(['clear']);
 
 const props = withDefaults(defineProps<Props>(), {
   title: 'All',
+  isLane: false,
   count: 0,
   value: 'all',
   disabled: false,
   hideClear: false,
   hideCount: false,
 });
+
+const displayTitle = (title: string) => {
+  if (title === 'All') return title;
+  if (!props.isLane) return title;
+  if (title.length < 2) return title;
+  if (title.charAt(0) === title.charAt(1)) {
+    return `Lane ${title.slice(0, 2)}`;
+  } else {
+    return 'Lane Other';
+  }
+};
 </script>
 
 <style scoped></style>

@@ -3,13 +3,13 @@
     <DefaultLayout v-if="layoutName === 'default'" />
     <MainLayout v-if="layoutName === 'main'" />
     <transition name="slide-fade-down" appear>
-      <NewNotifyMessage v-if="notificationStore.newMessage" :data="notificationStore.newMessage" />
+      <NewNotifyMessage :data="notificationStore.newMessage" v-if="notificationStore.newMessage" />
     </transition>
   </div>
   <Teleport to="body">
     <div
       v-if="local.showPopupEnableNotify && checkAppInstalled()"
-      class="wraper !z-[9998] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
+      class="wrapper !z-[9998] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
     >
       <div
         class="w-[80%] mb-5 flex flex-col p-5 items-center bg-white rounded-[28px] gap-5 relative mx-auto"
@@ -27,7 +27,7 @@
   <Teleport to="body">
     <div
       v-if="!checkAppInstalled()"
-      class="wraper !z-[9999] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
+      class="wrapper !z-[9999] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
     >
       <div
         class="px-20 mb-5 flex flex-row p-5 items-center bg-white rounded-[28px] gap-5 justify-center relative mx-auto"

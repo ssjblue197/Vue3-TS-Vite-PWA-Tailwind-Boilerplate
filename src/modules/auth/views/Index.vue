@@ -45,7 +45,7 @@ const router = useRouter();
 const onScan = async (decodedText: string) => {
   if (decodedText) {
     console.log(decodedText);
-    if (!Number.isNaN(+decodedText) && notificationStore.firebaseToken) {
+    if (notificationStore.firebaseToken) {
       EventBus.$emit('changeState', 3);
       const payload = {
         code: decodedText,

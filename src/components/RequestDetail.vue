@@ -5,7 +5,16 @@
       'divide-y divide-neutral-40': !props.hideDivide,
     }"
   >
-    <div class="flex flex-col gap-2 text-[17px] pb-5" v-if="!props.hideLocation">
+    <div class="w-full text-left text-[20px] text-neutral-900 pb-5" v-if="props.showHeader">
+      REQUEST DETAIL
+    </div>
+    <div
+      class="flex flex-col gap-2 text-[17px] pb-5"
+      v-if="!props.hideLocation"
+      :class="{
+        '!py-5': props.showHeader,
+      }"
+    >
       <span class="text-neutral-200">Location</span>
       <span class="text-neutral-900 flex flex-wrap gap-3">
         <template v-if="props.data?.locations && props.data?.locations?.length > 0">
@@ -94,6 +103,7 @@ interface Props {
   hideDetail?: boolean;
   hideDivide?: boolean;
   data?: Request;
+  showHeader: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -101,6 +111,7 @@ const props = withDefaults(defineProps<Props>(), {
   hideDetail: false,
   hideDivide: false,
   data: undefined,
+  showHeader: false,
 });
 
 const emit = defineEmits(['filterLane', 'filterKeyword']);

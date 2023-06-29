@@ -260,8 +260,8 @@
         </div>
       </template>
     </s-modal>
-    <Teleport to="body">
-      <div class="wrapper z-[2] bg-white absolute top-0 left-0" v-if="local.showScanQRCode">
+    <Teleport to="#main">
+      <div class="wrapper z-[4] bg-white absolute top-0 left-0" v-if="local.showScanQRCode">
         <ScanQRCode
           :title="local.isScanAddRequest ? 'Scan QR Code' : 'Scan Box ID'"
           subtitle="Align the QR code within the frame to scan"
@@ -340,9 +340,9 @@
         </ScanQRCode>
       </div>
     </Teleport>
-    <Teleport to="body">
+    <Teleport to="#main">
       <div
-        class="absolute center block lg:hidden w-[80%] max-w-[600px] z-1 bg-white shadow-2xl rounded-[16px]"
+        class="absolute center block lg:hidden w-[80%] max-w-[600px] z-[4] bg-white shadow-2xl rounded-[16px]"
         v-if="local.selectRequest"
       >
         <transition name="fade" appear>
