@@ -24,7 +24,7 @@
       </div>
     </div>
   </Teleport>
-  <Teleport to="body">
+  <!-- <Teleport to="body">
     <div
       v-if="!checkAppInstalled()"
       class="wraper !z-[9999] bg-[rgba(10,11,13,0.3)] backdrop-blur-[12px] absolute top-0 left-0 w-screen h-screen text-white flex flex-col justify-end"
@@ -51,7 +51,7 @@
         <img src="@/assets/images/logo.png" alt="icon" class="h-full" />
       </div>
     </div>
-  </Teleport>
+  </Teleport> -->
 </template>
 
 <script setup lang="ts">
@@ -103,21 +103,21 @@ const handleEnableNotify = async () => {
   }
 };
 
-const refreshFCMToken = async () => {
-  if (Notification.permission === 'granted') {
-    try {
-      const token = await getToken(messaging);
-      const notificationStore = useNotificationStore();
-      notificationStore.firebaseToken = token;
-    } catch (error) {
-      console.warn(error);
-    }
-  }
-};
+// const refreshFCMToken = async () => {
+//   if (Notification.permission === 'granted') {
+//     try {
+//       const token = await getToken(messaging);
+//       const notificationStore = useNotificationStore();
+//       notificationStore.firebaseToken = token;
+//     } catch (error) {
+//       console.warn(error);
+//     }
+//   }
+// };
 
 onMounted(() => {
   // socket.asyncConnect();
-  refreshFCMToken();
+  // refreshFCMToken();
   if (Notification.permission !== 'granted') {
     local.showPopupEnableNotify = true;
   }
