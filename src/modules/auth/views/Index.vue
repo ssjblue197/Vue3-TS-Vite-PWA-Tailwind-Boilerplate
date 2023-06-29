@@ -53,6 +53,7 @@ const onScan = async (decodedText: string) => {
       };
       const data = await authStore.login(payload);
       if (data && Object.keys(data).length > 0) {
+        EventBus.$emit('changeState', 1);
         const currentPickup = await pickingUpStore.getCurrentPickingUp({
           employee_id: data?.employee?.id,
         });
