@@ -51,15 +51,7 @@
     </div>
     <div class="flex flex-row justify-between items-center overflow-hidden">
       <span class="flex flex-nowrap gap-2">
-        <s-tag
-          class="!border-neutral-40 border !bg-white gap-2 py-2 px-4"
-          @click.stop="
-            emit('filterKeyword', {
-              title: props.data?.product?.name,
-              value: props.data?.product?.sku,
-            })
-          "
-        >
+        <s-tag class="!border-neutral-40 border !bg-white gap-2 py-2 px-4">
           <template #before>
             <s-icon
               :src="$icon.render('iconShirt')"
@@ -70,7 +62,7 @@
             </s-icon>
           </template>
           <span
-            class="text-[17px] text-neutral-900 max-w-[160px] truncate"
+            class="text-[17px] text-neutral-900 w-fit max-w-[300px] truncate"
             :class="{
               '!text-neutral-90': !props.data,
             }"
@@ -84,7 +76,6 @@
             '!bg-success-50': props.data?.stock_level === STOCK_LEVEL.in_coming,
             '!bg-danger-50': props.data?.stock_level === STOCK_LEVEL.out_of_stock,
           }"
-          @click.stop="emit('filterLane', props.data?.locations[0] || '')"
         >
           <template #before>
             <s-icon
@@ -140,7 +131,7 @@ const props = withDefaults(defineProps<Props>(), {
   data: undefined,
   active: false,
 });
-const emit = defineEmits(['filterLane', 'filterKeyword']);
+// const emit = defineEmits(['filterLane', 'filterKeyword']);
 
 const displayLocation = (data: Request) => {
   if (data.locations.length > 0) {

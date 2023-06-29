@@ -6,7 +6,7 @@
       I want to...
     </div>
     <div class="w-full flex flex-col gap-4 items-center">
-      <s-button
+      <!-- <s-button
         v-if="authStore.employee?.department.toLowerCase() === 'pulling'"
         class="w-[650px] h-[52px]"
         variant="primary"
@@ -16,9 +16,9 @@
           })
         "
         >Go to Pulling Inventory Spotter</s-button
-      >
+      > -->
+      <!-- v-if="authStore.employee?.department.toLowerCase() === 'inventory'" -->
       <s-button
-        v-if="authStore.employee?.department.toLowerCase() === 'inventory'"
         class="w-[650px] h-[52px]"
         variant="primary"
         @click="
@@ -36,9 +36,9 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth';
+// import { useAuthStore } from '@/stores/auth';
 
-const authStore = useAuthStore();
+// const authStore = useAuthStore();
 const router = useRouter();
 </script>
 

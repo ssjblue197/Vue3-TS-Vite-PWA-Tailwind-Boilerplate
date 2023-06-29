@@ -35,7 +35,7 @@
             variant="information"
             @click.stop="
               emit('filterKeyword', {
-                title: props.data?.product?.sku,
+                title: props.data?.product?.name,
                 value: props.data?.product?.sku,
               })
             "

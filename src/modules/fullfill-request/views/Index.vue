@@ -32,8 +32,6 @@
             :data="request"
             @click="handleSelectRequest(request)"
             :active="requestStore.selectRequest?.id === request.id"
-            @filterLane="handleFilterLane"
-            @filterKeyword="handleFilterKeyword"
           />
         </transition-group>
         <transition
@@ -190,7 +188,7 @@ import LaneTag from '@/components/LaneTag.vue';
 import { useRequestStore } from '@/stores/request';
 import { useAuthStore } from '@/stores/auth';
 import type { Request } from '@/modules/fullfill-request/types';
-import { isPortrait } from '@/utils/device';
+// import { isPortrait } from '@/utils/device';
 import axios from 'axios';
 import { FIREBASE_EVENTS } from '@/utils/const';
 import { debounce } from '@/utils/debounce';
@@ -295,8 +293,8 @@ const loadData = async (init = false) => {
   try {
     if (init) {
       local.isLoading = true;
+      requestStore.selectRequest = undefined;
     }
-    requestStore.selectRequest = undefined;
     requestStore.total = 0;
     requestStore.filter = {
       ...requestStore.filter,
@@ -310,9 +308,9 @@ const loadData = async (init = false) => {
     const data = await requestStore.getListRequest(filter);
     if (data) {
       local.requestList = data;
-      if (!isPortrait && local.requestList.length > 0) {
-        requestStore.selectRequest = local.requestList[0];
-      }
+      // if (!isPortrait && local.requestList.length > 0) {
+      //   requestStore.selectRequest = local.requestList[0];
+      // }
     } else {
       local.requestList = [];
     }

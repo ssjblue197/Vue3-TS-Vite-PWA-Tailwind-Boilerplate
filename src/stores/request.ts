@@ -57,13 +57,10 @@ export const useRequestStore = defineStore('request', {
     },
     setDefaultFilter() {
       this.filter = {
+        ...this.filter,
         employee: undefined,
         location: '',
         device: 'ipad',
-        keyword: {
-          value: '',
-          title: ''
-        }
       }
     },
     setDefaultFilterKeyword() {
