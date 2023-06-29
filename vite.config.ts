@@ -33,8 +33,8 @@ export default defineConfig({
       },
       includeAssets: ['favicon.ico', 'robots.txt', '*.svg', '*.{png,ico}'],
       manifest: {
-        name: 'Swift POD App',
-        short_name: 'SWift POD',
+        name: 'SPA-Inventory Team',
+        short_name: 'SPA-Inventory Team',
         description: 'Today is your opportunity to build the tomorrow you want',
         display: 'standalone',
         id: '/',
