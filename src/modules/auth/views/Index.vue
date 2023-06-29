@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-// import { reactive } from 'vue';
+import { onBeforeUnmount } from 'vue';
 import ScanQRCode from '@/components/ScanQRCode.vue';
 import { useRouter } from 'vue-router';
 import EventBus from '@/utils/eventbus';
@@ -79,6 +79,10 @@ const onScan = async (decodedText: string) => {
 //   EventBus.$emit('changeState', 0);
 //   // local.invalidQR = false;
 // };
+
+onBeforeUnmount(() => {
+  EventBus.$emit('changeState', 1);
+});
 
 const onError = () => {};
 </script>
