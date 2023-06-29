@@ -33,11 +33,16 @@ export function useSocket() {
   const asyncConnect = async () => {
     current.connect();
   }
+
+  const setAuth = async (auth: any) => {
+    current.auth = auth
+  }
   
 
   return {
     // Expose any additional methods or properties you need
     current,
-    asyncConnect
+    asyncConnect,
+    setAuth
   };
 }
