@@ -56,6 +56,8 @@ app.config.errorHandler = (err: any) => {
 // Handle incoming messages
 onMessage(messaging, (payload: any) => {
   console.log('Message received:', payload);
+  const toast = useToast();
+  toast.info(payload.data.event_name);
   if (payload.data) {
     switch (payload.data.event_name) {
       case FIREBASE_EVENTS.EVENT_CREATE:
