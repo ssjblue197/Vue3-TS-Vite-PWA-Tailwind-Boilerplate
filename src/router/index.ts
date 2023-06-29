@@ -47,6 +47,12 @@ router.beforeEach((to, from, next) => {
         name: 'auth'
       })
     }
+  } else {
+    if (authStore.employee && authStore.employee.id) {
+      next({
+        name: 'home'
+      })
+    }
   }
   next();
 });

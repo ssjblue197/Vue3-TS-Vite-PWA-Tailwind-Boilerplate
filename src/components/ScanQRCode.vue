@@ -319,6 +319,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
+  console.log('CAMERA OFF');
   EventBus.$off('changeState');
   stopScanQRCode();
 });
