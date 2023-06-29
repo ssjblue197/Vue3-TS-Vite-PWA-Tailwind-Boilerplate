@@ -40,20 +40,20 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // const authStore = useAuthStore();
-  // if (to.name !== 'auth') {
-  //   if (!authStore.employee) {
-  //     next({
-  //       name: 'auth'
-  //     })
-  //   }
-  // } else {
-  //   if (authStore.employee && authStore.employee.id) {
-  //     next({
-  //       name: 'home'
-  //     })
-  //   }
-  // }
+  const authStore = useAuthStore();
+  if (to.name !== 'auth') {
+    if (!authStore.employee) {
+      next({
+        name: 'auth'
+      })
+    }
+  } else {
+    if (authStore.employee && authStore.employee.id) {
+      next({
+        name: 'home'
+      })
+    }
+  }
   next();
 });
 
