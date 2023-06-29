@@ -191,7 +191,7 @@ import type { Request } from '@/modules/fullfill-request/types';
 // import { isPortrait } from '@/utils/device';
 import axios from 'axios';
 import { FIREBASE_EVENTS } from '@/utils/const';
-import { debounce } from '@/utils/debounce';
+// import { debounce } from '@/utils/debounce';
 
 const authStore = useAuthStore();
 const requestStore = useRequestStore();
@@ -330,19 +330,19 @@ const handleSelectRequest = (request: Request) => {
   }
 };
 
-const debounceLoadData = debounce(loadData, 500);
+// const debounceLoadData = debounce(loadData, 500);
 
 loadData(true);
 onMounted(() => {
-  EventBus.$on(FIREBASE_EVENTS.EVENT_CREATE, debounceLoadData);
-  EventBus.$on(FIREBASE_EVENTS.EVENT_RECEIVE, debounceLoadData);
-  EventBus.$on(FIREBASE_EVENTS.EVENT_FULFILL, debounceLoadData);
-  EventBus.$on(FIREBASE_EVENTS.EVENT_REJECT, debounceLoadData);
-  EventBus.$on(FIREBASE_EVENTS.EVENT_RELEASE, debounceLoadData);
-  EventBus.$on(FIREBASE_EVENTS.EVENT_TIMEOUT, debounceLoadData);
-  EventBus.$on(FIREBASE_EVENTS.EVENT_CONFIRM, debounceLoadData);
-  EventBus.$on(FIREBASE_EVENTS.EVENT_UPDATE_PRIORITY, debounceLoadData);
-  EventBus.$on(FIREBASE_EVENTS.EVENT_REPORT_MISSING_BOX, debounceLoadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_CREATE, loadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_RECEIVE, loadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_FULFILL, loadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_REJECT, loadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_RELEASE, loadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_TIMEOUT, loadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_CONFIRM, loadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_UPDATE_PRIORITY, loadData);
+  EventBus.$on(FIREBASE_EVENTS.EVENT_REPORT_MISSING_BOX, loadData);
 });
 
 onBeforeUnmount(() => {
