@@ -448,9 +448,7 @@ const handleCancelPickup = async () => {
 
 const handleEndTime = () => {
   console.log('End time');
-  if (local.timeoutModal) {
-    handleCheckTimeout();
-  }
+  local.timeoutModal = true;
 };
 
 const handleTimeoutPickup = () => {
@@ -488,17 +486,17 @@ const handleCheckRelease = async () => {
   }
 };
 
-const handleCheckTimeout = async () => {
-  const newestPickingUp = await pickingUpStore.getCurrentPickingUp({
-    employee_id: authStore.employee?.id,
-    location: requestStore.filter.location,
-  });
-  if (!newestPickingUp || (newestPickingUp && Object.keys(newestPickingUp).length === 0)) {
-    local.timeoutModal = true;
-  }
-};
+// const handleCheckTimeout = async () => {
+//   const newestPickingUp = await pickingUpStore.getCurrentPickingUp({
+//     employee_id: authStore.employee?.id,
+//     location: requestStore.filter.location,
+//   });
+//   if (!newestPickingUp || (newestPickingUp && Object.keys(newestPickingUp).length === 0)) {
+//     local.timeoutModal = true;
+//   }
+// };
 
-const isNomarLane = (lane: string) => {
+const isNormalLane = (lane: string) => {
   if (lane.charAt(0) === lane.charAt(1)) {
     return true;
   }
@@ -508,10 +506,10 @@ const isNomarLane = (lane: string) => {
 const compareDiffLocations = (oldLocations: any, newLocations: any) => {
   if (oldLocations.length === 0 || newLocations.length === 0) return false;
   if (
-    (isNomarLane(oldLocations) && !isNomarLane(newLocations)) ||
-    (!isNomarLane(oldLocations) && isNomarLane(newLocations)) ||
-    (isNomarLane(oldLocations) &&
-      isNomarLane(newLocations) &&
+    (isNormalLane(oldLocations) && !isNormalLane(newLocations)) ||
+    (!isNormalLane(oldLocations) && isNormalLane(newLocations)) ||
+    (isNormalLane(oldLocations) &&
+      isNormalLane(newLocations) &&
       oldLocations[0].charAt(0) !== newLocations[0].charAt(0))
   ) {
     return true;
@@ -541,14 +539,14 @@ const handleCheckLocation = async () => {
 loadData();
 onMounted(() => {
   EventBus.$on(FIREBASE_EVENTS.EVENT_RELEASE, handleCheckRelease);
-  EventBus.$on(FIREBASE_EVENTS.EVENT_TIMEOUT, handleCheckTimeout);
+  // EventBus.$on(FIREBASE_EVENTS.EVENT_TIMEOUT, handleCheckTimeout);
   EventBus.$on(FIREBASE_EVENTS.EVENT_FULFILL, handleCheckLocation);
   EventBus.$on(FIREBASE_EVENTS.EVENT_REPORT_MISSING_BOX, handleCheckLocation);
 });
 
 onBeforeUnmount(() => {
   EventBus.$off(FIREBASE_EVENTS.EVENT_RELEASE);
-  EventBus.$off(FIREBASE_EVENTS.EVENT_TIMEOUT);
+  // EventBus.$off(FIREBASE_EVENTS.EVENT_TIMEOUT);
   EventBus.$off(FIREBASE_EVENTS.EVENT_FULFILL);
   EventBus.$off(FIREBASE_EVENTS.EVENT_REPORT_MISSING_BOX);
 });
