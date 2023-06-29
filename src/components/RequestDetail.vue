@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full px-6 py-4 flex flex-col card h-fit"
+    class="w-full p-6 flex flex-col card h-fit"
     :class="{
       'divide-y divide-neutral-40': !props.hideDivide,
     }"
@@ -19,14 +19,32 @@
           >
         </template>
         <template v-else>
-          {{ props.data?.stock_level }}
+          <s-tag
+            class="!rounded-[12px] !h-[32px] leading-[1.4] text-[17px] !bg-neutral-40 !text-neutral-90"
+            >N/A</s-tag
+          >
         </template>
       </span>
     </div>
     <div class="flex flex-col gap-4 py-5" v-if="!props.hideDetail">
       <div class="flex justify-between">
         <span class="text-neutral-200">SKU</span>
-        <span class="text-neutral-900">{{ props.data?.product?.sku }}</span>
+        <span class="text-neutral-900">
+          <s-tag
+            class="!rounded-[12px] !h-[32px] leading-[1.4] text-[17px] shadow-sm active:shadow-none"
+            variant="information"
+            @click.stop="
+              emit('filterKeyword', {
+                title: props.data?.product?.sku,
+                value: props.data?.product?.sku,
+              })
+            "
+            :class="{
+              '!bg-neutral-40 !text-neutral-90': !props.data?.product?.sku,
+            }"
+            >{{ props.data?.product?.sku || 'N/A' }}</s-tag
+          >
+        </span>
       </div>
       <div class="flex justify-between">
         <span class="text-neutral-200">Product</span>
@@ -34,35 +52,26 @@
           <s-tag
             class="shadow-sm active:shadow-none"
             size="small"
-            @click.stop="
-              emit('filterKeyword', {
-                title: props.data?.product?.style,
-                value: props.data?.product?.style,
-              })
-            "
-            >{{ props.data?.product?.style }}</s-tag
+            :class="{
+              '!bg-neutral-40 !text-neutral-90': !props.data?.product?.style,
+            }"
+            >{{ props.data?.product?.style || '--' }}</s-tag
           >
           <s-tag
             class="shadow-sm active:shadow-none"
             size="small"
-            @click.stop="
-              emit('filterKeyword', {
-                title: props.data?.product?.color,
-                value: props.data?.product?.color,
-              })
-            "
-            >{{ props.data?.product?.color }}</s-tag
+            :class="{
+              '!bg-neutral-40 !text-neutral-90': !props.data?.product?.color,
+            }"
+            >{{ props.data?.product?.color || '--' }}</s-tag
           >
           <s-tag
             class="shadow-sm active:shadow-none"
             size="small"
-            @click.stop="
-              emit('filterKeyword', {
-                title: props.data?.product?.size,
-                value: props.data?.product?.size,
-              })
-            "
-            >{{ props.data?.product?.size }}</s-tag
+            :class="{
+              '!bg-neutral-40 !text-neutral-90': !props.data?.product?.size,
+            }"
+            >{{ props.data?.product?.size || '--' }}</s-tag
           >
         </span>
       </div>

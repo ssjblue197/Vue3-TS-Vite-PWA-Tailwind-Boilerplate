@@ -21,6 +21,6 @@ export interface FulFillRequestPayload {
 export interface ParamsGetMissingBox {
   employee_id?: string;
   internal_request_id?: string;
-  location_id?: string;
+  location_barcode?: string;
   product_id?: string;
 }

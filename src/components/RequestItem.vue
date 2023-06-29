@@ -8,7 +8,14 @@
     <div class="flex flex-row justify-between overflow-hidden">
       <span class="flex flex-nowrap gap-2">
         <span class="font-semibold text-neutral-200">
-          ID: <strong class="text-neutral-900">#{{ props.data?.id }}</strong>
+          ID:
+          <strong
+            class="text-neutral-900"
+            :class="{
+              '!text-neutral-200': !props.data,
+            }"
+            >{{ props.data?.id ? `#${props.data?.id}` : '--' }}</strong
+          >
         </span>
         <s-tag
           variant="primary"
@@ -32,7 +39,14 @@
       </span>
       <span class="flex gap-1 text-[13px]">
         <span class="text-neutral-90"> Age: </span>
-        <span class="text-primary-200"> {{ timeFromNow(props.data?.created_at) }} </span>
+        <span
+          class="text-primary-200"
+          :class="{
+            '!text-neutral-90': !props.data,
+          }"
+        >
+          {{ props.data?.created_at ? timeFromNow(props.data?.created_at) : '--' }}
+        </span>
       </span>
     </div>
     <div class="flex flex-row justify-between items-center overflow-hidden">
@@ -55,18 +69,22 @@
             >
             </s-icon>
           </template>
-          <span class="text-[17px] text-neutral-900 max-w-[160px] truncate">
-            {{ props.data?.product?.name }}
+          <span
+            class="text-[17px] text-neutral-900 max-w-[160px] truncate"
+            :class="{
+              '!text-neutral-90': !props.data,
+            }"
+          >
+            {{ props.data?.product?.name ? props.data?.product?.name : '--/--/--' }}
           </span>
         </s-tag>
         <s-tag
-          v-if="props.data?.locations && props.data?.locations?.length > 0"
           class="!border-neutral-40 border bg-white gap-2 py-2 px-4 shadow-sm active:shadow-none"
           :class="{
             '!bg-success-50': props.data?.stock_level === STOCK_LEVEL.in_coming,
             '!bg-danger-50': props.data?.stock_level === STOCK_LEVEL.out_of_stock,
           }"
-          @click.stop="emit('filterLane', props.data?.locations[0])"
+          @click.stop="emit('filterLane', props.data?.locations[0] || '')"
         >
           <template #before>
             <s-icon
@@ -77,8 +95,13 @@
             >
             </s-icon>
           </template>
-          <span class="text-[17px] text-neutral-900 max-w-[160px] truncate leading-[140%]">
-            {{ props.data && displayLocation(props?.data) }}
+          <span
+            class="text-[17px] text-neutral-900 max-w-[160px] truncate leading-[140%]"
+            :class="{
+              '!text-neutral-90': !props.data,
+            }"
+          >
+            {{ props.data ? displayLocation(props?.data) : '--' }}
           </span>
         </s-tag>
       </span>
@@ -90,7 +113,14 @@
           class="!text-white cursor-pointer svg-line"
         >
         </s-icon>
-        <span class="text-neutral-900 text-[22px]"> 1 </span>
+        <span
+          class="text-neutral-900 text-[22px]"
+          :class="{
+            '!text-neutral-90': !props.data,
+          }"
+        >
+          {{ props.data ? '1' : '--' }}
+        </span>
       </span>
     </div>
   </div>

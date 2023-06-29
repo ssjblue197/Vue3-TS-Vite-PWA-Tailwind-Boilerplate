@@ -32,7 +32,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   title: '',
   name: 'N/A',
-  time: '--:--:--',
+  time: '--',
   done: false,
 });
 

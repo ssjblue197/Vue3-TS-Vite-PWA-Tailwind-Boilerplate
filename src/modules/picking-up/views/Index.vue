@@ -352,7 +352,7 @@ const handleConfirmReport = async () => {
     const payload = {
       employee_id: String(authStore.employee?.id),
       internal_request_id: String(local.currentPickingUp?.id),
-      location_id: String(local.locationCode),
+      location_barcode: String(local.locationCode),
       product_id: String(local.currentPickingUp?.product_id),
     };
     const data = await pickingUpStore.reportMissingBox(payload);
@@ -375,7 +375,7 @@ const handleConfirmInputLocationCode = async () => {
     const payload = {
       employee_id: String(authStore.employee?.id),
       internal_request_id: String(local.currentPickingUp?.id),
-      location_id: String(local.locationCode),
+      location_barcode: String(local.locationCode),
       product_id: String(local.currentPickingUp?.product_id),
     };
     const data = await pickingUpStore.getAllMissingBox(payload);

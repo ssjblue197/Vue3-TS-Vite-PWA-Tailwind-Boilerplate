@@ -5,7 +5,7 @@ export interface Box {
   id: number;
   internal_request_id?: number;
   is_deleted: boolean;
-  location_id: any;
+  location_barcode: any;
   product_id: any;
   quantity?: number;
   updated_at: string;

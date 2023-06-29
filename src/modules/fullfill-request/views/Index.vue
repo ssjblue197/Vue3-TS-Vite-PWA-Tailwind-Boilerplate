@@ -23,9 +23,8 @@
       <div
         class="flex-1 flex-col flex gap-5 max-h-[calc(100vh-68px-40px-24px-24px)] overflow-y-scroll relative items-center scroll-touch"
         id="scroll-area"
-        v-if="local.requestList.length > 0"
       >
-        <transition-group mode="out-in" name="list" appear>
+        <transition-group mode="out-in" name="list" appear v-if="local.requestList.length > 0">
           <RequestItem
             ref="requestList"
             v-for="request in local.requestList"
@@ -37,8 +36,16 @@
             @filterKeyword="handleFilterKeyword"
           />
         </transition-group>
+        <transition
+          mode="out-in"
+          name="list"
+          appear
+          v-if="local.requestList.length === 0 && !local.isLoading"
+        >
+          <RequestItem />
+        </transition>
       </div>
-      <div class="hidden lg:block w-[390px]" v-if="requestStore.selectRequest">
+      <div class="hidden lg:block w-[390px]">
         <transition name="slide-fade-right" appear>
           <RequestDetail
             :data="requestStore.selectRequest"
@@ -46,7 +53,14 @@
             @filterKeyword="handleFilterKeyword"
           >
             <template #bottom>
-              <s-button variant="primary" class="!h-[48px]" @click="handlePickup"
+              <s-button
+                :variant="requestStore.selectRequest ? 'primary' : 'secondary'"
+                class="!h-[48px]"
+                :class="{
+                  '!bg-neutral-30 !text-neutral-90': !requestStore.selectRequest,
+                }"
+                :disabled="!requestStore.selectRequest"
+                @click="handlePickup"
                 >Pick up now</s-button
               >
             </template>
@@ -191,6 +205,7 @@ interface Local {
   requestList: Array<Request>;
   locationCodeModal: boolean;
   locationCode: string;
+  isLoading: boolean;
 }
 
 const local: Local = reactive({
@@ -198,6 +213,7 @@ const local: Local = reactive({
   requestList: [],
   locationCodeModal: false,
   locationCode: '',
+  isLoading: false,
 });
 
 const handleFilterKeyword = async (data: any) => {
@@ -207,12 +223,12 @@ const handleFilterKeyword = async (data: any) => {
       ...data,
     },
   };
-  await loadData(true);
+  await loadData();
 };
 
 const handleFilterLane = async (lane: string) => {
   requestStore.filter.location = lane;
-  await loadData(true);
+  await loadData();
 };
 
 const onClearFilter = async (isFilterLane = true) => {
@@ -227,7 +243,7 @@ const onClearFilter = async (isFilterLane = true) => {
 const onScan = async (decodedText: string) => {
   if (decodedText) {
     requestStore.filter.location = decodedText;
-    await loadData(true);
+    await loadData();
     local.showScanLocation = false;
   }
 };
@@ -246,15 +262,17 @@ const handleCannotScan = () => {
 };
 const handlePickup = async () => {
   //TODO handle pickup
-  const payload = {
-    employee_id: authStore.employee?.id,
-    request_id: requestStore.selectRequest?.id,
-  };
-  const data = await requestStore.receiveRequest(payload);
-  if (data) {
-    router.push({
-      name: 'picking-up',
-    });
+  if (requestStore.selectRequest) {
+    const payload = {
+      employee_id: authStore.employee?.id,
+      request_id: requestStore.selectRequest?.id,
+    };
+    const data = await requestStore.receiveRequest(payload);
+    if (data) {
+      router.push({
+        name: 'picking-up',
+      });
+    }
   }
 };
 
@@ -268,7 +286,7 @@ const handleConfirmInputLocationCode = async () => {
   } else {
     requestStore.filter.location = '';
   }
-  await loadData(true);
+  await loadData();
   local.locationCode = '';
   local.locationCodeModal = false;
 };
@@ -276,24 +294,32 @@ const handleConfirmInputLocationCode = async () => {
 const loadData = async (init = false) => {
   try {
     if (init) {
-      local.requestList = [];
-      requestStore.selectRequest = undefined;
+      local.isLoading = true;
     }
+    requestStore.selectRequest = undefined;
     requestStore.total = 0;
     requestStore.filter = {
       ...requestStore.filter,
       employee: authStore.employee?.id,
     };
+    const filter = {
+      ...requestStore.filter,
+      keyword: requestStore.filter.keyword.value,
+    };
 
-    const data = await requestStore.getListRequest(requestStore.filter);
-    if (data.length > 0) {
+    const data = await requestStore.getListRequest(filter);
+    if (data) {
       local.requestList = data;
-      if (!isPortrait && init) {
+      if (!isPortrait && local.requestList.length > 0) {
         requestStore.selectRequest = local.requestList[0];
       }
+    } else {
+      local.requestList = [];
     }
   } catch (error) {
     if (axios.isAxiosError(error)) console.warn(error);
+  } finally {
+    local.isLoading = false;
   }
 };
 
