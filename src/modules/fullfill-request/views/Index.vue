@@ -95,7 +95,7 @@
     <Teleport to="body">
       <transition name="fade" appear>
         <div
-          class="absolute center block lg:hidden w-screen h-screen z-1 bg-[rgba(0,0,0,0.5)] shadow-2xl rounded-[16px]"
+          class="fixed center block lg:hidden w-screen h-screen z-1 bg-[rgba(0,0,0,0.5)] shadow-2xl"
           v-if="requestStore.selectRequest"
         >
           <div class="w-[80%] max-w-[600px] center">

@@ -47,6 +47,7 @@ html {
   margin: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling : touch !important;
 }
 
 body {
@@ -80,22 +81,12 @@ body {
 
 #app {
   width: 100vw;
+  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
   padding: 0;
   margin: 0;
-}
- 
-.vh100 {
-  height: 100vh;
-}
-
-@supports (-webkit-touch-callout: none) {
-  /* CSS specific to iOS devices */
-  .vh100 {
-    height: -webkit-fill-available;
-  }
 }
 
 .svg-line {
