@@ -103,21 +103,23 @@ const handleEnableNotify = async () => {
   }
 };
 
-// const refreshFCMToken = async () => {
-//   if (Notification.permission === 'granted') {
-//     try {
-//       const token = await getToken(messaging);
-//       const notificationStore = useNotificationStore();
-//       notificationStore.firebaseToken = token;
-//     } catch (error) {
-//       console.warn(error);
-//     }
-//   }
-// };
+const refreshFCMToken = async () => {
+  if (Notification.permission === 'granted') {
+    try {
+      const token = await getToken(messaging);
+      const notificationStore = useNotificationStore();
+      notificationStore.firebaseToken = token;
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+};
 
 onMounted(() => {
   // socket.asyncConnect();
-  // refreshFCMToken();
+  if (!notificationStore.firebaseToken) {
+    refreshFCMToken();
+  }
   if (Notification.permission !== 'granted') {
     local.showPopupEnableNotify = true;
   }
