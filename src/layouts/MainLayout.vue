@@ -12,24 +12,24 @@ import { useSocket } from '@/services/socket';
 import Header from '@/components/Header.vue';
 import { useAuthStore } from '@/stores/auth';
 import { FIREBASE_EVENTS } from '@/utils/const';
+import { useToast } from 'vue-toastification';
 
 import EventBus from '@/utils/eventbus';
 
+const toast = useToast();
 const authStore = useAuthStore();
 const socket = useSocket();
 
 const handshakeWS = async () => {
   if (authStore.employee) {
     socket.setAuth({
-      warehouse_id: authStore.employee?.warehouse_id,
+      warehouse_id: 1,
     });
     socket.current.connect();
     socket.current.on('internal_request', (data: any) => {
+      toast.info('new event');
       console.log('ws data:', data);
-      if (
-        data.warehouse_id &&
-        Number(data.warehouse_id) === Number(authStore.employee?.warehouse_id)
-      ) {
+      if (data.warehouse_id && Number(data.warehouse_id) === Number(1)) {
         console.log(data.event_name);
 
         if (data.event_name) {
