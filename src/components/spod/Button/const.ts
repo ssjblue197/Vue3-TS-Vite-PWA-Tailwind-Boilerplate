@@ -8,7 +8,7 @@ export const VARIANT: Record<string, string> = {
   primary:
     'border-primary bg-primary hover:bg-accent-hover hover:border-accent-hover focus:bg-accent-focus active:bg-primary-200 focus:border-accent-focus',
   secondary:
-    'border-accent-secondary bg-accent-secondary !text-neutral-secondary hover:!text-white hover:bg-primary hover:border-primary focus:!text-white  active:bg- focus:bg-accent-focus active:bg-secondary-200 focus:border-accent-focus',
+    'border-accent-secondary bg-accent-secondary !text-neutral-secondary hover:!text-white hover:bg-primary hover:border-primary focus:!text-white  focus:bg-accent-focus active:bg-secondary-200 focus:border-accent-focus',
   danger: 'border-danger bg-danger active:bg-danger-200 focus:bg-danger hover:opacity-80',
   error: 'border-error bg-error active:bg-error-200 focus:bg-error',
   warning: 'border-warning bg-warning active:bg-warning-200 focus:bg-warning',

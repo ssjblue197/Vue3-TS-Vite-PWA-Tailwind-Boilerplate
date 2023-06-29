@@ -290,10 +290,30 @@ const local: Local = reactive({
 
 const onScan = async (decodedText: string) => {
   if (decodedText) {
+    console.log(decodedText);
+
     EventBus.$emit('changeState', 3);
     if (local.isScanLocation) {
       //TODO handle scan location
-      local.reportMissingBoxModal = true;
+      const payload = {
+        employee_id: String(authStore.employee?.id),
+        internal_request_id: String(local.currentPickingUp?.id),
+        location_barcode: String(decodedText),
+        product_id: String(local.currentPickingUp?.product_id),
+      };
+      const data = await pickingUpStore.getAllMissingBox(payload);
+      console.log('box missing', data);
+      if (data && Object.keys(data).length > 0) {
+        local.missingBoxList = data.data;
+        console.log(local.missingBoxList);
+        local.locationCode = String(decodedText);
+        local.showScanQR = false;
+        local.reportMissingBoxModal = true;
+      } else {
+        setTimeout(() => {
+          EventBus.$emit('changeState', 0);
+        }, 1000);
+      }
     } else {
       //TODO Handle scan box ID confirm fulfill
       const payload = {
@@ -359,6 +379,7 @@ const handleConfirmReport = async () => {
     console.log('report box missing', data);
   } catch (error) {
   } finally {
+    local.locationCode = '';
     local.reportMissingBoxModal = false;
     local.missingBoxList = [];
   }
@@ -369,7 +390,6 @@ const handleCancelInputLocationCode = () => {
   local.locationCode = '';
 };
 const handleConfirmInputLocationCode = async () => {
-  local.locationCodeModal = false;
   //TODO Handle confirm location
   try {
     const payload = {
@@ -387,8 +407,8 @@ const handleConfirmInputLocationCode = async () => {
     }
   } catch (error) {
   } finally {
-    local.barcode = '';
-    local.checkReceiveModal = false;
+    local.locationCode = '';
+    local.locationCodeModal = false;
   }
 };
 
