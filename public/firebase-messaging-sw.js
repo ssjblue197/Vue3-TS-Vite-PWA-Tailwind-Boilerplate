@@ -1,6 +1,6 @@
 self.__WB_MANIFEST;
-importScripts('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging-compat.js');
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB0R0zSFtqIODBauAhO9VjCuM4vBKMvVmI',
