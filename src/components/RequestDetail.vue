@@ -128,7 +128,7 @@ const generateTimeline = (data: any) => {
         break;
       case STEP_EMPLOYEE.fulfill:
         result.push({
-          title: 'Picked up by',
+          title: 'Fulfilled by',
           name: data?.[step]?.name,
           time: formatDateTime(data?.fulfilled_at),
           done: !!data?.[`${step}_id`],
